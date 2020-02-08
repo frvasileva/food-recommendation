@@ -1,0 +1,62 @@
+type Recipe {
+  id: ID!
+  name: String
+  preparationTime: Int
+  skillLevel: String
+  cookingTime: Int
+  description: String
+  ingredients: [String]
+    @cypher(
+      statement: "MATCH (this)-[:CONTAINS_INGREDIENT]->(i:Ingredient) RETURN collect(i.name)"
+    )
+  collections: [String]
+    @cypher(
+      statement: "MATCH (this)-[:COLLECTION]->(c:Collection) RETURN collect(c.name)"
+    )
+  dietType: [String]
+    @cypher(
+      statement: "MATCH (this)-[:DIET_TYPE]->(d:DietType) RETURN collect(d.name)"
+    )
+  keyword: [String]
+    @cypher(
+      statement: "MATCH (this)-[:KEYWORD]->(k:Keyword) RETURN collect(k.name)"
+    )
+}
+
+type Ingredient {
+  name: String
+}
+
+type Keyword {
+  name: String
+}
+
+type DietType {
+  name: String
+}
+
+type Collection {
+  name: String
+}
+
+type Query {
+
+
+  recipeByName(substring: String): [Recipe]
+    @cypher(
+      statement: "MATCH (r:Recipe) WHERE r.name CONTAINS $substring RETURN r"
+    )
+
+  recipeBySkillLevel(level: String): [Recipe]
+    @cypher(statement: "MATCH (r:Recipe) WHERE r.skillLevel = $level RETURN r")
+
+  recipeByPrearationTime(preparationTime: Int): [Recipe]
+    @cypher(
+      statement: "MATCH (r:Recipe) WHERE r.preparationTime = $preparationTime RETURN r"
+    )
+
+  recipeByPrearationTimeGraterThan(preparationTime: Int): [Recipe]
+    @cypher(
+      statement: "MATCH (r:Recipe) WHERE r.preparationTime >= $preparationTime RETURN r"
+    )
+}
