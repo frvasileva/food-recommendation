@@ -40,8 +40,6 @@ type Collection {
 }
 
 type Query {
-
-
   recipeByName(substring: String): [Recipe]
     @cypher(
       statement: "MATCH (r:Recipe) WHERE r.name CONTAINS $substring RETURN r"
@@ -58,5 +56,10 @@ type Query {
   recipeByPrearationTimeGraterThan(preparationTime: Int): [Recipe]
     @cypher(
       statement: "MATCH (r:Recipe) WHERE r.preparationTime >= $preparationTime RETURN r"
+    )
+
+  whatToCook(ingredient: [String], allergens: [String]): [Recipe]
+    @cypher(
+      statement: "MATCH (r:Recipe) WHERE all(i in $ingredient WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i}))) AND none(i in $allergens WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i}))) RETURN r"
     )
 }
