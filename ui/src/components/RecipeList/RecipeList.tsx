@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import "./RecipeList.scss";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
-import { ApolloProvider } from "@apollo/react-hooks";
 import { Search } from "../Search/Search";
 
 const QUERY = gql`
@@ -14,9 +13,9 @@ const QUERY = gql`
       first: 3
       orderBy: skillLevel_desc
     ) {
+      id
       name
       preparationTime
-      ingredients
       description
       skillLevel
       cookingTime

@@ -11,14 +11,13 @@ import { CreateRecipe } from "./components/CreateRecipe/CreateRecipe";
 import "./App.css";
 import "./layout/layout.scss";
 import { RecipeList } from "./components/RecipeList/RecipeList";
+import { RecipeDetails } from "./components/RecipeDetails/RecipeDetails";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/"
 });
 
 const App = () => {
-  const [term, setTerm] = React.useState("");
-
   return (
     <BrowserRouter>
       <ApolloProvider client={client}>
@@ -27,10 +26,11 @@ const App = () => {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/recipes" component={RecipeList} />
+            <Route exact path="/recipe/:recipeId" component={RecipeDetails} />
             <Route exact path="/add-recipe" component={CreateRecipe} />
           </Switch>
         </div>
-      </ApolloProvider>{" "}
+      </ApolloProvider>
     </BrowserRouter>
   );
 };

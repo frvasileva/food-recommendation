@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const RecipeTile = (props: any) => {
   return (
@@ -6,7 +7,9 @@ export const RecipeTile = (props: any) => {
       <div key={props.name}>
         <div className="recipe-wrapper">
           <p>
-            <strong>{props.name}</strong>
+            <Link to={`/recipe/${props.id}`}>
+              <strong>{props.name}</strong>
+            </Link>
           </p>
           <img src="https://images.unsplash.com/photo-1521732670659-b8c918da61dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" width="100"></img>
           <p>{props.description}</p>
@@ -19,16 +22,6 @@ export const RecipeTile = (props: any) => {
             {props.cookingTime / 60}
             <span> minutes</span>
           </p>
-          <p>
-            <strong>Products:</strong>
-          </p>
-          <ul className="ingredients-list">
-            {props.ingredients.map((ingredient: string) => (
-              <li key={ingredient} className="item">
-                {ingredient}
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </div>
