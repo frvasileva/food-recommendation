@@ -29,6 +29,8 @@ export const RecipeDetails = (props: any) => {
 
   const recipe = data.Recipe[0];
 
+  if (!recipe) return <p>Recipe was not found :(</p>;
+
   return (
     <div className="recipe-wrapper">
       <p>
