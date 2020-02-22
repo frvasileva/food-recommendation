@@ -11,7 +11,7 @@ const QUERY = gql`
       ingredient: $ingredients
       allergens: []
       first: 3
-      orderBy: skillLevel_desc
+      orderBy: skillLevel_asc
     ) {
       id
       name

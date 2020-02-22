@@ -2,6 +2,7 @@ import React from "react";
 import "./RecipeDetails.scss";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
+import { IngredientsList } from "../IngredientsList/IngredientsList";
 
 const QUERY = gql`
   query($recipeId: ID) {
@@ -28,38 +29,40 @@ export const RecipeDetails = (props: any) => {
   if (error) return <p>Error :(</p>;
 
   const recipe = data.Recipe[0];
+  console.log(recipe);
+  const url = "https://source.unsplash.com/900x400/?" + recipe.name;
 
   if (!recipe) return <p>Recipe was not found :(</p>;
 
   return (
-    <div className="recipe-wrapper">
-      <p>
-        <strong>{recipe.name}</strong>
-      </p>
-      <img
-        src="https://images.unsplash.com/photo-1521732670659-b8c918da61dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        width="100"
-      ></img>
-      <p>{recipe.description}</p>
-      <p>
-        <i className="fas fa-hard-hat"></i>
-        {recipe.skillLevel}
-      </p>
-      <p>
-        <i className="far fa-clock"></i>
-        {recipe.cookingTime / 60}
-        <span> minutes</span>
-      </p>
-      <p>
-        <strong>Products:</strong>
-      </p>
-      <ul className="ingredients-list">
-        {recipe.ingredients.map((ingredient: string) => (
-          <li key={ingredient} className="item">
-            {ingredient}
-          </li>
-        ))}
-      </ul>
+    <div className="container">
+      <div className="row">
+        <div className="col-md-8">
+          <div className="recipe-wrapper">
+            <h1>{recipe.name}</h1>
+            <img src={url} width="100%"></img>
+            <p>{recipe.description}</p>
+            <div className="row">
+              <div className="col-md-3">
+                <i className="fas fa-hard-hat"></i>
+                {recipe.skillLevel}
+              </div>
+              <div className="col-md-3">
+                <i className="far fa-clock"></i>
+                {recipe.cookingTime / 60}
+                <span> minutes</span>
+              </div>
+            </div>
+            <br></br>
+            <br></br>
+            <p>
+              <strong>Products:</strong>
+            </p>
+            <IngredientsList ingredients={recipe.ingredients}></IngredientsList>
+          </div>
+        </div>
+        <div className="col-md-4">See more recipe here...</div>
+      </div>
     </div>
   );
 };

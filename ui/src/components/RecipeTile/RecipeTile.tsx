@@ -1,27 +1,39 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./RecipeTile.scss";
 
 export const RecipeTile = (props: any) => {
+
+  const url = "https://source.unsplash.com/500x250/?" + props.name;
+
   return (
     <div>
       <div key={props.name}>
-        <div className="recipe-wrapper">
+        <div className="card">
           <p>
-            <Link to={`/recipe/${props.id}`}>
+            <img
+              className="card-img-top"
+              src={url}
+              alt={props.name}
+            />
+          </p>
+          <div className="card-body">
+            <Link to={`/recipe/${props.id}`} className="recipe-link">
               <strong>{props.name}</strong>
             </Link>
-          </p>
-          <img src="https://images.unsplash.com/photo-1521732670659-b8c918da61dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" width="100"></img>
-          <p>{props.description}</p>
-          <p>
-            <i className="fas fa-hard-hat"></i>
-            {props.skillLevel}
-          </p>
-          <p>
-            <i className="far fa-clock"></i>
-            {props.cookingTime / 60}
-            <span> minutes</span>
-          </p>
+            <p className="card-text">{props.description}</p>
+            <div className="row">
+              <div className="col-md-6">
+                <i className="fas fa-hard-hat"></i>
+                {props.skillLevel}
+              </div>
+              <div className="col-md-6">
+                <i className="far fa-clock"></i>
+                {props.cookingTime / 60}
+                <span> minutes</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
