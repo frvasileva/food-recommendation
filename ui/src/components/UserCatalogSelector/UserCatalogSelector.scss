@@ -1,0 +1,46 @@
+.catalog-wrapper {
+	display: block;
+	background-color: linen;
+	padding: 15px;
+	z-index: 10;
+	position: relative;
+
+	& .catalog-list {
+		display: none;
+		border: 1px solid #c1c1c1;
+
+		li {
+			padding: 6px 5px 6px 10px;
+			border-bottom: 1px solid #c1c1c1;
+		}
+	}
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	&:hover .catalog-list {
+		display: block;
+		position: absolute;
+		background-color: white;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
+		transition: 0.2s;
+		right: 0;
+		top: 50px;
+
+		max-height: 200px;
+		overflow-y: scroll;
+		overflow-x: hidden;
+	}
+
+	.catalog-item:hover {
+		background-color: linen;
+	}
+
+	.add-new-catalog {
+		float: right;
+	}
+}
