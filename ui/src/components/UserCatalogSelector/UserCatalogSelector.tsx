@@ -16,7 +16,7 @@ export const UserCatalogSelector = (props: any) => {
 				</a>
 			</div>
 			<ul className="catalog-list">
-				<li>
+				<li key="search">
 					<input type="text" placeholder="Search" className="form-control" 	/>
 				</li>
 				{userCatalogs.map((item: any) => (
