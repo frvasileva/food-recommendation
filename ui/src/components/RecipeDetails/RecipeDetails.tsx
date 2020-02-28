@@ -39,6 +39,7 @@ export const RecipeDetails = (props: any) => {
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
+
 	const recipe = data.Recipe[0];
 	const randomRecipeList = data.RecipeRandomList;
 
