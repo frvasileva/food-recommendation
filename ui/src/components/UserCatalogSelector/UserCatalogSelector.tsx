@@ -16,11 +16,11 @@ export const UserCatalogSelector = (props: any) => {
 				</a>
 			</div>
 			<ul className="catalog-list">
-				<li key="search">
+				<li key="search-catalog">
 					<input type="text" placeholder="Search" className="form-control" 	/>
 				</li>
 				{userCatalogs.map((item: any) => (
-					<li key={userCatalogs} className="catalog-item">
+					<li key={item} className="catalog-item">
 						<div className="row">
 							<div className="col-md-12">
 								<i className="fas fa-plus"></i> {item}
