@@ -1,8 +1,13 @@
-.create-recipe-wrapper{
+.create-recipe-wrapper {
 	margin: 30px auto;
 }
 
 .skill-level-wrapper .list-group-item:hover {
 	background-color: linen;
 	cursor: pointer;
+}
+
+.text-error {
+	color: red;
+	font-weight: bold;
 }

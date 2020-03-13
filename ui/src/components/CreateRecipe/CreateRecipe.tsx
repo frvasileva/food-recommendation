@@ -2,6 +2,34 @@ import React from "react";
 import "./CreateRecipe.scss";
 
 export const CreateRecipe = (props: any) => {
+	const [fields, setFields] = React.useState({
+		name: { value: "", error: "" },
+		description: { value: "", error: "" },
+		ingredients: { value: "", error: "" }
+	});
+
+	const handleChange = (e: any) => {
+		const { name, value } = e.target;
+		let error = "";
+
+		switch (name) {
+			case "name":
+				if (!value) error = "Please enter name!";
+				break;
+			case "description":
+				if (!value) error = "Please enter description!";
+				break;
+			case "ingredients":
+				if (!value) error = "Please enter description!";
+				break;
+		}
+
+		setFields({
+			...fields,
+			[name]: { value, error }
+		});
+	};
+
 	return (
 		<div className="container create-recipe-wrapper">
 			<div className="row">
@@ -9,38 +37,58 @@ export const CreateRecipe = (props: any) => {
 					<h1>Add Recipe</h1>
 					<form>
 						<div className="form-group">
-							<label htmlFor="recipeName">Name</label>
+							<label htmlFor="name">Name</label>
 							<input
 								type="text"
 								className="form-control"
-								id="recipeName"
+								id="name"
+								name="name"
 								aria-describedby="recipeHelp"
 								placeholder="Recipe name"
+								value={fields.name.value}
+								onChange={handleChange}
+								required
 							/>
+							{fields.name.error && (
+								<span className="text-error">{fields.name.error}</span>
+							)}
 							<small id="recipeHelp" className="form-text text-muted">
 								What is your yummy recipe name
 							</small>
 						</div>
+
 						<div className="form-group">
-							<label htmlFor="recipeDescription">Description</label>
+							<label htmlFor="description">Description</label>
 							<textarea
 								className="form-control"
-								id="recipeDescription"
+								id="description"
+								name="description"
+								value={fields.description.value}
 								placeholder="Description"
+								onChange={handleChange}
 							></textarea>
+							{fields.description.error && (
+								<span className="text-error">{fields.description.error}</span>
+							)}
 						</div>
 						<div className="form-group">
-							<label htmlFor="recipeIngredients">Ingredients</label>
+							<label htmlFor="ingredients">Ingredients</label>
 							<input
 								type="text"
 								className="form-control"
-								id="recipeIngredients"
+								id="ingredients"
+								name="ingredients"
 								aria-describedby="recipeHelp"
 								placeholder="Ingredients"
+								value={fields.ingredients.value}
+								onChange={handleChange}
 							/>
 							<small id="recipeHelp" className="form-text text-muted">
 								Describe ingredeints you use here...
 							</small>
+							{fields.ingredients.error && (
+								<span className="text-error">{fields.ingredients.error}</span>
+							)}
 						</div>
 						<div className="row">
 							<div className="col-md-6">
