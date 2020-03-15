@@ -5,13 +5,30 @@ export const CreateRecipe = (props: any) => {
 	const [fields, setFields] = React.useState({
 		name: { value: "", error: "" },
 		description: { value: "", error: "" },
-		ingredients: { value: "", error: "" }
+		ingredients: { value: "", error: "" },
+		preparationTime: { value: "", error: "" },
+		cookingTime: { value: "", error: "" }
 	});
+
+	const [isFormTouched, setFormIsTouched] = React.useState(false);
+
+	const validateForm = () => {
+		let isValid = true;
+
+		let flds = Object.values(fields).map(item => item.error);
+		let hasIvalidFields = flds.some(element => {
+			console.log({ element });
+			return element !== "";
+		});
+
+		isValid = !hasIvalidFields && isFormTouched;
+
+		return isValid;
+	};
 
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
 		let error = "";
-
 		switch (name) {
 			case "name":
 				if (!value) error = "Please enter name!";
@@ -20,7 +37,15 @@ export const CreateRecipe = (props: any) => {
 				if (!value) error = "Please enter description!";
 				break;
 			case "ingredients":
-				if (!value) error = "Please enter description!";
+				if (!value) error = "Please enter ingredients!";
+				break;
+			case "preparationTime":
+				if (!Number.isInteger(parseInt(value))) error = "Use number";
+				if (!value) error = "Please enter preparation time!";
+				break;
+			case "cookingTime":
+				if (!Number.isInteger(parseInt(value))) error = "Use number";
+				if (!value) error = "Please enter cooking time!";
 				break;
 		}
 
@@ -28,6 +53,19 @@ export const CreateRecipe = (props: any) => {
 			...fields,
 			[name]: { value, error }
 		});
+
+		setFormIsTouched(true);
+	};
+
+	const handleSubmit = (event: any) => {
+		event.preventDefault();
+		if (validateForm()) {
+			console.info("Valid Form");
+		} else {
+			console.error("Invalid Form");
+		}
+
+		return true;
 	};
 
 	return (
@@ -35,7 +73,7 @@ export const CreateRecipe = (props: any) => {
 			<div className="row">
 				<div className="col-md-8">
 					<h1>Add Recipe</h1>
-					<form>
+					<form onSubmit={handleSubmit}>
 						<div className="form-group">
 							<label htmlFor="name">Name</label>
 							<input
@@ -47,7 +85,6 @@ export const CreateRecipe = (props: any) => {
 								placeholder="Recipe name"
 								value={fields.name.value}
 								onChange={handleChange}
-								required
 							/>
 							{fields.name.error && (
 								<span className="text-error">{fields.name.error}</span>
@@ -118,25 +155,44 @@ export const CreateRecipe = (props: any) => {
 						<div className="row">
 							<div className="col-md-6">
 								<div className="form-group">
-									<label htmlFor="preparationTime">Preparation time</label>
+									<label htmlFor="preparationTime">
+										Preparation time (in minutes)
+									</label>
 									<input
-										type="text"
+										type="number"
+										min="1"
 										className="form-control"
 										id="preparationTime"
+										name="preparationTime"
 										placeholder="45 min"
+										value={fields.preparationTime.value}
+										onChange={handleChange}
 									/>
+									{fields.preparationTime.error && (
+										<span className="text-error">
+											{fields.preparationTime.error}
+										</span>
+									)}
 								</div>
 							</div>
 							<div className="col-md-6">
-								{" "}
 								<div className="form-group">
 									<label htmlFor="cookingTime">Cooking time</label>
 									<input
-										type="text"
+										type="number"
+										min="1"
 										className="form-control"
 										id="cookingTime"
 										placeholder="50 min"
+										name="cookingTime"
+										value={fields.cookingTime.value}
+										onChange={handleChange}
 									/>
+									{fields.cookingTime.error && (
+										<span className="text-error">
+											{fields.cookingTime.error}
+										</span>
+									)}
 								</div>
 							</div>
 						</div>
