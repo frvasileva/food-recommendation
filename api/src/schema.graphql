@@ -5,6 +5,7 @@ type Recipe {
 	skillLevel: String
 	cookingTime: Int
 	description: String
+	friendlyUrl: String
 	ingredients: [String]
 		@cypher(
 			statement: "MATCH (this)-[:CONTAINS_INGREDIENT]->(i:Ingredient) RETURN collect(i.name)"
@@ -41,30 +42,32 @@ type Human implements Character {
 
 type Ingredient {
 	name: String
-	recipes: [Recipe]
-		@relation(name: "CONTAINS_INGREDIENT", direction: "IN")
+	recipes: [Recipe] @relation(name: "CONTAINS_INGREDIENT", direction: "IN")
 }
 
 type Keyword {
 	name: String
-	recipes: [Recipe]
-		@relation(name: "KEYWORD", direction: "IN")
+	recipes: [Recipe] @relation(name: "KEYWORD", direction: "IN")
 }
 
 type DietType {
 	name: String
-	recipes: [Recipe]
-		@relation(name: "DIET_TYPE", direction: "IN")
+	recipes: [Recipe] @relation(name: "DIET_TYPE", direction: "IN")
 }
 
 type Collection {
 	name: String
-	recipes: [Recipe]
-		@relation(name: "COLLECTION", direction: "IN")
+	recipes: [Recipe] @relation(name: "COLLECTION", direction: "IN")
 }
 
-input RecipeInput {
+input CreateRecipeInput {
 	name: String
+	description: String
+	preparationTime: Int
+	skillLevel: String
+	cookingTime: Int
+	ingredients: [String]
+	friendlyUrl: String
 }
 
 type Query {
@@ -93,14 +96,16 @@ type Query {
 }
 
 type Mutation {
-	createRecipeee(input: RecipeInput): Recipe
-	# AddDepartmentChildren(fromDepartmentID: ID!, toDepartmentID: ID!): Department
-	# 	@cypher(
-	# 		statement: """
-	# 		MATCH (from:Department {id: $fromDepartmentID})
-	# 		MATCH (to:Department {id: $toDepartmentID})
-	# 		MERGE (from)-[:CHILD]->(to)
-	# 		RETURN to.id
-	# 		"""
-	# 	)
+	createRecipe(input: CreateRecipeInput): Recipe
+		@cypher(
+			statement: """
+			CREATE (r:Recipe{name: $input.name, description: $input.description, preparationTime: $input.preparationTime,
+											 skillLevel: $input.skillLevel, cookingTime: $input.cookingTime, friendlyUrl: $input.friendlyUrl})
+			FOREACH (item in $input.ingredients |
+				CREATE (i:Ingredient{name:item})
+				CREATE (r)-[rel:CONTAINS_INGREDIENT]->(i)
+			)
+			RETURN r
+			"""
+		)
 }

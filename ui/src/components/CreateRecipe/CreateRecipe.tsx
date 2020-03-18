@@ -1,5 +1,20 @@
 import React from "react";
 import "./CreateRecipe.scss";
+import { gql } from "apollo-boost";
+import { useMutation } from "@apollo/react-hooks";
+import urlTransformer from "../../helpers/urlTransformer";
+import { v4 as uuidv4 } from 'uuid';
+
+const CREATE_RECIPE_QUERY = gql`
+	mutation($input: CreateRecipeInput) {
+		createRecipe(input: $input) {
+			id
+			name
+			description
+			friendlyUrl
+		}
+	}
+`;
 
 export const CreateRecipe = (props: any) => {
 	const [fields, setFields] = React.useState({
@@ -7,10 +22,13 @@ export const CreateRecipe = (props: any) => {
 		description: { value: "", error: "" },
 		ingredients: { value: "", error: "" },
 		preparationTime: { value: "", error: "" },
-		cookingTime: { value: "", error: "" }
+		cookingTime: { value: "", error: "" },
+		skillLevel: { value: "", error: "" }
 	});
 
 	const [isFormTouched, setFormIsTouched] = React.useState(false);
+	const [createRecipe, createRecipeStatus] = useMutation(CREATE_RECIPE_QUERY);
+	var transf = urlTransformer();
 
 	const validateForm = () => {
 		let isValid = true;
@@ -59,8 +77,24 @@ export const CreateRecipe = (props: any) => {
 
 	const handleSubmit = (event: any) => {
 		event.preventDefault();
+
 		if (validateForm()) {
-			console.info("Valid Form");
+			createRecipe({
+				variables: {
+					input: {
+						id: uuidv4(),
+						name: fields.name.value,
+						description: fields.description.value,
+						ingredients: fields.ingredients.value.split(","),
+						preparationTime: parseInt(fields.preparationTime.value),
+						skillLevel: fields.skillLevel.value,
+						cookingTime: parseInt(fields.cookingTime.value),
+						friendlyUrl: transf.bulgarianToEnglish(fields.name.value)
+					}
+				}
+			}).then(result => {
+				console.log({ result });
+			});
 		} else {
 			console.error("Invalid Form");
 		}
