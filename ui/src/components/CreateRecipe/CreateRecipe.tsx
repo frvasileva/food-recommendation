@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/react-hooks";
 import urlTransformer from "../../helpers/urlTransformer";
 import dateFormatter from "../../helpers/dateFormatter";
 import { v4 as uuidv4 } from "uuid";
+import { Redirect, useHistory } from "react-router-dom";
 
 const CREATE_RECIPE_QUERY = gql`
 	mutation($input: CreateRecipeInput) {
@@ -29,6 +30,8 @@ export const CreateRecipe = (props: any) => {
 
 	const [isFormTouched, setFormIsTouched] = React.useState(false);
 	const [createRecipe, createRecipeStatus] = useMutation(CREATE_RECIPE_QUERY);
+	let history = useHistory();
+
 	var transf = urlTransformer();
 	var dateFormat = dateFormatter();
 
@@ -98,6 +101,7 @@ export const CreateRecipe = (props: any) => {
 				}
 			}).then(result => {
 				console.log({ result });
+				history.push("/recipes");
 			});
 		} else {
 			console.error("Invalid Form");

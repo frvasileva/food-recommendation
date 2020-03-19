@@ -1,7 +1,7 @@
 type Recipe {
 	id: ID!
 	name: String
-	createdOn: String!
+	createdOn: String
 	preparationTime: Int
 	skillLevel: String
 	cookingTime: Int
@@ -108,7 +108,10 @@ type Query {
 
 	whatToCook(ingredient: [String], allergens: [String]): [Recipe]
 		@cypher(
-			statement: "MATCH (r:Recipe) WHERE all(i in $ingredient WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i}))) AND none(i in $allergens WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i}))) RETURN r"
+			statement: """MATCH (r:Recipe)
+			WHERE all(i in $ingredient WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
+			AND none(i in $allergens WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
+			RETURN r order by r.createdOn desc"""
 		)
 }
 
