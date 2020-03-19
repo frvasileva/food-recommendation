@@ -4,13 +4,14 @@ import { useQuery } from "@apollo/react-hooks";
 
 import "./RecipeDetails.scss";
 import { IngredientsList } from "../IngredientsList/IngredientsList";
-import { UserCatalogSelector } from "../UserCatalogSelector/UserCatalogSelector";
+import { UserCollectionSelector } from "../UserCollectionSelector/UserCollectionSelector";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
 
 const QUERY = gql`
 	query($recipeId: ID) {
 		Recipe: Recipe(id: $recipeId) {
 			id
+			
 			name
 			preparationTime
 			ingredients
@@ -43,7 +44,7 @@ export const RecipeDetails = (props: any) => {
 	const recipe = data.Recipe[0];
 	const randomRecipeList = data.RecipeRandomList;
 
-	const userCatalogs = [
+	const userCollections = [
 		"To cook",
 		"Favorite",
 		"Already cooked",
@@ -79,9 +80,9 @@ export const RecipeDetails = (props: any) => {
 						</div>
 						<div className="row">
 							<div className="col-md-12">
-								<UserCatalogSelector
-									userCatalogs={userCatalogs}
-								></UserCatalogSelector>
+								<UserCollectionSelector
+									userCollections={userCollections}
+								></UserCollectionSelector>
 							</div>
 						</div>
 						<br></br>

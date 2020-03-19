@@ -54,6 +54,7 @@ type Collection {
 	id: ID!
 	name: String
 	friendlyUrl: String
+	createdOn: String
 	recipes: [Recipe] @relation(name: "COLLECTION", direction: "IN")
 }
 
@@ -66,12 +67,13 @@ type User {
 	friendlyUrl: String!
 	email: String!
 	recipes: [Recipe] @relation(name: "CREATED", direction: "IN")
+	collections: [Collection] @relation(name: "COLLECTION_CREATED", direction: "IN")
 }
 
 enum Role {
-  reader
-  user
-  admin
+	reader
+	user
+	admin
 }
 
 input CreateRecipeInput {
@@ -85,6 +87,14 @@ input CreateRecipeInput {
 	friendlyUrl: String
 	userId: String
 	createdOn: String
+}
+
+input CreateCollectionInput {
+	id: ID!
+	name: String!
+	friendlyUrl: String!
+	userId: String!
+	createdOn: String!
 }
 
 type Query {
@@ -108,10 +118,12 @@ type Query {
 
 	whatToCook(ingredient: [String], allergens: [String]): [Recipe]
 		@cypher(
-			statement: """MATCH (r:Recipe)
+			statement: """
+			MATCH (r:Recipe)
 			WHERE all(i in $ingredient WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
 			AND none(i in $allergens WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
-			RETURN r order by r.createdOn desc"""
+			RETURN r order by r.createdOn desc
+			"""
 		)
 }
 
@@ -131,4 +143,15 @@ type Mutation {
 			RETURN r
 			"""
 		)
+
+	createCollection(input: CreateCollectionInput): Collection
+	@cypher(
+		statement:"""
+		CREATE (c:Collection{id:$input.id, name:$input.name, friendlyUrl:$input.friendlyUrl, createdOn:$input.createdOn})
+    WITH c
+    MATCH (u:User{id:$input.userId})
+    CREATE (u)-[rel:COLLECTION_CREATED]->(c)
+    RETURN  c
+		"""
+	)
 }

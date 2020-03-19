@@ -1,11 +1,11 @@
-.catalog-wrapper {
+.collection-wrapper {
 	display: block;
 	background-color: linen;
 	padding: 15px;
 	z-index: 10;
 	position: relative;
 
-	& .catalog-list {
+	& .collection-list {
 		display: none;
 		border: 1px solid #c1c1c1;
 
@@ -19,7 +19,7 @@
 		cursor: pointer;
 	}
 
-	&:hover .catalog-list {
+	&:hover .collection-list {
 		display: block;
 		position: absolute;
 		background-color: white;
@@ -36,11 +36,11 @@
 		overflow-x: hidden;
 	}
 
-	.catalog-item:hover {
+	.collection-item:hover {
 		background-color: linen;
 	}
 
-	.add-new-catalog {
+	.add-new-collection {
 		float: right;
 	}
 }
