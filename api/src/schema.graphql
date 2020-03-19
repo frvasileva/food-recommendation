@@ -1,6 +1,7 @@
 type Recipe {
 	id: ID!
 	name: String
+	createdOn: String!
 	preparationTime: Int
 	skillLevel: String
 	cookingTime: Int
@@ -28,39 +29,53 @@ type Recipe {
 		@relation(name: "KEYWORD", direction: "OUT")
 }
 
-interface Character {
-	id: ID!
-	name: String!
-}
-
-type Human implements Character {
-	id: ID!
-	name: String!
-	friends: [Character]
-	totalCredits: Int
-}
-
 type Ingredient {
+	id: ID!
 	name: String
+	friendlyUrl: String
 	recipes: [Recipe] @relation(name: "CONTAINS_INGREDIENT", direction: "IN")
 }
 
 type Keyword {
+	id: ID!
+	friendlyUrl: String
 	name: String
 	recipes: [Recipe] @relation(name: "KEYWORD", direction: "IN")
 }
 
 type DietType {
+	id: ID!
+	friendlyUrl: String
 	name: String
 	recipes: [Recipe] @relation(name: "DIET_TYPE", direction: "IN")
 }
 
 type Collection {
+	id: ID!
 	name: String
+	friendlyUrl: String
 	recipes: [Recipe] @relation(name: "COLLECTION", direction: "IN")
 }
 
+type User {
+	id: ID!
+	username: String!
+	name: String
+	createdOn: String!
+	avatarPath: String
+	friendlyUrl: String!
+	email: String!
+	recipes: [Recipe] @relation(name: "CREATED", direction: "IN")
+}
+
+enum Role {
+  reader
+  user
+  admin
+}
+
 input CreateRecipeInput {
+	id: ID!
 	name: String
 	description: String
 	preparationTime: Int
@@ -68,6 +83,8 @@ input CreateRecipeInput {
 	cookingTime: Int
 	ingredients: [String]
 	friendlyUrl: String
+	userId: String
+	createdOn: String
 }
 
 type Query {
@@ -99,12 +116,15 @@ type Mutation {
 	createRecipe(input: CreateRecipeInput): Recipe
 		@cypher(
 			statement: """
-			CREATE (r:Recipe{name: $input.name, description: $input.description, preparationTime: $input.preparationTime,
-											 skillLevel: $input.skillLevel, cookingTime: $input.cookingTime, friendlyUrl: $input.friendlyUrl})
+			CREATE (r:Recipe{id: $input.id, name: $input.name, description: $input.description, preparationTime: $input.preparationTime,
+											 skillLevel: $input.skillLevel, cookingTime: $input.cookingTime, friendlyUrl: $input.friendlyUrl, createdOn: $input.createdOn})
 			FOREACH (item in $input.ingredients |
-				CREATE (i:Ingredient{name:item})
+				MERGE (i:Ingredient{name:item})
 				CREATE (r)-[rel:CONTAINS_INGREDIENT]->(i)
 			)
+			WITH r
+			MATCH (u:User{id:$input.userId})
+			CREATE (u)-[rel:ADDED_RECIPE{createdOn: $input.createdOn}]->(r)
 			RETURN r
 			"""
 		)

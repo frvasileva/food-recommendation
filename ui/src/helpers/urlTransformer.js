@@ -60,7 +60,7 @@ var urlTransformer = function() {
 	};
 
 	const bulgarianToEnglish = text => {
-		let wordArray = text.split("");
+		let wordArray = text.toLowerCase().split("");
 
 		const result = wordArray.map(char => {
 			return cyrilicToEnglish[char];
@@ -69,7 +69,7 @@ var urlTransformer = function() {
 	};
 
 	const englishToBulgarian = text => {
-		let wordArray = cleanNonUrlSymbols(text).split("");
+		let wordArray = cleanNonUrlSymbols(text).toLowerCase().split("");
 
 		const result = wordArray.map(char => {
 			return englishToCyrilic[char];
