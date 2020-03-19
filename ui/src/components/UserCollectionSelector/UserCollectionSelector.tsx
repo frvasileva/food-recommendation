@@ -1,10 +1,26 @@
 import React from "react";
+import { gql } from "apollo-boost";
+import { useQuery } from "@apollo/react-hooks";
 import "./UserCollectionSelector.scss";
 import { Link } from "react-router-dom";
 
+const QUERY = gql`
+	query($userId: String) {
+		collections: collectionsByUser(userId: $userId){
+			id
+			name
+		}
+	}
+`;
+
 export const UserCollectionSelector = (props: any) => {
-	var userCollections = props.userCollections;
-	console.log(userCollections);
+	const { loading, error, data } = useQuery(QUERY, {
+		variables: {
+			userId: "1"
+		}
+	});
+
+	const userCollections = loading ? [] : data.collections;
 
 	return (
 		<div className="collection-wrapper">
@@ -22,10 +38,10 @@ export const UserCollectionSelector = (props: any) => {
 					<input type="text" placeholder="Search" className="form-control" />
 				</li>
 				{userCollections.map((item: any) => (
-					<li key={item} className="collection-item">
+					<li key={item.id} className="collection-item">
 						<div className="row">
 							<div className="col-md-12">
-								<i className="fas fa-plus"></i> {item}
+								<i className="fas fa-plus"></i> {item.name}
 							</div>
 						</div>
 					</li>

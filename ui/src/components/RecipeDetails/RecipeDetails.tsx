@@ -11,7 +11,7 @@ const QUERY = gql`
 	query($recipeId: ID) {
 		Recipe: Recipe(id: $recipeId) {
 			id
-			
+
 			name
 			preparationTime
 			ingredients
@@ -44,17 +44,6 @@ export const RecipeDetails = (props: any) => {
 	const recipe = data.Recipe[0];
 	const randomRecipeList = data.RecipeRandomList;
 
-	const userCollections = [
-		"To cook",
-		"Favorite",
-		"Already cooked",
-		"Vegetarian",
-		"Non Vegetarian",
-		"Gluten Free",
-		"Pork",
-		"Chinesee"
-	];
-
 	const url = "https://source.unsplash.com/900x400/?" + recipe.name;
 
 	if (!recipe) return <p>Recipe was not found :(</p>;
@@ -80,9 +69,7 @@ export const RecipeDetails = (props: any) => {
 						</div>
 						<div className="row">
 							<div className="col-md-12">
-								<UserCollectionSelector
-									userCollections={userCollections}
-								></UserCollectionSelector>
+								<UserCollectionSelector />
 							</div>
 						</div>
 						<br></br>
