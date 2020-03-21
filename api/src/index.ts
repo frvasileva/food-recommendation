@@ -4,6 +4,7 @@ import { ApolloServer } from "apollo-server";
 import neo4j from "neo4j-driver";
 import { neo4jgraphql, makeAugmentedSchema } from "neo4j-graphql-js";
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 /*
 * Create an executable GraphQL schema object from GraphQL type definitions
@@ -16,25 +17,35 @@ const schemaFilePath = path.join(__dirname, "schema.graphql");
 const schema = makeAugmentedSchema({
 	typeDefs: fs.readFileSync(schemaFilePath).toString("utf-8"),
 	config: {
-		// auth: {
-		// 	hasRole: true,
-		// 	isAuthenticated: true
-		// }
+		auth: {
+			isAuthenticated: true,
+			hasRole: true
+		}
 	},
 	resolvers: {
 		Mutation: {
-			CreateUser: (object, params, ctx, resolveInfo) => {
-				params.password = bcrypt.hashSync(params.password, 10)
-				// @TODO: sign a token and return with response
-				return neo4jgraphql(object, params, ctx, resolveInfo);
+
+			// Hash the password, insert a user via cypher and return a JWT
+			RegisterUser: async (object, params, ctx, resolveInfo) => {
+				params.input.password = bcrypt.hashSync(params.input.password, 10);
+				await neo4jgraphql(object, params, ctx, resolveInfo);
+				return jwt.sign({
+					exp: Math.floor(Date.now() / 1000) + (60 * 60),
+					userId: params.input.id
+				}, process.env.JWT_SECRET);
 			},
+
+			// Find the user by email via cypher and if passwords match return a JWT
 			LoginUser: async (object, params, ctx, resolveInfo) => {
 				const result = await neo4jgraphql(object, params, ctx, resolveInfo);
-				const passwordIsCorrect = bcrypt.compareSync(params.password, result.properties.password)
-				// @TODO: sign a token and return with response
-				// @TODO: throw an error for incorrect credentials
-				return passwordIsCorrect
+				const passwordIsCorrect = bcrypt.compareSync(params.password, result.properties.password);
+				if (!passwordIsCorrect) throw new Error('Invalid credentials');
+				return jwt.sign({
+					exp: Math.floor(Date.now() / 1000) + (60 * 60),
+					userId: result.properties.id
+				}, process.env.JWT_SECRET);
 			}
+
 		}
 	}
 });
@@ -56,13 +67,19 @@ const driver = neo4j.driver(
  * generated resolvers to connect to the database.
  */
 const server = new ApolloServer({
-	context: ({ req, res }) => {
+	context: ({ req }) => {
+		const bearerHeader = req.headers.authorization || '';
+		const bearerToken = bearerHeader.split(' ')[1];
+		const tokenPayload = bearerToken
+			? jwt.verify(bearerToken, process.env.JWT_SECRET)
+			: {}
+
 		return {
 			driver,
 			req,
-			// cypherParams: {
-			// 	currentUserId: req.user.id
-			// }
+			cypherParams: {
+				currentUserId: tokenPayload.userId
+			}
 		};
 	},
 	schema

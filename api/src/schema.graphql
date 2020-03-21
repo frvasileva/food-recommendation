@@ -106,6 +106,14 @@ input AddRecipeToCollection {
 	createdOn: String!
 }
 
+input RegisterUserInput {
+	id: String!
+	email: String!
+	createdOn: String!
+	friendlyUrl: String!
+	password: String!
+}
+
 type Query {
 	recipeByName(substring: String): [Recipe]
 		@cypher(
@@ -183,10 +191,18 @@ type Mutation {
 			"""
 		)
 
-	LoginUser(email: String, password: String): Boolean
+	LoginUser(email: String, password: String): String
 		@cypher(
 			statement: """
 			MATCH (u:User{email:$email})
+			return u
+			"""
+		)
+
+	RegisterUser(input: RegisterUserInput): String
+		@cypher(
+			statement: """
+			CREATE (u:User{id:$input.id, email:$input.email, createdOn:$input.createdOn, friendlyUrl:$input.friendlyUrl, password:$input.password})
 			return u
 			"""
 		)
