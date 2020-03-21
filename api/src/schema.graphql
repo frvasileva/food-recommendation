@@ -61,12 +61,12 @@ type Collection {
 
 type User {
 	id: ID!
-	username: String!
 	name: String
 	createdOn: String!
 	avatarPath: String
 	friendlyUrl: String!
 	email: String!
+	password: String!
 	recipes: [Recipe] @relation(name: "CREATED", direction: "IN")
 	collections: [Collection]
 		@relation(name: "COLLECTION_CREATED", direction: "OUT")
@@ -180,6 +180,14 @@ type Mutation {
 			MATCH (c:Collection{id:$input.collectionId})
 			CREATE (r)-[rel:RECIPE_ADDED{userId:$input.userId, createdOn:$input.createdOn}]->(c)
 			return c
+			"""
+		)
+
+	LoginUser(email: String, password: String): Boolean
+		@cypher(
+			statement: """
+			MATCH (u:User{email:$email})
+			return u
 			"""
 		)
 }

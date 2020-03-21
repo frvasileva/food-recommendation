@@ -2,7 +2,8 @@ import fs from "fs";
 import path from "path";
 import { ApolloServer } from "apollo-server";
 import neo4j from "neo4j-driver";
-import { makeAugmentedSchema } from "neo4j-graphql-js";
+import { neo4jgraphql, makeAugmentedSchema } from "neo4j-graphql-js";
+import bcrypt from 'bcrypt'
 
 /*
 * Create an executable GraphQL schema object from GraphQL type definitions
@@ -13,7 +14,29 @@ import { makeAugmentedSchema } from "neo4j-graphql-js";
 */
 const schemaFilePath = path.join(__dirname, "schema.graphql");
 const schema = makeAugmentedSchema({
-	typeDefs: fs.readFileSync(schemaFilePath).toString("utf-8")
+	typeDefs: fs.readFileSync(schemaFilePath).toString("utf-8"),
+	config: {
+		// auth: {
+		// 	hasRole: true,
+		// 	isAuthenticated: true
+		// }
+	},
+	resolvers: {
+		Mutation: {
+			CreateUser: (object, params, ctx, resolveInfo) => {
+				params.password = bcrypt.hashSync(params.password, 10)
+				// @TODO: sign a token and return with response
+				return neo4jgraphql(object, params, ctx, resolveInfo);
+			},
+			LoginUser: async (object, params, ctx, resolveInfo) => {
+				const result = await neo4jgraphql(object, params, ctx, resolveInfo);
+				const passwordIsCorrect = bcrypt.compareSync(params.password, result.properties.password)
+				// @TODO: sign a token and return with response
+				// @TODO: throw an error for incorrect credentials
+				return passwordIsCorrect
+			}
+		}
+	}
 });
 
 /*
@@ -33,7 +56,15 @@ const driver = neo4j.driver(
  * generated resolvers to connect to the database.
  */
 const server = new ApolloServer({
-	context: { driver },
+	context: ({ req, res }) => {
+		return {
+			driver,
+			req,
+			// cypherParams: {
+			// 	currentUserId: req.user.id
+			// }
+		};
+	},
 	schema
 });
 
