@@ -15,7 +15,15 @@ import { RecipeDetails } from "./components/RecipeDetails/RecipeDetails";
 import { CreateCollection } from "./components/CreateCollection/CreateCollection";
 
 const client = new ApolloClient({
-	uri: "http://localhost:4000/"
+	uri: "http://localhost:4000/",
+	request: (operation) => {
+    const token = "1231232eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1ODQ4ODYwNTcsInVzZXJJZCI6IjEyMyIsImlhdCI6MTU4NDg4MjQ1N30.cHLiqmYIlROCjILZAIMcPE3FN_5DS3kUj3AkDJGoNhA"
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : ''
+      }
+    });
+  }
 });
 
 const App = () => {

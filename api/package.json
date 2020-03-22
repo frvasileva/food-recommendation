@@ -16,7 +16,7 @@
 		"graphql": "^14.6.0",
 		"jsonwebtoken": "^8.5.1",
 		"neo4j-driver": "^4.0.1",
-		"neo4j-graphql-js": "^2.12.1",
+		"neo4j-graphql-js": "^2.13.0",
 		"typescript": "^3.8.2"
 	},
 	"devDependencies": {

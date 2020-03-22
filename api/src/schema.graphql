@@ -1,4 +1,4 @@
-type Recipe {
+type Recipe @isAuthenticated {
 	id: ID!
 	name: String
 	createdOn: String
