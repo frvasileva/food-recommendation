@@ -13,17 +13,20 @@ import "./layout/layout.scss";
 import { RecipeList } from "./components/RecipeList/RecipeList";
 import { RecipeDetails } from "./components/RecipeDetails/RecipeDetails";
 import { CreateCollection } from "./components/CreateCollection/CreateCollection";
+import { Register } from "./components/Register/Register";
 
 const client = new ApolloClient({
 	uri: "http://localhost:4000/",
-	request: (operation) => {
-    const token = "1231232eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1ODQ4ODYwNTcsInVzZXJJZCI6IjEyMyIsImlhdCI6MTU4NDg4MjQ1N30.cHLiqmYIlROCjILZAIMcPE3FN_5DS3kUj3AkDJGoNhA"
-    operation.setContext({
-      headers: {
-        authorization: token ? `Bearer ${token}` : ''
-      }
-    });
-  }
+	request: operation => {
+		const token = localStorage.getItem("token");
+
+		console.log(token);
+		operation.setContext({
+			headers: {
+				authorization: token ? `Bearer ${token}` : ""
+			}
+		});
+	}
 });
 
 const App = () => {
@@ -38,6 +41,8 @@ const App = () => {
 						<Route exact path="/recipe/:recipeId" component={RecipeDetails} />
 						<Route exact path="/add-recipe" component={CreateRecipe} />
 						<Route exact path="/add-collection" component={CreateCollection} />
+						<Route exact path="/register" component={Register} />
+						<Route exact path="/login" component={Register} />
 					</Switch>
 				</div>
 			</ApolloProvider>

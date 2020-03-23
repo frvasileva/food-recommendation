@@ -27,17 +27,19 @@ const schema = makeAugmentedSchema({
 	resolvers: {
 		Mutation: {
 			// Hash the password, insert a user via cypher and return a JWT
-			RegisterUser: async (
+			registerUser: async (
 				object: any,
 				params: any,
 				ctx: any,
 				resolveInfo: any
 			) => {
 				// params.input.password = bcrypt.hashSync(params.input.password, 10);
+
 				await neo4jgraphql(object, params, ctx, resolveInfo);
 				return jwt.sign({
-					exp: Math.floor(Date.now() / 1000) + (60 * 60),
-					userId: params.input.id
+					exp: Math.floor(Date.now() / 1000) + (60 * 6000),
+					userId: params.input.id,
+					email: params.input.email
 					}, process.env.JWT_SECRET);
 			},
 
@@ -49,6 +51,7 @@ const schema = makeAugmentedSchema({
 				resolveInfo: any
 			) => {
 				const result = await neo4jgraphql(object, params, ctx, resolveInfo);
+				console.log(result);
 				const passwordIsCorrect = params.password === result.properties.password;
 				// const passwordIsCorrect = bcrypt.compareSync(
 				// 	params.password,

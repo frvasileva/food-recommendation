@@ -109,6 +109,7 @@ input AddRecipeToCollection {
 input RegisterUserInput {
 	id: String!
 	email: String!
+	name: String!
 	createdOn: String!
 	friendlyUrl: String!
 	password: String!
@@ -199,7 +200,7 @@ type Mutation {
 			"""
 		)
 
-	RegisterUser(input: RegisterUserInput): String
+	registerUser(input: RegisterUserInput): String
 		@cypher(
 			statement: """
 			CREATE (u:User{id:$input.id, email:$input.email, createdOn:$input.createdOn, friendlyUrl:$input.friendlyUrl, password:$input.password})

@@ -40,7 +40,6 @@ export const CreateRecipe = (props: any) => {
 
 		let flds = Object.values(fields).map(item => item.error);
 		let hasIvalidFields = flds.some(element => {
-			console.log({ element });
 			return element !== "";
 		});
 
