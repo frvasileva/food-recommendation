@@ -1,9 +1,8 @@
 import React from "react";
-import { setupMaster } from "cluster";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 import dateFormatter from "../../helpers/dateFormatter";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import urlTransformer from "../../helpers/urlTransformer";
 
@@ -58,7 +57,7 @@ export const Register = (props: any) => {
 	return (
 		<div className="container create-recipe-wrapper">
 			<div className="row">
-				<div className="col-md-8">
+				<div className="col-md-6 offset-md-3">
 					<h1>Create Account</h1>
 					<form onSubmit={submitForm} className="form">
 						<div className="form-group">
@@ -118,10 +117,7 @@ export const Register = (props: any) => {
 								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
 							</small>
 						</div>
-						<button
-							type="submit"
-							className="btn btn-outline-success my-2 my-sm-0"
-						>
+						<button type="submit" className="btn btn-dark btn-lg btn-block">
 							Register
 						</button>
 					</form>

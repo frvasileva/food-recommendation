@@ -44,7 +44,7 @@ const schema = makeAugmentedSchema({
 			},
 
 			// Find the user by email via cypher and if passwords match return a JWT
-			LoginUser: async (
+			loginUser: async (
 				object: any,
 				params: any,
 				ctx: any,

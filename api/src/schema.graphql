@@ -192,7 +192,7 @@ type Mutation {
 			"""
 		)
 
-	LoginUser(email: String, password: String): String
+	loginUser(email: String, password: String): String
 		@cypher(
 			statement: """
 			MATCH (u:User{email:$email})

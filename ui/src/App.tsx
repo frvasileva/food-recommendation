@@ -14,6 +14,7 @@ import { RecipeList } from "./components/RecipeList/RecipeList";
 import { RecipeDetails } from "./components/RecipeDetails/RecipeDetails";
 import { CreateCollection } from "./components/CreateCollection/CreateCollection";
 import { Register } from "./components/Register/Register";
+import { Login } from "./components/Login/Login";
 
 const client = new ApolloClient({
 	uri: "http://localhost:4000/",
@@ -42,7 +43,7 @@ const App = () => {
 						<Route exact path="/add-recipe" component={CreateRecipe} />
 						<Route exact path="/add-collection" component={CreateCollection} />
 						<Route exact path="/register" component={Register} />
-						<Route exact path="/login" component={Register} />
+						<Route exact path="/login" component={Login} />
 					</Switch>
 				</div>
 			</ApolloProvider>
