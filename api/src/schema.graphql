@@ -14,7 +14,7 @@ type Recipe @isAuthenticated {
 		@relation(name: "CONTAINS_INGREDIENT", direction: "OUT")
 	collections: [String]
 		@cypher(
-			statement: "MATCH (this)-[:COLLECTION]->(c:Collection) RETURN collect(c.name)"
+			statement: "MATCH (this)-[:RECIPE_ADDED]->(c:Collection) RETURN collect(c.name)"
 		)
 		@relation(name: "COLLECTION", direction: "OUT")
 	dietType: [String]
@@ -67,7 +67,7 @@ type User {
 	friendlyUrl: String!
 	email: String!
 	password: String!
-	recipes: [Recipe] @relation(name: "CREATED", direction: "IN")
+	recipes: [Recipe] @relation(name: "ADDED_RECIPE", direction: "OUT")
 	collections: [Collection]
 		@relation(name: "COLLECTION_CREATED", direction: "OUT")
 }
