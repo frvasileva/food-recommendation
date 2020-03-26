@@ -38,9 +38,6 @@ export const UserCollectionSelector = (props: any) => {
 	);
 
 	let { recipeId } = useParams();
-
-	console.log("params ", recipeId);
-
 	var transf = urlTransformer();
 	var dateFormat = dateFormatter();
 

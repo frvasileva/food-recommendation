@@ -4,7 +4,6 @@ import { useQuery } from "@apollo/react-hooks";
 import { useHistory } from "react-router-dom";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
 
-
 const QUERY = gql`
 	query($friendlyUrl: String) {
 		User(friendlyUrl: $friendlyUrl) {
@@ -31,7 +30,7 @@ const QUERY = gql`
 export const Profile = (props: any) => {
 	const { loading, error, data } = useQuery(QUERY, {
 		variables: {
-			friendlyUrl: "frvasileva"
+			friendlyUrl: props.match.params.friendlyUrl
 		}
 	});
 	let history = useHistory();
@@ -39,7 +38,6 @@ export const Profile = (props: any) => {
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
 
-	console.log(data);
 	const user = data.User[0];
 
 	return (

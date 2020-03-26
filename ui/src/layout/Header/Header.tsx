@@ -65,13 +65,37 @@ export const Header = (props: any) => {
 						</ul>
 					) : (
 						<ul className="nav justify-content-end">
-							<li className="nav-item">
-								<Link to={"/profile/" + token.friendlyUrl()} className="nav-link">
-									{token.email()}
-								</Link>
-							</li>
-							<li className="nav-item">
-								<input type="button" value="logout" onClick={logout}></input>
+							<li>
+								<div className="dropdown">
+									<button
+										className="btn btn-secondary dropdown-toggle"
+										type="button"
+										id="dropdownMenuButton"
+										data-toggle="dropdown"
+										aria-haspopup="true"
+										aria-expanded="false"
+									>
+										{token.email()}
+									</button>
+									<div
+										className="dropdown-menu"
+										aria-labelledby="dropdownMenuButton"
+									>
+										<Link
+											to={"/profile/" + token.friendlyUrl()}
+											className="dropdown-item profile-link"
+										>
+											View profile
+										</Link>
+
+										<input
+											type="button"
+											value="logout"
+											className="dropdown-item"
+											onClick={logout}
+										></input>
+									</div>
+								</div>
 							</li>
 						</ul>
 					)}

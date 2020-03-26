@@ -20,7 +20,7 @@ export const Search = (props: any) => {
         onChange={updateTerm}
         className="form-control mr-sm-2"
       />
-      <button type="submit" className="btn btn-outline-success my-2 my-sm-0">
+      <button type="submit" className="btn btn-dark my-2 my-sm-0">
         Search
       </button>
     </form>

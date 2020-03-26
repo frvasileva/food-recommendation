@@ -56,7 +56,7 @@ type Collection {
 	friendlyUrl: String
 	createdOn: String
 	user: [User] @relation(name: "COLLECTION_CREATED", direction: "IN")
-	recipes: [Recipe] @relation(name: "COLLECTION", direction: "IN")
+	recipes: [Recipe] @relation(name: "RECIPE_ADDED", direction: "IN")
 }
 
 type User {
