@@ -4,6 +4,7 @@ import { useMutation } from "@apollo/react-hooks";
 import urlTransformer from "../../helpers/urlTransformer";
 import dateFormatter from "../../helpers/dateFormatter";
 import { v4 as uuidv4 } from "uuid";
+import tokenHelper from "../../helpers/tokenHelper";
 
 const CREATE_COLLECTION_QUERY = gql`
 	mutation($input: CreateCollectionInput) {
@@ -18,10 +19,13 @@ const CREATE_COLLECTION_QUERY = gql`
 
 export const CreateCollection = (props: any) => {
 	const [collectionName, setCollectionName] = React.useState("");
-	const [createCollection, createCollectionStatus] = useMutation(CREATE_COLLECTION_QUERY);
+	const [createCollection, createCollectionStatus] = useMutation(
+		CREATE_COLLECTION_QUERY
+	);
 
 	var transf = urlTransformer();
 	var dateFormat = dateFormatter();
+	var token = tokenHelper();
 
 	const updateTerm = (e: any) => {
 		setCollectionName(e.target.value);
@@ -29,6 +33,7 @@ export const CreateCollection = (props: any) => {
 
 	const submitForm = (e: any) => {
 		e.preventDefault();
+		var currentUserId = token.userId();
 
 		if (!collectionName) return;
 		createCollection({
@@ -37,7 +42,7 @@ export const CreateCollection = (props: any) => {
 					id: uuidv4(),
 					name: collectionName,
 					friendlyUrl: transf.bulgarianToEnglish(collectionName),
-					userId: "1",
+					userId: currentUserId,
 					createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date())
 				}
 			}

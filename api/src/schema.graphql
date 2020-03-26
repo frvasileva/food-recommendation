@@ -203,7 +203,7 @@ type Mutation {
 	registerUser(input: RegisterUserInput): String
 		@cypher(
 			statement: """
-			CREATE (u:User{id:$input.id, email:$input.email, createdOn:$input.createdOn, friendlyUrl:$input.friendlyUrl, password:$input.password})
+			CREATE (u:User{id:$input.id, email:$input.email, name: $input.name, createdOn:$input.createdOn, friendlyUrl:$input.friendlyUrl, password:$input.password})
 			return u
 			"""
 		)

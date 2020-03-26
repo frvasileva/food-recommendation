@@ -36,11 +36,15 @@ const schema = makeAugmentedSchema({
 				// params.input.password = bcrypt.hashSync(params.input.password, 10);
 
 				await neo4jgraphql(object, params, ctx, resolveInfo);
-				return jwt.sign({
-					exp: Math.floor(Date.now() / 1000) + (60 * 6000),
-					userId: params.input.id,
-					email: params.input.email
-					}, process.env.JWT_SECRET);
+				return jwt.sign(
+					{
+						exp: Math.floor(Date.now() / 1000) + 60 * 6000,
+						userId: params.input.id,
+						email: params.input.email,
+						friendlyUrl: params.properties.friendlyUrl
+					},
+					process.env.JWT_SECRET
+				);
 			},
 
 			// Find the user by email via cypher and if passwords match return a JWT
@@ -52,7 +56,8 @@ const schema = makeAugmentedSchema({
 			) => {
 				const result = await neo4jgraphql(object, params, ctx, resolveInfo);
 				console.log(result);
-				const passwordIsCorrect = params.password === result.properties.password;
+				const passwordIsCorrect =
+					params.password === result.properties.password;
 				// const passwordIsCorrect = bcrypt.compareSync(
 				// 	params.password,
 				// 	result.properties.password
@@ -60,8 +65,10 @@ const schema = makeAugmentedSchema({
 				if (!passwordIsCorrect) throw new Error("Invalid credentials");
 				return jwt.sign(
 					{
-						exp: Math.floor(Date.now() / 1000) + 60 * 60,
-						userId: result.properties.id
+						exp: Math.floor(Date.now() / 1000) + 60 * 6000,
+						userId: result.properties.id,
+						email: result.properties.email,
+						friendlyUrl: result.properties.friendlyUrl
 					},
 					process.env.JWT_SECRET
 				);
@@ -91,7 +98,7 @@ const server = new ApolloServer({
 		const bearerHeader = req.headers.authorization || "";
 		const bearerToken = bearerHeader.split(" ")[1];
 		const tokenPayload = bearerToken
-			? jwt.verify(bearerToken, process.env.JWT_SECRET) as any
+			? (jwt.verify(bearerToken, process.env.JWT_SECRET) as any)
 			: {};
 
 		return {

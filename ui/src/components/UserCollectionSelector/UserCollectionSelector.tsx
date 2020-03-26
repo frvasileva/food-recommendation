@@ -5,7 +5,7 @@ import "./UserCollectionSelector.scss";
 import { Link, useParams } from "react-router-dom";
 import urlTransformer from "../../helpers/urlTransformer";
 import dateFormatter from "../../helpers/dateFormatter";
-import { v4 as uuidv4 } from "uuid";
+import tokenHelper from "../../helpers/tokenHelper";
 
 const QUERY = gql`
 	query($userId: String) {
@@ -25,9 +25,11 @@ const QUERY_MUTATION = gql`
 `;
 
 export const UserCollectionSelector = (props: any) => {
+	var token = tokenHelper();
+
 	const { loading, error, data } = useQuery(QUERY, {
 		variables: {
-			userId: "1"
+			userId: token.userId()
 		}
 	});
 
@@ -36,6 +38,7 @@ export const UserCollectionSelector = (props: any) => {
 	);
 
 	let { recipeId } = useParams();
+
 	console.log("params ", recipeId);
 
 	var transf = urlTransformer();
@@ -45,7 +48,7 @@ export const UserCollectionSelector = (props: any) => {
 		recipeToCollection({
 			variables: {
 				input: {
-					userId: "1",
+					userId: token.userId(),
 					createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date()),
 					collectionId: collectionId,
 					recipeId: recipeId

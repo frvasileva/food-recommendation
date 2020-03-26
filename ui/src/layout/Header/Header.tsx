@@ -1,25 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 import { useHistory } from "react-router-dom";
 
 import "./Header.scss";
+import tokenHelper from "../../helpers/tokenHelper";
 
 export const Header = (props: any) => {
-	var isLoggedIn = false;
-	var token = "";
-	var decoded: any;
 	let history = useHistory();
-
-	if (localStorage.getItem("token")) {
-		isLoggedIn = true;
-		token = localStorage.getItem("token") as string;
-		decoded = jwt_decode(token);
-	}
+	var token = tokenHelper();
+	var isLoggedIn = token.isLoggedIn();
 
 	const logout = () => {
 		localStorage.setItem("token", "");
-		console.log("loggout");
 		history.push("/login");
 	};
 
@@ -74,8 +66,8 @@ export const Header = (props: any) => {
 					) : (
 						<ul className="nav justify-content-end">
 							<li className="nav-item">
-								<Link to="/profile" className="nav-link">
-									{decoded.email}
+								<Link to={"/profile/" + token.friendlyUrl()} className="nav-link">
+									{token.email()}
 								</Link>
 							</li>
 							<li className="nav-item">

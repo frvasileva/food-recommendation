@@ -5,7 +5,8 @@ import { useMutation } from "@apollo/react-hooks";
 import urlTransformer from "../../helpers/urlTransformer";
 import dateFormatter from "../../helpers/dateFormatter";
 import { v4 as uuidv4 } from "uuid";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import tokenHelper from "../../helpers/tokenHelper";
 
 const CREATE_RECIPE_QUERY = gql`
 	mutation($input: CreateRecipeInput) {
@@ -30,10 +31,11 @@ export const CreateRecipe = (props: any) => {
 
 	const [isFormTouched, setFormIsTouched] = React.useState(false);
 	const [createRecipe, createRecipeStatus] = useMutation(CREATE_RECIPE_QUERY);
-	let history = useHistory();
 
+	let history = useHistory();
 	var transf = urlTransformer();
 	var dateFormat = dateFormatter();
+	var token = tokenHelper();
 
 	const validateForm = () => {
 		let isValid = true;
@@ -81,6 +83,7 @@ export const CreateRecipe = (props: any) => {
 
 	const handleSubmit = (event: any) => {
 		event.preventDefault();
+		var currentUserId = token.userId();
 
 		if (validateForm()) {
 			createRecipe({
@@ -94,7 +97,7 @@ export const CreateRecipe = (props: any) => {
 						skillLevel: fields.skillLevel.value,
 						cookingTime: parseInt(fields.cookingTime.value),
 						friendlyUrl: transf.bulgarianToEnglish(fields.name.value),
-						userId: "1",
+						userId: currentUserId,
 						createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date())
 					}
 				}

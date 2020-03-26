@@ -2,6 +2,8 @@ import React from "react";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import { useHistory } from "react-router-dom";
+import { RecipeTile } from "../RecipeTile/RecipeTile";
+
 
 const QUERY = gql`
 	query($friendlyUrl: String) {
@@ -29,7 +31,7 @@ const QUERY = gql`
 export const Profile = (props: any) => {
 	const { loading, error, data } = useQuery(QUERY, {
 		variables: {
-			friendlyUrl: "fani"
+			friendlyUrl: "frvasileva"
 		}
 	});
 	let history = useHistory();
@@ -43,24 +45,18 @@ export const Profile = (props: any) => {
 	return (
 		<div className="container create-recipe-wrapper">
 			<div className="row">
-				<div className="col-md-8">
+				<div className="col-md-12">
 					<div>{user.email}</div>
-					<p>Collections:</p>
-					{user.collections.map((collection: any) => (
-						<div key={collection.name} className="col-md-12">
-							{collection.name}
-						</div>
-					))}
-					<hr />
+					<div>{user.name}</div>
+
 					<p>Recipes</p>
-					{user.recipes.map((recipe: any) => (
-						<div key={recipe.name} className="col-md-12">
-							<div>
-								<strong>{recipe.name}</strong>
+					<div className="row">
+						{user.recipes.map((recipe: any) => (
+							<div key={recipe.name} className="col-md-4">
+								<RecipeTile {...recipe}></RecipeTile>
 							</div>
-							Recipe in collection: <div>{recipe.collections}</div>
-						</div>
-					))}
+						))}
+					</div>
 				</div>
 			</div>
 		</div>
