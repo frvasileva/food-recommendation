@@ -5,23 +5,24 @@ import "./RecipeList.scss";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
 import { Search } from "../Search/Search";
 
-// const QUERY = gql`
-// 	query($ingredients: [String]) {
-// 		whatToCook(
-// 			ingredient: $ingredients
-// 			allergens: []
-// 			first: 3
-// 			orderBy: createdOn_asc
-// 		) {
-// 			name
-// 			preparationTime
-// 			description
-// 			skillLevel
-// 			cookingTime
-// 			createdOn
-// 		}
-// 	}
-// `;
+const QUERY_BY_INGREDIENTS = gql`
+	query($ingredients: [String]) {
+		whatToCook(
+			ingredient: $ingredients
+			allergens: []
+			first: 3
+			orderBy: createdOn_asc
+		) {
+			id
+			name
+			preparationTime
+			description
+			skillLevel
+			cookingTime
+			createdOn
+		}
+	}
+`;
 
 const QUERY = gql`
 	query {
@@ -39,23 +40,30 @@ const QUERY = gql`
 
 export const RecipeList = (props: any) => {
 	const [term, setTerm] = React.useState("");
-	const { loading, error, data } = useQuery(QUERY, {
+	const defaultQuery = useQuery(QUERY, {
+		skip: !!term
+	});
+	const queryByIngredients = useQuery(QUERY_BY_INGREDIENTS, {
 		variables: {
 			ingredients: [term]
-		}
+		},
+		skip: !term
 	});
+	const query = term ? queryByIngredients : defaultQuery;
 
-	if (loading) return <p>Loading...</p>;
-	if (error) {
-		console.log(error);
+	if (query.loading) return <p>Loading...</p>;
+	if (query.error) {
+		console.log(query.error);
 		return <p>Error : (</p>;
 	}
+
+	const recipes = query.data.Recipe || query.data.whatToCook;
 
 	return (
 		<div className="container">
 			<Search onSearch={setTerm} />
 			<div className="row">
-				{data.Recipe.map((recipe: any) => (
+				{recipes.map((recipe: any) => (
 					<div key={recipe.name} className="col-md-6">
 						<RecipeTile {...recipe}></RecipeTile>
 					</div>
