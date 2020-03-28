@@ -37,10 +37,12 @@ export const UserCollectionSelector = (props: any) => {
 		QUERY_MUTATION
 	);
 
-	let { recipeId } = useParams();
+	var parameters= useParams() as any;
 	var transf = urlTransformer();
 	var dateFormat = dateFormatter();
+	var recipeId = parameters.recipeId || props.recipeId;
 
+	console.log("recId", recipeId);
 	const addToCollection = (collectionId: string) => {
 		recipeToCollection({
 			variables: {

@@ -11,17 +11,17 @@ const QUERY = gql`
 			friendlyUrl
 			collections {
 				name
-			}
-			recipes {
-				name
-				description
-				ingredients
-				createdOn
-				cookingTime
-				preparationTime
-				dietType
-				friendlyUrl
-				collections
+				recipes {
+					name
+					description
+					ingredients
+					createdOn
+					cookingTime
+					preparationTime
+					dietType
+					friendlyUrl
+					collections
+				}
 			}
 		}
 	}
@@ -33,7 +33,6 @@ export const Profile = (props: any) => {
 			friendlyUrl: props.match.params.friendlyUrl
 		}
 	});
-	let history = useHistory();
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
@@ -47,14 +46,19 @@ export const Profile = (props: any) => {
 					<div>{user.email}</div>
 					<div>{user.name}</div>
 
-					<p>Recipes</p>
+					<h2>Collections:</h2>
+					{user.collections.map((collection: any) => (
 					<div className="row">
-						{user.recipes.map((recipe: any) => (
-							<div key={recipe.name} className="col-md-4">
-								<RecipeTile {...recipe}></RecipeTile>
+						{user.collections.map((collection: any) => (
+							<div key={collection.name} className="col-md-4">
+								<h3>{collection.name}</h3>
+								{collection.recipes.map((recipe: any) => {
+									return <RecipeTile {...recipe}></RecipeTile>;
+								})}
 							</div>
 						))}
 					</div>
+))}
 				</div>
 			</div>
 		</div>
