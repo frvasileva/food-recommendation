@@ -1,7 +1,6 @@
 import React from "react";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
-import { useHistory } from "react-router-dom";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
 
 const QUERY = gql`
@@ -12,6 +11,7 @@ const QUERY = gql`
 			collections {
 				name
 				recipes {
+					id
 					name
 					description
 					ingredients
@@ -46,19 +46,27 @@ export const Profile = (props: any) => {
 					<div>{user.email}</div>
 					<div>{user.name}</div>
 
-					<h2>Collections:</h2>
-					{user.collections.map((collection: any) => (
+					<h2></h2>
 					<div className="row">
 						{user.collections.map((collection: any) => (
-							<div key={collection.name} className="col-md-4">
-								<h3>{collection.name}</h3>
-								{collection.recipes.map((recipe: any) => {
-									return <RecipeTile {...recipe}></RecipeTile>;
-								})}
+							<div key={collection.name} className="col-md-12">
+								{collection.recipes.length > 0 ? (
+									<div>
+										<h2> {collection.name}</h2>
+										<div className="row">
+											{collection.recipes.map((recipe: any) => {
+												return (
+													<div className="col-md-4 col-sm-6" key={recipe.id}>
+														<RecipeTile {...recipe}></RecipeTile>
+													</div>
+												);
+											})}
+										</div>
+									</div>
+								) : null}
 							</div>
 						))}
 					</div>
-))}
 				</div>
 			</div>
 		</div>

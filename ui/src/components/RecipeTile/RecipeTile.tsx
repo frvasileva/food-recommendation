@@ -26,7 +26,7 @@ export const RecipeTile = (props: any) => {
 							</div>
 							<div className="col-md-6">
 								<i className="far fa-clock"></i>
-								{props.cookingTime / 60}
+								{Math.round(props.cookingTime / 60)}
 								<span> minutes</span>
 							</div>
 						</div>

@@ -1,9 +1,12 @@
 .collection-wrapper {
 	display: block;
-	background-color: linen;
+	background-color: #f7f2f2;
 	padding: 15px;
 	z-index: 10;
 	position: relative;
+	box-shadow: 1px 0px 9px #f7f2f2;
+	text-transform: uppercase;
+	font-size: 14px;
 
 	& .collection-list {
 		display: none;

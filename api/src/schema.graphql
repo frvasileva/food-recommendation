@@ -149,6 +149,7 @@ type Query {
 			statement: """
 			MATCH (c:Collection)<-[r:COLLECTION_CREATED]-(u:User{id: $userId})
 				return c
+				order by c.createdOn desc
 			"""
 		)
 }
