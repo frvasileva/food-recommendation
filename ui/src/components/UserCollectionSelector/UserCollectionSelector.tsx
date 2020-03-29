@@ -23,6 +23,13 @@ const QUERY_MUTATION = gql`
 		}
 	}
 `;
+const QUERY_MUTATION_REMOVE_FROM_COLLECTION = gql`
+	mutation($input: AddRecipeToCollection) {
+		remvoeRecipeFromACollection(input: $input) {
+			name
+		}
+	}
+`;
 
 export const UserCollectionSelector = (props: any) => {
 	var token = tokenHelper();
@@ -37,23 +44,41 @@ export const UserCollectionSelector = (props: any) => {
 		QUERY_MUTATION
 	);
 
-	var parameters= useParams() as any;
-	var transf = urlTransformer();
+	const [removeRecipeToCollection, remvoeRecipeFromACollection] = useMutation(
+		QUERY_MUTATION_REMOVE_FROM_COLLECTION
+	);
+
+	var parameters = useParams() as any;
 	var dateFormat = dateFormatter();
 	var recipeId = parameters.recipeId || props.recipeId;
 
 	console.log("recId", recipeId);
-	const addToCollection = (collectionId: string) => {
-		recipeToCollection({
-			variables: {
-				input: {
-					userId: token.userId(),
-					createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date()),
-					collectionId: collectionId,
-					recipeId: recipeId
+	const addToCollection = (action: string, collectionId: string) => {
+		if (action == "add") {
+			recipeToCollection({
+				variables: {
+					input: {
+						userId: token.userId(),
+						createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date()),
+						collectionId: collectionId,
+						recipeId: recipeId
+					}
 				}
-			}
-		});
+			});
+		} else {
+			console.log("remove");
+
+			removeRecipeToCollection({
+				variables: {
+					input: {
+						userId: token.userId(),
+						createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date()),
+						collectionId: collectionId,
+						recipeId: recipeId
+					}
+				}
+			});
+		}
 	};
 
 	const userCollections = loading ? [] : data.collections;
@@ -73,20 +98,37 @@ export const UserCollectionSelector = (props: any) => {
 				<li key="search-collection">
 					<input type="text" placeholder="Search" className="form-control" />
 				</li>
-				{userCollections.map((item: any) => (
-					<li
-						key={item.id}
-						className="collection-item"
-						onClick={() => addToCollection(item.id)}
-					>
-						<div className="row">
-							<div className="col-md-12">
-								<i className="fas fa-plus"></i> {item.name}
-							</div>
-						</div>
-					</li>
-				))}
+				{userCollections.map((item: any) => {
+					var isSelected = (props.recipeCollections || []).some(
+						(c: any) => c.id === item.id
+					);
+
+					const listItemProps = {
+						...item,
+						key: item.id,
+						onClick: () =>
+							addToCollection(isSelected ? "remove" : "add", item.id),
+						isSelected: isSelected
+					};
+					return <CollectionListItem {...listItemProps} />;
+				})}
 			</ul>
 		</div>
 	);
 };
+
+function CollectionListItem(props: any) {
+	return (
+		<li
+			className={`collection-item ${props.isSelected ? " selected" : ""}`}
+			onClick={props.onClick}
+		>
+			<div className="row">
+				<div className="col-md-12">
+					<i className={`fas ${props.isSelected ? "fa-minus" : "fa-plus"}`}></i>{" "}
+					{props.name}
+				</div>
+			</div>
+		</li>
+	);
+}

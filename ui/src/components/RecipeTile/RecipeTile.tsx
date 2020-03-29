@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./RecipeTile.scss";
 import { UserCollectionSelector } from "../UserCollectionSelector/UserCollectionSelector";
+import { RecipeDetails } from "../RecipeDetails/RecipeDetails";
 
 export const RecipeTile = (props: any) => {
 	const url = "https://source.unsplash.com/500x250/?" + props.name;
@@ -10,7 +11,7 @@ export const RecipeTile = (props: any) => {
 		<div>
 			<div key={props.name}>
 				<div className="card">
-					<UserCollectionSelector recipeId={props.id}></UserCollectionSelector>
+					<UserCollectionSelector recipeId={props.id} recipeCollections={props.collections} />
 					<p>
 						<img className="card-img-top" src={url} alt={props.name} />
 					</p>

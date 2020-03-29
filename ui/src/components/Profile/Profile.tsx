@@ -21,6 +21,10 @@ const QUERY = gql`
 					dietType
 					friendlyUrl
 					collections
+					{
+						id
+						name
+					}
 				}
 			}
 		}
