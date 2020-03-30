@@ -1,38 +1,10 @@
 import React from "react";
-import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
-
-const QUERY = gql`
-	query($friendlyUrl: String) {
-		User(friendlyUrl: $friendlyUrl) {
-			email
-			friendlyUrl
-			collections {
-				name
-				recipes {
-					id
-					name
-					description
-					ingredients
-					createdOn
-					cookingTime
-					preparationTime
-					dietType
-					friendlyUrl
-					collections
-					{
-						id
-						name
-					}
-				}
-			}
-		}
-	}
-`;
+import { userCollectionsQuery } from "../../helpers/queries";
 
 export const Profile = (props: any) => {
-	const { loading, error, data } = useQuery(QUERY, {
+	const { loading, error, data } = useQuery(userCollectionsQuery, {
 		variables: {
 			friendlyUrl: props.match.params.friendlyUrl
 		}

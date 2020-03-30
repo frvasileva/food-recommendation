@@ -1,23 +1,12 @@
 import React from "react";
 import "./CreateRecipe.scss";
-import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 import urlTransformer from "../../helpers/urlTransformer";
 import dateFormatter from "../../helpers/dateFormatter";
 import { v4 as uuidv4 } from "uuid";
 import { useHistory } from "react-router-dom";
 import tokenHelper from "../../helpers/tokenHelper";
-
-const CREATE_RECIPE_QUERY = gql`
-	mutation($input: CreateRecipeInput) {
-		createRecipe(input: $input) {
-			id
-			name
-			description
-			friendlyUrl
-		}
-	}
-`;
+import { createRecipeQuery } from "../../helpers/queries"
 
 export const CreateRecipe = (props: any) => {
 	const [fields, setFields] = React.useState({
@@ -30,7 +19,7 @@ export const CreateRecipe = (props: any) => {
 	});
 
 	const [isFormTouched, setFormIsTouched] = React.useState(false);
-	const [createRecipe, createRecipeStatus] = useMutation(CREATE_RECIPE_QUERY);
+	const [createRecipe, createRecipeStatus] = useMutation(createRecipeQuery);
 
 	let history = useHistory();
 	var transf = urlTransformer();

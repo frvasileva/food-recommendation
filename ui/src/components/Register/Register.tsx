@@ -1,16 +1,10 @@
 import React from "react";
-import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 import dateFormatter from "../../helpers/dateFormatter";
 import { useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import urlTransformer from "../../helpers/urlTransformer";
-
-const REGISTER_USER_QUERY = gql`
-	mutation($input: RegisterUserInput) {
-		registerUser(input: $input)
-	}
-`;
+import { registerUserQuery } from "../../helpers/queries";
 
 export const Register = (props: any) => {
 	const [userFields, setUserFields] = React.useState({
@@ -21,7 +15,7 @@ export const Register = (props: any) => {
 		friendlyUrl: { value: "", error: "" }
 	});
 
-	const [createUser, createUserStatus] = useMutation(REGISTER_USER_QUERY);
+	const [createUser, createUserStatus] = useMutation(registerUserQuery);
 
 	var transf = urlTransformer();
 	var dateFormat = dateFormatter();

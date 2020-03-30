@@ -1,13 +1,7 @@
 import React from "react";
-import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 import { useHistory } from "react-router-dom";
-
-const LOGIN_USER_QUERY = gql`
-	mutation($email: String, $password: String) {
-		loginUser(email: $email, password: $password)
-	}
-`;
+import { loginUserQuery } from "../../helpers/queries";
 
 export const Login = (props: any) => {
 	const [loginFields, setLoginFields] = React.useState({
@@ -16,7 +10,7 @@ export const Login = (props: any) => {
 		friendlyUrl: { value: "", error: "" }
 	});
 
-	const [loginUser, createUserStatus] = useMutation(LOGIN_USER_QUERY);
+	const [loginUser, createUserStatus] = useMutation(loginUserQuery);
 
 	let history = useHistory();
 

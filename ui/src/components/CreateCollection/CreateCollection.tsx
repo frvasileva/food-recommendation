@@ -1,28 +1,15 @@
 import React from "react";
-import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 import urlTransformer from "../../helpers/urlTransformer";
 import dateFormatter from "../../helpers/dateFormatter";
 import { v4 as uuidv4 } from "uuid";
 import tokenHelper from "../../helpers/tokenHelper";
 import { useHistory } from "react-router-dom";
-
-const CREATE_COLLECTION_QUERY = gql`
-	mutation($input: CreateCollectionInput) {
-		createCollection(input: $input) {
-			id
-			name
-			friendlyUrl
-			createdOn
-		}
-	}
-`;
+import { createCollectionQuery } from "../../helpers/queries";
 
 export const CreateCollection = (props: any) => {
 	const [collectionName, setCollectionName] = React.useState("");
-	const [createCollection, createCollectionStatus] = useMutation(
-		CREATE_COLLECTION_QUERY
-	);
+	const [createCollection, createCollectionStatus] = useMutation(createCollectionQuery);
 
 	var transf = urlTransformer();
 	var dateFormat = dateFormatter();

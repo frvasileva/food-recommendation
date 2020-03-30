@@ -1,38 +1,14 @@
 import React from "react";
-import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
 import "./RecipeDetails.scss";
 import { IngredientsList } from "../IngredientsList/IngredientsList";
 import { UserCollectionSelector } from "../UserCollectionSelector/UserCollectionSelector";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
-
-const QUERY = gql`
-	query($recipeId: ID) {
-		Recipe: Recipe(id: $recipeId) {
-			id
-
-			name
-			preparationTime
-			ingredients
-			description
-			skillLevel
-			cookingTime
-		}
-		RecipeRandomList: Recipe(first: 3) {
-			id
-			name
-			preparationTime
-			ingredients
-			description
-			skillLevel
-			cookingTime
-		}
-	}
-`;
+import { recipeByIdQuery } from "../../helpers/queries";
 
 export const RecipeDetails = (props: any) => {
-	const { loading, error, data } = useQuery(QUERY, {
+	const { loading, error, data } = useQuery(recipeByIdQuery, {
 		variables: {
 			recipeId: props.match.params.recipeId
 		}

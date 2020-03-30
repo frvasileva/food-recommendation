@@ -1,49 +1,16 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
 import "./RecipeList.scss";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
 import { Search } from "../Search/Search";
-
-const QUERY_BY_INGREDIENTS = gql`
-	query($ingredients: [String]) {
-		whatToCook(
-			ingredient: $ingredients
-			allergens: []
-			first: 3
-			orderBy: createdOn_asc
-		) {
-			id
-			name
-			preparationTime
-			description
-			skillLevel
-			cookingTime
-			createdOn
-		}
-	}
-`;
-
-const QUERY = gql`
-	query {
-		Recipe(first: 10, orderBy: createdOn_asc) {
-			id
-			name
-			preparationTime
-			description
-			skillLevel
-			cookingTime
-			createdOn
-		}
-	}
-`;
+import { recipeQuery, recipeByIngredientsQuery } from "../../helpers/queries";
 
 export const RecipeList = (props: any) => {
 	const [term, setTerm] = React.useState("");
-	const defaultQuery = useQuery(QUERY, {
+	const defaultQuery = useQuery(recipeQuery, {
 		skip: !!term
 	});
-	const queryByIngredients = useQuery(QUERY_BY_INGREDIENTS, {
+	const queryByIngredients = useQuery(recipeByIngredientsQuery, {
 		variables: {
 			ingredients: [term]
 		},

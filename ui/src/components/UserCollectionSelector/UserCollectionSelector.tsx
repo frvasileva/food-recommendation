@@ -1,51 +1,27 @@
 import React from "react";
-import { gql } from "apollo-boost";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import "./UserCollectionSelector.scss";
 import { Link, useParams } from "react-router-dom";
 import urlTransformer from "../../helpers/urlTransformer";
 import dateFormatter from "../../helpers/dateFormatter";
 import tokenHelper from "../../helpers/tokenHelper";
-
-const QUERY = gql`
-	query($userId: String) {
-		collections: collectionsByUser(userId: $userId) {
-			id
-			name
-		}
-	}
-`;
-
-const QUERY_MUTATION = gql`
-	mutation($input: AddRecipeToCollection) {
-		addRecipeToACollection(input: $input) {
-			name
-		}
-	}
-`;
-const QUERY_MUTATION_REMOVE_FROM_COLLECTION = gql`
-	mutation($input: AddRecipeToCollection) {
-		remvoeRecipeFromACollection(input: $input) {
-			name
-		}
-	}
-`;
+import { addRecipeToCollectionQuery, removeRecipeFromCollectionQuery, collectionsByUserQuery } from "../../helpers/queries";
 
 export const UserCollectionSelector = (props: any) => {
 	var token = tokenHelper();
 
-	const { loading, error, data } = useQuery(QUERY, {
+	const { loading, error, data } = useQuery(collectionsByUserQuery, {
 		variables: {
 			userId: token.userId()
 		}
 	});
 
 	const [recipeToCollection, addRecipeToCollection] = useMutation(
-		QUERY_MUTATION
+		addRecipeToCollectionQuery
 	);
 
 	const [removeRecipeToCollection, remvoeRecipeFromACollection] = useMutation(
-		QUERY_MUTATION_REMOVE_FROM_COLLECTION
+		removeRecipeFromCollectionQuery
 	);
 
 	var parameters = useParams() as any;
