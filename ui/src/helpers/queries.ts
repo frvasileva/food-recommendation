@@ -10,6 +10,25 @@ const fragments = {
 			description
 			skillLevel
 			cookingTime
+			collections {
+				id
+				name
+				recipes {
+					id
+					name
+					description
+					ingredients
+					createdOn
+					cookingTime
+					preparationTime
+					dietType
+					friendlyUrl
+					collections {
+						id
+						name
+					}
+				}
+			}
 		}
 	`
 };
@@ -39,17 +58,19 @@ export const createCollectionQuery = gql`
 export const addRecipeToCollectionQuery = gql`
 	mutation($input: AddRecipeToCollection) {
 		addRecipeToACollection(input: $input) {
-			name
+			...RecipeTile
 		}
 	}
+	${fragments.recipeTile}
 `;
 
 export const removeRecipeFromCollectionQuery = gql`
 	mutation($input: AddRecipeToCollection) {
 		remvoeRecipeFromACollection(input: $input) {
-			name
+			...RecipeTile
 		}
 	}
+	${fragments.recipeTile}
 `;
 
 export const loginUserQuery = gql`

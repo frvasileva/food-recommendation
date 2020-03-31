@@ -12,11 +12,6 @@ type Recipe @isAuthenticated {
 			statement: "MATCH (this)-[:CONTAINS_INGREDIENT]->(i:Ingredient) RETURN collect(i.name)"
 		)
 		@relation(name: "CONTAINS_INGREDIENT", direction: "OUT")
-	# collections: [String]
-	# 	@cypher(
-	# 		statement: "MATCH (this)-[:RECIPE_ADDED]->(c:Collection) RETURN collect(c.name), c.id"
-	# 	)
-	# 	@relation(name: "COLLECTION", direction: "OUT")
 	dietType: [String]
 		@cypher(
 			statement: "MATCH (this)-[:DIET_TYPE]->(d:DietType) RETURN collect(d.name)"
@@ -74,7 +69,8 @@ type User {
 	friendlyUrl: String!
 	email: String!
 	password: String!
-	recipes: [Recipe] @relation(name: "ADDED_RECIPE", direction: "OUT")
+	recipes: [Recipe]
+		@relation(name: "ADDED_RECIPE", direction: "OUT")
 	collections: [Collection]
 		@relation(name: "COLLECTION_CREATED", direction: "OUT")
 }
@@ -107,9 +103,9 @@ input CreateCollectionInput {
 }
 
 input AddRecipeToCollection {
-	userId: String!
-	collectionId: String!
-	recipeId: String!
+	userId: ID!
+	collectionId: ID!
+	recipeId: ID!
 	createdOn: String!
 }
 
@@ -189,23 +185,23 @@ type Mutation {
 			"""
 		)
 
-	addRecipeToACollection(input: AddRecipeToCollection): Collection
+	addRecipeToACollection(input: AddRecipeToCollection): Recipe
 		@cypher(
 			statement: """
 			MATCH (r:Recipe{id:$input.recipeId})
 			WITH r
 			MATCH (c:Collection{id:$input.collectionId})
 			CREATE (r)-[rel:RECIPE_ADDED{userId:$input.userId, createdOn:$input.createdOn}]->(c)
-			return c
+			return r
 			"""
 		)
 
-	remvoeRecipeFromACollection(input: AddRecipeToCollection): Collection
+	remvoeRecipeFromACollection(input: AddRecipeToCollection): Recipe
 		@cypher(
 			statement: """
 			MATCH (r:Recipe{id:$input.recipeId})-[rel:RECIPE_ADDED]->(c:Collection{id:$input.collectionId})
 			DELETE rel
-			RETURN r,c
+			RETURN r
 			"""
 		)
 
