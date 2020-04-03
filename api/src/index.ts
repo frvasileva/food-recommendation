@@ -41,7 +41,7 @@ const schema = makeAugmentedSchema({
 						exp: Math.floor(Date.now() / 1000) + 60 * 6000,
 						userId: params.input.id,
 						email: params.input.email,
-						friendlyUrl: params.properties.friendlyUrl
+						friendlyUrl: params.input.friendlyUrl
 					},
 					process.env.JWT_SECRET
 				);
