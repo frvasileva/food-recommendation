@@ -2,10 +2,13 @@ import React from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import "./UserCollectionSelector.scss";
 import { Link, useParams } from "react-router-dom";
-import urlTransformer from "../../helpers/urlTransformer";
 import dateFormatter from "../../helpers/dateFormatter";
 import tokenHelper from "../../helpers/tokenHelper";
-import { addRecipeToCollectionQuery, removeRecipeFromCollectionQuery, collectionsByUserQuery } from "../../helpers/queries";
+import {
+	addRecipeToCollectionQuery,
+	removeRecipeFromCollectionQuery,
+	collectionsByUserQuery
+} from "../../helpers/queries";
 
 export const UserCollectionSelector = (props: any) => {
 	var token = tokenHelper();
@@ -39,7 +42,8 @@ export const UserCollectionSelector = (props: any) => {
 						collectionId: collectionId,
 						recipeId: recipeId
 					}
-				}
+				},
+				refetchQueries: [""]
 			});
 		} else {
 			console.log("remove");
@@ -52,13 +56,13 @@ export const UserCollectionSelector = (props: any) => {
 						collectionId: collectionId,
 						recipeId: recipeId
 					}
-				}
+				},
+				refetchQueries: [""]
 			});
 		}
 	};
 
 	const userCollections = loading ? [] : data.collections;
-
 	return (
 		<div className="collection-wrapper">
 			<div className="header">

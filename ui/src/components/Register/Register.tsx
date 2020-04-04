@@ -39,7 +39,8 @@ export const Register = (props: any) => {
 					name: userFields.name.value,
 					password: userFields.password.value,
 					createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date()),
-					friendlyUrl: userFields.name.value
+					friendlyUrl: userFields.name.value,
+					defaultCollectionId: uuidv4()
 				}
 			}
 		}).then(result => {

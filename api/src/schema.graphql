@@ -69,8 +69,7 @@ type User {
 	friendlyUrl: String!
 	email: String!
 	password: String!
-	recipes: [Recipe]
-		@relation(name: "ADDED_RECIPE", direction: "OUT")
+	recipes: [Recipe] @relation(name: "ADDED_RECIPE", direction: "OUT")
 	collections: [Collection]
 		@relation(name: "COLLECTION_CREATED", direction: "OUT")
 }
@@ -116,6 +115,7 @@ input RegisterUserInput {
 	createdOn: String!
 	friendlyUrl: String!
 	password: String!
+	defaultCollectionId: String!
 }
 
 type Query {
@@ -216,8 +216,12 @@ type Mutation {
 	registerUser(input: RegisterUserInput): String
 		@cypher(
 			statement: """
-			CREATE (u:User{id:$input.id, email:$input.email, name: $input.name, createdOn:$input.createdOn, friendlyUrl:$input.friendlyUrl, password:$input.password})
-			return u
+			CREATE (c:Collection{id:$input.defaultCollectionId, name:\"Want to cook\", friendlyUrl:\"want-to-cook\", createdOn:$input.createdOn})
+			WITH c
+			CREATE (u:User {id:$input.id, email:$input.email, name: $input.name, createdOn:$input.createdOn, friendlyUrl:$input.friendlyUrl, password:$input.password})
+			WITH u, c
+			CREATE (u)-[rel:COLLECTION_CREATED]->(c)
+			return u.name
 			"""
 		)
 }

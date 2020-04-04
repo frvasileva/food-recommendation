@@ -67,7 +67,13 @@ export const addRecipeToCollectionQuery = gql`
 export const removeRecipeFromCollectionQuery = gql`
 	mutation($input: AddRecipeToCollection) {
 		remvoeRecipeFromACollection(input: $input) {
-			...RecipeTile
+			recipe {
+				...RecipeTile
+			}
+			collections {
+				id
+				name
+			}
 		}
 	}
 	${fragments.recipeTile}
@@ -88,28 +94,19 @@ export const registerUserQuery = gql`
 export const userCollectionsQuery = gql`
 	query($friendlyUrl: String) {
 		User(friendlyUrl: $friendlyUrl) {
+			id
 			email
 			friendlyUrl
 			collections {
+				id
 				name
 				recipes {
-					id
-					name
-					description
-					ingredients
-					createdOn
-					cookingTime
-					preparationTime
-					dietType
-					friendlyUrl
-					collections {
-						id
-						name
-					}
+					...RecipeTile
 				}
 			}
 		}
 	}
+	${fragments.recipeTile}
 `;
 
 export const recipeByIdQuery = gql`
