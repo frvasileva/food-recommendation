@@ -49,8 +49,6 @@ export const createCollectionQuery = gql`
 		createCollection(input: $input) {
 			id
 			name
-			friendlyUrl
-			createdOn
 		}
 	}
 `;
@@ -67,13 +65,7 @@ export const addRecipeToCollectionQuery = gql`
 export const removeRecipeFromCollectionQuery = gql`
 	mutation($input: AddRecipeToCollection) {
 		remvoeRecipeFromACollection(input: $input) {
-			recipe {
-				...RecipeTile
-			}
-			collections {
-				id
-				name
-			}
+			...RecipeTile
 		}
 	}
 	${fragments.recipeTile}

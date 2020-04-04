@@ -5,11 +5,17 @@ import dateFormatter from "../../helpers/dateFormatter";
 import { v4 as uuidv4 } from "uuid";
 import tokenHelper from "../../helpers/tokenHelper";
 import { useHistory } from "react-router-dom";
-import { createCollectionQuery } from "../../helpers/queries";
+import {
+	createCollectionQuery,
+	createRecipeQuery,
+	collectionsByUserQuery
+} from "../../helpers/queries";
 
 export const CreateCollection = (props: any) => {
 	const [collectionName, setCollectionName] = React.useState("");
-	const [createCollection, createCollectionStatus] = useMutation(createCollectionQuery);
+	const [createCollection, createCollectionStatus] = useMutation(
+		createCollectionQuery
+	);
 
 	var transf = urlTransformer();
 	var dateFormat = dateFormatter();
@@ -34,9 +40,22 @@ export const CreateCollection = (props: any) => {
 					userId: currentUserId,
 					createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date())
 				}
+			},
+			update: (cache, { data: { createCollection } }) => {
+				const data = cache.readQuery({
+					query: collectionsByUserQuery,
+					variables: { userId: currentUserId }
+				}) as any;
+				data.collections = [...data.collections, createCollection];
+
+				cache.writeQuery({
+					query: collectionsByUserQuery,
+					variables: { userId: currentUserId },
+					data: data
+				});
 			}
 		}).then(result => {
-			history.push("/recipes");
+				history.push("/recipes");
 		});
 
 		setCollectionName("");

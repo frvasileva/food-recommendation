@@ -7,7 +7,8 @@ import tokenHelper from "../../helpers/tokenHelper";
 import {
 	addRecipeToCollectionQuery,
 	removeRecipeFromCollectionQuery,
-	collectionsByUserQuery
+	collectionsByUserQuery,
+	userCollectionsQuery
 } from "../../helpers/queries";
 
 export const UserCollectionSelector = (props: any) => {
@@ -31,7 +32,6 @@ export const UserCollectionSelector = (props: any) => {
 	var dateFormat = dateFormatter();
 	var recipeId = parameters.recipeId || props.recipeId;
 
-	console.log("recId", recipeId);
 	const addToCollection = (action: string, collectionId: string) => {
 		if (action == "add") {
 			recipeToCollection({
@@ -46,8 +46,6 @@ export const UserCollectionSelector = (props: any) => {
 				refetchQueries: [""]
 			});
 		} else {
-			console.log("remove");
-
 			removeRecipeToCollection({
 				variables: {
 					input: {
@@ -57,7 +55,25 @@ export const UserCollectionSelector = (props: any) => {
 						recipeId: recipeId
 					}
 				},
-				refetchQueries: [""]
+				update: (cache, { data: { remvoeRecipeFromACollection } }) => {
+					const data = cache.readQuery({
+						query: userCollectionsQuery,
+						variables: { friendlyUrl: token.friendlyUrl() }
+					}) as any;
+
+					const collection = data.User[0].collections.find(
+						(c: any) => c.id === collectionId
+					);
+					collection.recipes = collection.recipes.filter(
+						(r: any) => r.id !== recipeId
+					);
+
+					cache.writeQuery({
+						query: collectionsByUserQuery,
+						variables: { friendlyUrl: token.friendlyUrl() },
+						data: data
+					});
+				}
 			});
 		}
 	};
