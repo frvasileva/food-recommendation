@@ -90,7 +90,7 @@ export const Header = (props: any) => {
 
 										<input
 											type="button"
-											value="logout"
+											value="Logout"
 											className="dropdown-item"
 											onClick={logout}
 										></input>

@@ -6,7 +6,7 @@ import dateFormatter from "../../helpers/dateFormatter";
 import { v4 as uuidv4 } from "uuid";
 import { useHistory } from "react-router-dom";
 import tokenHelper from "../../helpers/tokenHelper";
-import { createRecipeQuery } from "../../helpers/queries"
+import { createRecipeQuery, recipeQuery } from "../../helpers/queries";
 
 export const CreateRecipe = (props: any) => {
 	const [fields, setFields] = React.useState({
@@ -89,6 +89,19 @@ export const CreateRecipe = (props: any) => {
 						userId: currentUserId,
 						createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date())
 					}
+				},
+				update: (cache, { data: { createRecipe } }) => {
+					debugger;
+					let data = cache.readQuery({
+						query: recipeQuery
+					}) as any;
+					console.log(data.Recipe);
+					data.Recipe = [...data.Recipe, createRecipe];
+
+					cache.writeQuery({
+						query: recipeQuery,
+						data: data.Recipe
+					});
 				}
 			}).then(result => {
 				console.log({ result });

@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
 import { userCollectionsQuery } from "../../helpers/queries";
-
+import "./Profile.scss";
 export const Profile = (props: any) => {
 	const { loading, error, data } = useQuery(userCollectionsQuery, {
 		variables: {
@@ -28,16 +28,17 @@ export const Profile = (props: any) => {
 							<div key={collection.name} className="col-md-12">
 								{collection.recipes.length > 0 ? (
 									<div>
-										<h2> {collection.name}</h2>
+										<h3> {collection.name}</h3>
 										<div className="row">
 											{collection.recipes.map((recipe: any) => {
 												return (
-													<div className="col-md-4 col-sm-6" key={recipe.id}>
+													<div className="col-md-3 col-sm-12" key={recipe.id}>
 														<RecipeTile {...recipe}></RecipeTile>
 													</div>
 												);
 											})}
 										</div>
+										<hr></hr>
 									</div>
 								) : null}
 							</div>

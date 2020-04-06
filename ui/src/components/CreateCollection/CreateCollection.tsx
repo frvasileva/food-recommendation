@@ -7,7 +7,6 @@ import tokenHelper from "../../helpers/tokenHelper";
 import { useHistory } from "react-router-dom";
 import {
 	createCollectionQuery,
-	createRecipeQuery,
 	collectionsByUserQuery
 } from "../../helpers/queries";
 

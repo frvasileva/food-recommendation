@@ -134,7 +134,7 @@ export const recipeByIngredientsQuery = gql`
 
 export const recipeQuery = gql`
 	query {
-		Recipe(first: 10, orderBy: createdOn_asc) {
+		Recipe(first: 30, orderBy: createdOn_asc) {
 			id
 			name
 			preparationTime
