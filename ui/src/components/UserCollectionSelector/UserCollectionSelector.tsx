@@ -7,16 +7,15 @@ import tokenHelper from "../../helpers/tokenHelper";
 import {
 	addRecipeToCollectionQuery,
 	removeRecipeFromCollectionQuery,
-	collectionsByUserQuery,
 	userCollectionsQuery
 } from "../../helpers/queries";
 
 export const UserCollectionSelector = (props: any) => {
 	var token = tokenHelper();
 
-	const { loading, error, data } = useQuery(collectionsByUserQuery, {
+	const { loading, error, data } = useQuery(userCollectionsQuery, {
 		variables: {
-			userId: token.userId()
+			friendlyUrl: token.friendlyUrl()
 		}
 	});
 
@@ -24,7 +23,7 @@ export const UserCollectionSelector = (props: any) => {
 		addRecipeToCollectionQuery
 	);
 
-	const [removeRecipeToCollection, remvoeRecipeFromACollection] = useMutation(
+	const [removeRecipeToCollection, removeRecipeFromCollection] = useMutation(
 		removeRecipeFromCollectionQuery
 	);
 
@@ -42,8 +41,7 @@ export const UserCollectionSelector = (props: any) => {
 						collectionId: collectionId,
 						recipeId: recipeId
 					}
-				},
-				refetchQueries: [""]
+				}
 			});
 		} else {
 			removeRecipeToCollection({
@@ -54,31 +52,12 @@ export const UserCollectionSelector = (props: any) => {
 						collectionId: collectionId,
 						recipeId: recipeId
 					}
-				},
-				update: (cache, { data: { remvoeRecipeFromACollection } }) => {
-					const data = cache.readQuery({
-						query: userCollectionsQuery,
-						variables: { friendlyUrl: token.friendlyUrl() }
-					}) as any;
-
-					const collection = data.User[0].collections.find(
-						(c: any) => c.id === collectionId
-					);
-					collection.recipes = collection.recipes.filter(
-						(r: any) => r.id !== recipeId
-					);
-
-					cache.writeQuery({
-						query: collectionsByUserQuery,
-						variables: { friendlyUrl: token.friendlyUrl() },
-						data: data
-					});
 				}
 			});
 		}
 	};
 
-	const userCollections = loading ? [] : data.collections;
+	const userCollections = loading ? [] : data.User[0].collections;
 	return (
 		<div className="collection-wrapper">
 			<div className="header">
@@ -95,8 +74,8 @@ export const UserCollectionSelector = (props: any) => {
 					<input type="text" placeholder="Search" className="form-control" />
 				</li>
 				{userCollections.map((item: any) => {
-					var isSelected = (props.recipeCollections || []).some(
-						(c: any) => c.id === item.id
+					var isSelected = (item.recipes || []).some(
+						(r: any) => r.id === recipeId
 					);
 
 					const listItemProps = {

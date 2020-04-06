@@ -185,23 +185,23 @@ type Mutation {
 			"""
 		)
 
-	addRecipeToACollection(input: AddRecipeToCollection): Recipe
+	addRecipeToACollection(input: AddRecipeToCollection): Collection
 		@cypher(
 			statement: """
 			MATCH (r:Recipe{id:$input.recipeId})
 			WITH r
 			MATCH (c:Collection{id:$input.collectionId})
 			CREATE (r)-[rel:RECIPE_ADDED{userId:$input.userId, createdOn:$input.createdOn}]->(c)
-			return r
+			return c
 			"""
 		)
 
-	remvoeRecipeFromACollection(input: AddRecipeToCollection): Recipe
+	removeRecipeFromCollection(input: AddRecipeToCollection): Collection
 		@cypher(
 			statement: """
 			MATCH (r:Recipe{id:$input.recipeId})-[rel:RECIPE_ADDED]->(c:Collection{id:$input.collectionId})
 			DELETE rel
-			RETURN r
+			RETURN c
 			"""
 		)
 

@@ -1,6 +1,6 @@
 import { gql } from "apollo-boost";
 
-const fragments = {
+const fragments: any = {
 	recipeTile: gql`
 		fragment RecipeTile on Recipe {
 			id
@@ -10,24 +10,14 @@ const fragments = {
 			description
 			skillLevel
 			cookingTime
-			collections {
-				id
-				name
-				recipes {
-					id
-					name
-					description
-					ingredients
-					createdOn
-					cookingTime
-					preparationTime
-					dietType
-					friendlyUrl
-					collections {
-						id
-						name
-					}
-				}
+		}
+	`,
+	collectionTile: gql`
+		fragment CollectionTile on Collection {
+			id
+			name
+			recipes {
+				...RecipeTile
 			}
 		}
 	`
@@ -36,38 +26,39 @@ const fragments = {
 export const createRecipeQuery = gql`
 	mutation($input: CreateRecipeInput) {
 		createRecipe(input: $input) {
-			id
-			name
-			description
-			friendlyUrl
-		}
-	}
-`;
-
-export const createCollectionQuery = gql`
-	mutation($input: CreateCollectionInput) {
-		createCollection(input: $input) {
-			id
-			name
-		}
-	}
-`;
-
-export const addRecipeToCollectionQuery = gql`
-	mutation($input: AddRecipeToCollection) {
-		addRecipeToACollection(input: $input) {
 			...RecipeTile
 		}
 	}
 	${fragments.recipeTile}
 `;
 
-export const removeRecipeFromCollectionQuery = gql`
-	mutation($input: AddRecipeToCollection) {
-		remvoeRecipeFromACollection(input: $input) {
-			...RecipeTile
+export const createCollectionQuery = gql`
+	mutation($input: CreateCollectionInput) {
+		createCollection(input: $input) {
+			...CollectionTile
 		}
 	}
+	${fragments.collectionTile}
+	${fragments.recipeTile}
+`;
+
+export const addRecipeToCollectionQuery = gql`
+	mutation($input: AddRecipeToCollection) {
+		addRecipeToACollection(input: $input) {
+			...CollectionTile
+		}
+	}
+	${fragments.collectionTile}
+	${fragments.recipeTile}
+`;
+
+export const removeRecipeFromCollectionQuery = gql`
+	mutation($input: AddRecipeToCollection) {
+		removeRecipeFromCollection(input: $input) {
+			...CollectionTile
+		}
+	}
+	${fragments.collectionTile}
 	${fragments.recipeTile}
 `;
 
@@ -90,14 +81,11 @@ export const userCollectionsQuery = gql`
 			email
 			friendlyUrl
 			collections {
-				id
-				name
-				recipes {
-					...RecipeTile
-				}
+				...CollectionTile
 			}
 		}
 	}
+	${fragments.collectionTile}
 	${fragments.recipeTile}
 `;
 
@@ -121,36 +109,18 @@ export const recipeByIngredientsQuery = gql`
 			first: 3
 			orderBy: createdOn_asc
 		) {
-			id
-			name
-			preparationTime
-			description
-			skillLevel
-			cookingTime
-			createdOn
+			...RecipeTile
 		}
 	}
+	${fragments.recipeTile}
 `;
 
 export const recipeQuery = gql`
 	query {
 		Recipe(first: 30, orderBy: createdOn_asc) {
-			id
-			name
-			preparationTime
-			description
-			skillLevel
-			cookingTime
-			createdOn
+			...RecipeTile
 		}
 	}
+	${fragments.recipeTile}
 `;
 
-export const collectionsByUserQuery = gql`
-	query($userId: String) {
-		collections: collectionsByUser(userId: $userId) {
-			id
-			name
-		}
-	}
-`;

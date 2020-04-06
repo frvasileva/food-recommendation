@@ -91,16 +91,14 @@ export const CreateRecipe = (props: any) => {
 					}
 				},
 				update: (cache, { data: { createRecipe } }) => {
-					debugger;
 					let data = cache.readQuery({
 						query: recipeQuery
 					}) as any;
-					console.log(data.Recipe);
 					data.Recipe = [...data.Recipe, createRecipe];
 
 					cache.writeQuery({
 						query: recipeQuery,
-						data: data.Recipe
+						data: data
 					});
 				}
 			}).then(result => {

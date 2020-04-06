@@ -7,7 +7,7 @@ import tokenHelper from "../../helpers/tokenHelper";
 import { useHistory } from "react-router-dom";
 import {
 	createCollectionQuery,
-	collectionsByUserQuery
+	userCollectionsQuery
 } from "../../helpers/queries";
 
 export const CreateCollection = (props: any) => {
@@ -42,14 +42,15 @@ export const CreateCollection = (props: any) => {
 			},
 			update: (cache, { data: { createCollection } }) => {
 				const data = cache.readQuery({
-					query: collectionsByUserQuery,
-					variables: { userId: currentUserId }
+					query: userCollectionsQuery,
+					variables: { friendlyUrl: token.friendlyUrl() }
 				}) as any;
-				data.collections = [...data.collections, createCollection];
+
+				data.User[0].collections.push(createCollection);
 
 				cache.writeQuery({
-					query: collectionsByUserQuery,
-					variables: { userId: currentUserId },
+					query: userCollectionsQuery,
+					variables: { friendlyUrl: token.friendlyUrl() },
 					data: data
 				});
 			}

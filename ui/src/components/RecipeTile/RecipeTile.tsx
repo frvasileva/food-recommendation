@@ -11,7 +11,7 @@ export const RecipeTile = (props: any) => {
 		<div>
 			<div key={props.name}>
 				<div className="card">
-					<UserCollectionSelector recipeId={props.id} recipeCollections={props.collections} />
+					<UserCollectionSelector recipeId={props.id} />
 					<p>
 						<img className="card-img-top" src={url} alt={props.name} />
 					</p>
