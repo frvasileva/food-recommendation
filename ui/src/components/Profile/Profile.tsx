@@ -3,6 +3,8 @@ import { useQuery } from "@apollo/react-hooks";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
 import { userCollectionsQuery } from "../../helpers/queries";
 import "./Profile.scss";
+import LoadingScreen from "../../layout/Loading/Loading";
+import ErrorScreen from "../../layout/ErrorPage/Error";
 export const Profile = (props: any) => {
 	const { loading, error, data } = useQuery(userCollectionsQuery, {
 		variables: {
@@ -10,8 +12,8 @@ export const Profile = (props: any) => {
 		}
 	});
 
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error :(</p>;
+	if (loading) return <LoadingScreen />;
+	if (error) return <ErrorScreen error={error} />;
 
 	const user = data.User[0];
 

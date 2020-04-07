@@ -102,7 +102,6 @@ export const CreateRecipe = (props: any) => {
 					});
 				}
 			}).then(result => {
-				console.log({ result });
 				history.push("/recipes");
 			});
 		} else {

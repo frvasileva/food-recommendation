@@ -4,6 +4,8 @@ import "./RecipeList.scss";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
 import { Search } from "../Search/Search";
 import { recipeQuery, recipeByIngredientsQuery } from "../../helpers/queries";
+import LoadingScreen from "../../layout/Loading/Loading";
+import ErrorScreen from "../../layout/ErrorPage/Error";
 
 export const RecipeList = (props: any) => {
 	const [term, setTerm] = React.useState("");
@@ -18,10 +20,9 @@ export const RecipeList = (props: any) => {
 	});
 	const query = term ? queryByIngredients : defaultQuery;
 
-	if (query.loading) return <p>Loading...</p>;
+	if (query.loading) return <LoadingScreen />;
 	if (query.error) {
-		console.log(query.error);
-		return <p>Error : (</p>;
+		return <ErrorScreen error={query.error} />;
 	}
 
 	const recipes = query.data.Recipe || query.data.whatToCook;

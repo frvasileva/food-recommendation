@@ -9,6 +9,8 @@ import {
 	removeRecipeFromCollectionQuery,
 	userCollectionsQuery
 } from "../../helpers/queries";
+import ErrorScreen from "../../layout/ErrorPage/Error";
+import LoadingScreen from "../../layout/Loading/Loading";
 
 export const UserCollectionSelector = (props: any) => {
 	var token = tokenHelper();
@@ -58,6 +60,10 @@ export const UserCollectionSelector = (props: any) => {
 	};
 
 	const userCollections = loading ? [] : data.User[0].collections;
+
+	if (loading) return <LoadingScreen />;
+	if (error) return <ErrorScreen error={error} />;
+
 	return (
 		<div className="collection-wrapper">
 			<div className="header">

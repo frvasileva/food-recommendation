@@ -6,6 +6,8 @@ import { IngredientsList } from "../IngredientsList/IngredientsList";
 import { UserCollectionSelector } from "../UserCollectionSelector/UserCollectionSelector";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
 import { recipeByIdQuery } from "../../helpers/queries";
+import LoadingScreen from "../../layout/Loading/Loading";
+import ErrorScreen from "../../layout/ErrorPage/Error";
 
 export const RecipeDetails = (props: any) => {
 	const { loading, error, data } = useQuery(recipeByIdQuery, {
@@ -14,8 +16,8 @@ export const RecipeDetails = (props: any) => {
 		}
 	});
 
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error :(</p>;
+	if (loading) return <LoadingScreen />;
+	if (error) return <ErrorScreen error={error} />;
 
 	const recipe = data.Recipe[0];
 	const randomRecipeList = data.RecipeRandomList;
