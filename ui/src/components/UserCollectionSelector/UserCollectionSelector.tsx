@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import "./UserCollectionSelector.scss";
 import { Link, useParams } from "react-router-dom";
@@ -14,6 +14,7 @@ import LoadingScreen from "../../layout/Loading/Loading";
 
 export const UserCollectionSelector = (props: any) => {
 	var token = tokenHelper();
+	const [filterTerm, setFilterTerm] = useState('');
 
 	const { loading, error, data } = useQuery(userCollectionsQuery, {
 		variables: {
@@ -21,6 +22,7 @@ export const UserCollectionSelector = (props: any) => {
 		}
 	});
 
+	var userCollections = loading ? [] : data.User[0].collections;
 	const [recipeToCollection, addRecipeToCollection] = useMutation(
 		addRecipeToCollectionQuery
 	);
@@ -59,10 +61,18 @@ export const UserCollectionSelector = (props: any) => {
 		}
 	};
 
-	const userCollections = loading ? [] : data.User[0].collections;
+	const filterCatalogs = (e: any) => {
+		setFilterTerm(e.target.value);
+	};
 
 	if (loading) return <LoadingScreen />;
 	if (error) return <ErrorScreen error={error} />;
+
+	const filteredUserCollections = userCollections.filter(function(el: any) {
+		if (el.name.toLowerCase().includes(filterTerm)) {
+			return el;
+		}
+	});
 
 	return (
 		<div className="collection-wrapper">
@@ -77,9 +87,14 @@ export const UserCollectionSelector = (props: any) => {
 			</div>
 			<ul className="collection-list">
 				<li key="search-collection">
-					<input type="text" placeholder="Search" className="form-control" />
+					<input
+						type="text"
+						placeholder="Search"
+						className="form-control"
+						onChange={filterCatalogs}
+					/>
 				</li>
-				{userCollections.map((item: any) => {
+				{filteredUserCollections.map((item: any) => {
 					var isSelected = (item.recipes || []).some(
 						(r: any) => r.id === recipeId
 					);
