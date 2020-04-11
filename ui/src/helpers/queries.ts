@@ -124,3 +124,11 @@ export const recipeQuery = gql`
 	${fragments.recipeTile}
 `;
 
+export const RECIPE_LIST_QUERY = gql`
+	query($skip: Int, $limit: Int, $ingredients: [String]) {
+		recipeList(skip: $skip, limit: $limit, ingredients: $ingredients) {
+			...RecipeTile
+		}
+	}
+	${fragments.recipeTile}
+`;

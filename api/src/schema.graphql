@@ -137,6 +137,17 @@ type Query {
 			statement: "MATCH (r:Recipe) WHERE r.preparationTime >= $preparationTime RETURN r"
 		)
 
+	recipeList(skip: Int, limit: Int): [Recipe]
+		@cypher(
+			statement: """
+			MATCH (r:Recipe)
+			RETURN r
+			ORDER BY r.name desc
+			SKIP $skip
+			limit $limit
+			"""
+		)
+
 	whatToCook(ingredient: [String], allergens: [String]): [Recipe]
 		@cypher(
 			statement: """

@@ -14,7 +14,7 @@ import LoadingScreen from "../../layout/Loading/Loading";
 
 export const UserCollectionSelector = (props: any) => {
 	var token = tokenHelper();
-	const [filterTerm, setFilterTerm] = useState('');
+	const [filterTerm, setFilterTerm] = useState("");
 
 	const { loading, error, data } = useQuery(userCollectionsQuery, {
 		variables: {
