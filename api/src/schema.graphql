@@ -137,24 +137,21 @@ type Query {
 			statement: "MATCH (r:Recipe) WHERE r.preparationTime >= $preparationTime RETURN r"
 		)
 
-	recipeList(skip: Int, limit: Int): [Recipe]
+	recipeList(
+		ingredients: [String]
+		allergens: [String]
+		skip: Int
+		limit: Int
+	): [Recipe]
 		@cypher(
 			statement: """
 			MATCH (r:Recipe)
+			WHERE all(i in $ingredients WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
+			AND none(i in $allergens WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
 			RETURN r
-			ORDER BY r.name desc
+			ORDER BY r.createdOn desc
 			SKIP $skip
 			limit $limit
-			"""
-		)
-
-	whatToCook(ingredient: [String], allergens: [String]): [Recipe]
-		@cypher(
-			statement: """
-			MATCH (r:Recipe)
-			WHERE all(i in $ingredient WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
-			AND none(i in $allergens WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
-			RETURN r order by r.createdOn desc
 			"""
 		)
 

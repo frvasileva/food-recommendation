@@ -101,19 +101,6 @@ export const recipeByIdQuery = gql`
 	${fragments.recipeTile}
 `;
 
-export const recipeByIngredientsQuery = gql`
-	query($ingredients: [String]) {
-		whatToCook(
-			ingredient: $ingredients
-			allergens: []
-			first: 3
-			orderBy: createdOn_asc
-		) {
-			...RecipeTile
-		}
-	}
-	${fragments.recipeTile}
-`;
 
 export const recipeQuery = gql`
 	query {
@@ -125,8 +112,13 @@ export const recipeQuery = gql`
 `;
 
 export const RECIPE_LIST_QUERY = gql`
-	query($skip: Int, $limit: Int, $ingredients: [String]) {
-		recipeList(skip: $skip, limit: $limit, ingredients: $ingredients) {
+	query($skip: Int, $limit: Int, $ingredients: [String], $allergens: [String]) {
+		recipeList(
+			skip: $skip
+			limit: $limit
+			ingredients: $ingredients
+			allergens: $allergens
+		) {
 			...RecipeTile
 		}
 	}
