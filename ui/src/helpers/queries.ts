@@ -10,6 +10,9 @@ const fragments: any = {
 			description
 			skillLevel
 			cookingTime
+			ratings
+			nutritionInfo
+			cusine
 		}
 	`,
 	collectionTile: gql`
@@ -100,7 +103,6 @@ export const recipeByIdQuery = gql`
 	}
 	${fragments.recipeTile}
 `;
-
 
 export const recipeQuery = gql`
 	query {

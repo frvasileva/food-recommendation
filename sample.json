@@ -1,0 +1,12 @@
+'page':
+
+	{'article':
+		{
+			'author': 'Good Food', 'description': 'This satisfying, storecupboard meal-for-one will be on the table in just 20 minutes', 'id': '96546', 'tags': []},
+	  	'recipe':
+			{'collections': [], 'cooking_time': 900, 'prep_time': 300, 'serves': 1, 'keywords': ['Broccoli', 'Chicken stock'], 'ratings': 74,
+		'nutrition_info': ['Added sugar 3g', 'Carbohydrate 4g', 'Kcal 127 calories', 'Protein 26g', 'Salt 2.3g', 'Fat 1g'],
+		'ingredients': ['garlic clove', 'lemon', 'ketchup', 'chicken stock', 'prawn', 'broccoli'],
+		'courses': ['Main course', 'Dinner'], 'cusine': 'British', 'diet_types': [],
+		'skill_level': 'Easy', 'post_dates': '1312153200'},
+		'channel': 'Recipe', 'title': 'Saucy prawns'}

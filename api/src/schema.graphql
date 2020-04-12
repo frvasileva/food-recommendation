@@ -7,6 +7,9 @@ type Recipe @isAuthenticated {
 	cookingTime: Int
 	description: String
 	friendlyUrl: String
+	ratings: Int
+	nutritionInfo: String
+	cusine: String
 	ingredients: [String]
 		@cypher(
 			statement: "MATCH (this)-[:CONTAINS_INGREDIENT]->(i:Ingredient) RETURN collect(i.name)"
@@ -23,7 +26,7 @@ type Recipe @isAuthenticated {
 		)
 		@relation(name: "KEYWORD", direction: "OUT")
 
-	collections: [Collection] @relation(name: "RECIPE_ADDED", direction: "OUT")
+	collections: [Collection] @relation(name: "RECIPE_ADDED_TO", direction: "OUT")
 }
 
 type recipeMapTuple {
@@ -58,7 +61,7 @@ type Collection {
 	friendlyUrl: String
 	createdOn: String
 	user: [User] @relation(name: "COLLECTION_CREATED", direction: "IN")
-	recipes: [Recipe] @relation(name: "RECIPE_ADDED", direction: "IN")
+	recipes: [Recipe] @relation(name: "RECIPE_ADDED_TO", direction: "IN")
 }
 
 type User {
@@ -149,7 +152,7 @@ type Query {
 			WHERE all(i in $ingredients WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
 			AND none(i in $allergens WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
 			RETURN r
-			ORDER BY r.createdOn desc
+			ORDER BY r.ratings desc
 			SKIP $skip
 			limit $limit
 			"""
@@ -199,7 +202,7 @@ type Mutation {
 			MATCH (r:Recipe{id:$input.recipeId})
 			WITH r
 			MATCH (c:Collection{id:$input.collectionId})
-			CREATE (r)-[rel:RECIPE_ADDED{userId:$input.userId, createdOn:$input.createdOn}]->(c)
+			CREATE (r)-[rel:RECIPE_ADDED_TO{userId:$input.userId, createdOn:$input.createdOn}]->(c)
 			return c
 			"""
 		)
@@ -207,7 +210,7 @@ type Mutation {
 	removeRecipeFromCollection(input: AddRecipeToCollection): Collection
 		@cypher(
 			statement: """
-			MATCH (r:Recipe{id:$input.recipeId})-[rel:RECIPE_ADDED]->(c:Collection{id:$input.collectionId})
+			MATCH (r:Recipe{id:$input.recipeId})-[rel:RECIPE_ADDED_TO]->(c:Collection{id:$input.collectionId})
 			DELETE rel
 			RETURN c
 			"""
