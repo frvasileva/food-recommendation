@@ -4,6 +4,8 @@ CREATE INDEX ON :Keyword(name);
 CREATE INDEX ON :DietType(name);
 CREATE INDEX ON :Author(name);
 CREATE INDEX ON :Collection(name);
+CREATE CONSTRAINT ON (n:Recipe) ASSERT n.friendlyUrl IS UNIQUE;
+
 :params jsonFile => "https://raw.githubusercontent.com/mneedham/bbcgoodfood/master/stream_all.json";
 CALL apoc.load.json($jsonFile) YIELD value
 WITH   value.page.article.id AS id,

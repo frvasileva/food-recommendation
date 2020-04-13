@@ -13,6 +13,9 @@ const fragments: any = {
 			ratings
 			nutritionInfo
 			cusine
+			createdOn {
+				formatted
+			}
 		}
 	`,
 	collectionTile: gql`

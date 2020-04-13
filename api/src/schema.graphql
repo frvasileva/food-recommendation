@@ -1,7 +1,7 @@
 type Recipe @isAuthenticated {
 	id: ID!
 	name: String
-	createdOn: String
+	createdOn: DateTime
 	preparationTime: Int
 	skillLevel: String
 	cookingTime: Int
@@ -166,6 +166,18 @@ type Query {
 				order by c.createdOn desc
 			"""
 		)
+
+	recipeFullTextSearch(searchTerm: String!, ingredients: [String]): [Recipe]
+		@cypher(
+			statement: """
+			CALL db.index.fulltext.queryNodes('RecipeTitleAndDescription', $searchTerm) YIELD node, score
+			with node, score
+			WHERE all(i in $ingredients WHERE exists((node)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
+			RETURN node
+			order by score desc, node.ratings desc
+			limit 100
+			"""
+		)
 }
 
 type Mutation {
@@ -173,7 +185,7 @@ type Mutation {
 		@cypher(
 			statement: """
 			CREATE (r:Recipe{id: $input.id, name: $input.name, description: $input.description, preparationTime: $input.preparationTime,
-											 skillLevel: $input.skillLevel, cookingTime: $input.cookingTime, friendlyUrl: $input.friendlyUrl, createdOn: $input.createdOn})
+											 skillLevel: $input.skillLevel, cookingTime: $input.cookingTime, friendlyUrl: $input.friendlyUrl, createdOn: datetime()})
 			FOREACH (item in $input.ingredients |
 				MERGE (i:Ingredient{name:item})
 				CREATE (r)-[rel:CONTAINS_INGREDIENT]->(i)
