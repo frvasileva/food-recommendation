@@ -121,6 +121,8 @@ input RegisterUserInput {
 	defaultCollectionId: String!
 }
 
+union SearchResult = Recipe | Ingredient
+
 type Query {
 	recipeByName(substring: String): [Recipe]
 		@cypher(
@@ -176,6 +178,17 @@ type Query {
 			RETURN node
 			order by score desc, node.ratings desc
 			limit 100
+			"""
+		)
+
+	recipeAndProductFullTextSearch(searchTerm: String): [SearchResult]
+		@cypher(
+			statement: """
+			CALL db.index.fulltext.queryNodes('titleAndIngredients', 'Banana pancakes')
+			YIELD node, score
+			RETURN node
+			ORDER BY score DESC
+			LIMIT 10
 			"""
 		)
 }

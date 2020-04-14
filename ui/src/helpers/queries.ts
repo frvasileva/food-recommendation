@@ -129,3 +129,19 @@ export const RECIPE_LIST_QUERY = gql`
 	}
 	${fragments.recipeTile}
 `;
+
+export const RECIPE_INGREDIENTS_FULLTEXT_QUERY = gql`
+	query($searchTerm: String) {
+		recipeAndProductFullTextSearch(searchTerm: $searchTerm) {
+			__typename
+			... on Recipe {
+				name
+				ingredients
+			}
+
+			... on Ingredient {
+				name
+			}
+		}
+	}
+`;
