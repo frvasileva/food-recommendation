@@ -5,12 +5,12 @@ import "./RecipeDetails.scss";
 import { IngredientsList } from "../IngredientsList/IngredientsList";
 import { UserCollectionSelector } from "../UserCollectionSelector/UserCollectionSelector";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
-import { recipeByIdQuery } from "../../helpers/queries";
+import { RECIPE_BY_ID_QUERY } from "../../helpers/queries";
 import LoadingScreen from "../../layout/Loading/Loading";
 import ErrorScreen from "../../layout/ErrorPage/Error";
 
 export const RecipeDetails = (props: any) => {
-	const { loading, error, data } = useQuery(recipeByIdQuery, {
+	const { loading, error, data } = useQuery(RECIPE_BY_ID_QUERY, {
 		variables: {
 			recipeId: props.match.params.recipeId
 		}

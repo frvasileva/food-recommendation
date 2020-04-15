@@ -16,7 +16,6 @@ export const Home = (props: any) => {
 	if (query.error) return <ErrorScreen error={query.error} />;
 
 	var result = query.data;
-	console.log(result);
 
 	return (
 		<div className="home-wrapper">

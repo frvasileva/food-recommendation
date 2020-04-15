@@ -142,6 +142,22 @@ type Query {
 			statement: "MATCH (r:Recipe) WHERE r.preparationTime >= $preparationTime RETURN r"
 		)
 
+	findSimiliarRecipe(recipeId: ID, limit: Int): [Recipe]
+		@cypher(
+			statement: """
+			MATCH (p1:Recipe{id: $recipeId})-[r:CONTAINS_INGREDIENT]->(ingredient1:Ingredient)
+			WITH p1, collect(id(ingredient1)) AS p1Ingredient
+			MATCH (p2:Recipe)-[:CONTAINS_INGREDIENT]->(ingredient2:Ingredient)
+			WHERE (p1 <> p2)
+			WITH p1, p1Ingredient, p2, collect(id(ingredient2)) AS p2Ingredient
+
+			RETURN p2,
+						algo.similarity.jaccard(p1Ingredient, p2Ingredient) AS similarity
+			ORDER BY similarity DESC
+			LIMIT $limit
+			"""
+		)
+
 	recipeList(
 		ingredients: [String]
 		allergens: [String]

@@ -95,12 +95,12 @@ export const userCollectionsQuery = gql`
 	${fragments.recipeTile}
 `;
 
-export const recipeByIdQuery = gql`
+export const RECIPE_BY_ID_QUERY = gql`
 	query($recipeId: ID) {
 		Recipe: Recipe(id: $recipeId) {
 			...RecipeTile
 		}
-		RecipeRandomList: Recipe(first: 3) {
+		RecipeRandomList: findSimiliarRecipe(recipeId: $recipeId, limit: 3) {
 			...RecipeTile
 		}
 	}
