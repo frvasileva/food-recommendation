@@ -33,7 +33,7 @@ export const UserCollectionSelector = (props: any) => {
 
 	var parameters = useParams() as any;
 	var dateFormat = dateFormatter();
-	var recipeId = parameters.recipeId || props.recipeId;
+	var recipeId = props.recipeId || parameters.recipeId;
 
 	const addToCollection = (action: string, collectionId: string) => {
 		if (action == "add") {

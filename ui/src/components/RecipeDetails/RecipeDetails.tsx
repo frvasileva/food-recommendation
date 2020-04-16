@@ -47,7 +47,7 @@ export const RecipeDetails = (props: any) => {
 						</div>
 						<div className="row">
 							<div className="col-md-12">
-								<UserCollectionSelector />
+								<UserCollectionSelector recipeId={recipe.id}/>
 							</div>
 						</div>
 						<br></br>
