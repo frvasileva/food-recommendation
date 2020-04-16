@@ -34,7 +34,7 @@ export const Profile = (props: any) => {
 										<div className="row">
 											{collection.recipes.map((recipe: any) => {
 												return (
-													<div className="col-md-3 col-sm-12" key={recipe.id}>
+													<div className="col-md-4 col-xs-6 col-sm-12" key={recipe.id}>
 														<RecipeTile {...recipe}></RecipeTile>
 													</div>
 												);
