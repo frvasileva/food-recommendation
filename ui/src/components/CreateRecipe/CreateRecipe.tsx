@@ -18,6 +18,8 @@ export const CreateRecipe = (props: any) => {
 		skillLevel: { value: "", error: "" }
 	});
 
+	const [levelRbState, setlevelRbState] = React.useState("Easy");
+
 	const [isFormTouched, setFormIsTouched] = React.useState(false);
 	const [createRecipe, createRecipeStatus] = useMutation(createRecipeQuery);
 
@@ -70,6 +72,10 @@ export const CreateRecipe = (props: any) => {
 		setFormIsTouched(true);
 	};
 
+	const handleOptionChange = function(e: any) {
+		setlevelRbState(e.target.value);
+	};
+
 	const handleSubmit = (event: any) => {
 		event.preventDefault();
 		var currentUserId = token.userId();
@@ -83,11 +89,13 @@ export const CreateRecipe = (props: any) => {
 						description: fields.description.value,
 						ingredients: fields.ingredients.value.split(","),
 						preparationTime: parseInt(fields.preparationTime.value),
-						skillLevel: fields.skillLevel.value,
+						skillLevel: levelRbState,
 						cookingTime: parseInt(fields.cookingTime.value),
 						friendlyUrl: transf.bulgarianToEnglish(fields.name.value),
 						userId: currentUserId,
-						createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date())
+						createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date()),
+						ratings: 0,
+						nutritionInfo: ""
 					}
 				},
 				update: (cache, { data: { createRecipe } }) => {
@@ -186,11 +194,46 @@ export const CreateRecipe = (props: any) => {
 							<div className="col-md-6">
 								<div className="form-group">
 									<label>Skill level</label>
-									<ul className="list-group list-group-horizontal-xl skill-level-wrapper">
-										<li className="list-group-item">Easy</li>
-										<li className="list-group-item">Medium</li>
-										<li className="list-group-item">Hard</li>
-									</ul>
+								</div>
+
+								<div className="form-check-inline">
+									<label className="form-check-label">
+										<input
+											type="radio"
+											className="form-check-input"
+											name="skillLevel"
+											value="Easy"
+											checked={levelRbState === "Easy"}
+											onChange={handleOptionChange}
+										></input>
+										Easy
+									</label>
+								</div>
+								<div className="form-check-inline disabled">
+									<label className="form-check-label">
+										<input
+											type="radio"
+											className="form-check-input"
+											name="skillLevel"
+											value="Medium"
+											checked={levelRbState === "Medium"}
+											onChange={handleOptionChange}
+										></input>
+										Medium
+									</label>
+								</div>
+								<div className="form-check-inline disabled">
+									<label className="form-check-label">
+										<input
+											type="radio"
+											className="form-check-input"
+											name="skillLevel"
+											value="Hard"
+											checked={levelRbState === "Hard"}
+											onChange={handleOptionChange}
+										></input>
+										Hard
+									</label>
 								</div>
 							</div>
 						</div>
