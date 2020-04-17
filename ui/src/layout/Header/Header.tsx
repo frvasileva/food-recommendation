@@ -87,7 +87,13 @@ export const Header = (props: any) => {
 										>
 											View profile
 										</Link>
-
+										<Link
+											to={"/profile/edit/" + token.friendlyUrl()}
+											className="dropdown-item profile-link"
+										>
+											Edit profile
+										</Link>
+										<hr />
 										<input
 											type="button"
 											value="Logout"

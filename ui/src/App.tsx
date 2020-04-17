@@ -16,6 +16,7 @@ import { CreateCollection } from "./components/CreateCollection/CreateCollection
 import { Register } from "./components/Register/Register";
 import { Login } from "./components/Login/Login";
 import { Profile } from "./components/Profile/Profile";
+import { ProfileEdit } from "./components/ProfileEdit/ProfileEdit";
 
 const client = new ApolloClient({
 	uri: "http://localhost:4000/",
@@ -45,6 +46,11 @@ const App = () => {
 						<Route exact path="/register" component={Register} />
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/profile/:friendlyUrl" component={Profile} />
+						<Route
+							exact
+							path="/profile/edit/:friendlyUrl"
+							component={ProfileEdit}
+						/>
 					</Switch>
 				</div>
 			</ApolloProvider>
