@@ -6,7 +6,7 @@ import dateFormatter from "../../helpers/dateFormatter";
 import { v4 as uuidv4 } from "uuid";
 import { useHistory } from "react-router-dom";
 import tokenHelper from "../../helpers/tokenHelper";
-import { createRecipeQuery, recipeQuery } from "../../helpers/queries";
+import { CREATE_RECIPE_QUERY, RECIPE_LIST_QUERY } from "../../helpers/queries";
 
 export const CreateRecipe = (props: any) => {
 	const [fields, setFields] = React.useState({
@@ -21,7 +21,7 @@ export const CreateRecipe = (props: any) => {
 	const [levelRbState, setlevelRbState] = React.useState("Easy");
 
 	const [isFormTouched, setFormIsTouched] = React.useState(false);
-	const [createRecipe, createRecipeStatus] = useMutation(createRecipeQuery);
+	const [createRecipe, createRecipeStatus] = useMutation(CREATE_RECIPE_QUERY);
 
 	let history = useHistory();
 	var transf = urlTransformer();
@@ -100,12 +100,12 @@ export const CreateRecipe = (props: any) => {
 				},
 				update: (cache, { data: { createRecipe } }) => {
 					let data = cache.readQuery({
-						query: recipeQuery
+						query: RECIPE_LIST_QUERY
 					}) as any;
 					data.Recipe = [...data.Recipe, createRecipe];
 
 					cache.writeQuery({
-						query: recipeQuery,
+						query: RECIPE_LIST_QUERY,
 						data: data
 					});
 				}

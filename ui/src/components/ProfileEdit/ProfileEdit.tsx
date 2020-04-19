@@ -1,11 +1,11 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { userCollectionsQuery } from "../../helpers/queries";
+import { USER_COLLECTION_QUERY } from "../../helpers/queries";
 import "./ProfileEdit.scss";
 import LoadingScreen from "../../layout/Loading/Loading";
 import ErrorScreen from "../../layout/ErrorPage/Error";
 export const ProfileEdit = (props: any) => {
-	const { loading, error, data } = useQuery(userCollectionsQuery, {
+	const { loading, error, data } = useQuery(USER_COLLECTION_QUERY, {
 		variables: {
 			friendlyUrl: props.match.params.friendlyUrl
 		}

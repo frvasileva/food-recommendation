@@ -6,14 +6,14 @@ import { v4 as uuidv4 } from "uuid";
 import tokenHelper from "../../helpers/tokenHelper";
 import { useHistory } from "react-router-dom";
 import {
-	createCollectionQuery,
-	userCollectionsQuery
+	CREATE_COLLECTION_QUERY,
+	USER_COLLECTION_QUERY
 } from "../../helpers/queries";
 
 export const CreateCollection = (props: any) => {
 	const [collectionName, setCollectionName] = React.useState("");
 	const [createCollection, createCollectionStatus] = useMutation(
-		createCollectionQuery
+		CREATE_COLLECTION_QUERY
 	);
 
 	var transf = urlTransformer();
@@ -42,20 +42,20 @@ export const CreateCollection = (props: any) => {
 			},
 			update: (cache, { data: { createCollection } }) => {
 				const data = cache.readQuery({
-					query: userCollectionsQuery,
+					query: USER_COLLECTION_QUERY,
 					variables: { friendlyUrl: token.friendlyUrl() }
 				}) as any;
 
 				data.User[0].collections.push(createCollection);
 
 				cache.writeQuery({
-					query: userCollectionsQuery,
+					query: USER_COLLECTION_QUERY,
 					variables: { friendlyUrl: token.friendlyUrl() },
 					data: data
 				});
 			}
 		}).then(result => {
-				history.push("/recipes");
+			history.push("/recipes");
 		});
 
 		setCollectionName("");

@@ -5,9 +5,9 @@ import { Link, useParams } from "react-router-dom";
 import dateFormatter from "../../helpers/dateFormatter";
 import tokenHelper from "../../helpers/tokenHelper";
 import {
-	addRecipeToCollectionQuery,
-	removeRecipeFromCollectionQuery,
-	userCollectionsQuery
+	ADD_RECIPE_TO_COLLECTION_QUERY,
+	REMOVE_RECIPE_TO_COLLECTION_QUERY,
+	USER_COLLECTION_QUERY
 } from "../../helpers/queries";
 import ErrorScreen from "../../layout/ErrorPage/Error";
 import LoadingScreen from "../../layout/Loading/Loading";
@@ -16,7 +16,7 @@ export const UserCollectionSelector = (props: any) => {
 	var token = tokenHelper();
 	const [filterTerm, setFilterTerm] = useState("");
 
-	const { loading, error, data } = useQuery(userCollectionsQuery, {
+	const { loading, error, data } = useQuery(USER_COLLECTION_QUERY, {
 		variables: {
 			friendlyUrl: token.friendlyUrl()
 		}
@@ -24,11 +24,11 @@ export const UserCollectionSelector = (props: any) => {
 
 	var userCollections = loading ? [] : data.User[0].collections;
 	const [recipeToCollection, addRecipeToCollection] = useMutation(
-		addRecipeToCollectionQuery
+		ADD_RECIPE_TO_COLLECTION_QUERY
 	);
 
 	const [removeRecipeToCollection, removeRecipeFromCollection] = useMutation(
-		removeRecipeFromCollectionQuery
+		REMOVE_RECIPE_TO_COLLECTION_QUERY
 	);
 
 	var parameters = useParams() as any;

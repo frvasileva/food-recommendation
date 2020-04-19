@@ -1,9 +1,9 @@
-import React, { useRef, createRef } from "react";
+import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import "./RecipeList.scss";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
 import { Search } from "../Search/Search";
-import { RECIPE_LIST_QUERY } from "../../helpers/queries";
+import { RECIPE_LIST_QUERY, NEWEST_RECIPES_QUERY } from "../../helpers/queries";
 import LoadingScreen from "../../layout/Loading/Loading";
 import ErrorScreen from "../../layout/ErrorPage/Error";
 
@@ -12,6 +12,7 @@ export const RecipeList = (props: any) => {
 	const [term, setTerm] = React.useState("");
 
 	const query = useQuery(RECIPE_LIST_QUERY, {
+		skip: false,
 		variables: {
 			skip: 0,
 			limit: LIMIT_QUERY_RESULT,
@@ -19,6 +20,8 @@ export const RecipeList = (props: any) => {
 			allergens: []
 		}
 	});
+
+	const newest_recipes_query = useQuery(NEWEST_RECIPES_QUERY);
 
 	const scrollElement = (e: any) => {
 		var scroll = document.documentElement;
@@ -48,8 +51,12 @@ export const RecipeList = (props: any) => {
 	if (query.loading) return <LoadingScreen />;
 	if (query.error) return <ErrorScreen error={query.error} />;
 
-	var recipes = query.data.recipeList;
+	if (newest_recipes_query.loading) return <LoadingScreen />;
+	if (newest_recipes_query.error) return <ErrorScreen error={query.error} />;
 
+	var recipes = query.data.recipeList;
+	var newestRecipes = newest_recipes_query.data.Recipe;
+	console.log("newest_recipes_query.data.Recipes", newestRecipes);
 	return (
 		<div className="container">
 			<div className="row">
@@ -57,6 +64,16 @@ export const RecipeList = (props: any) => {
 					<Search onSearch={setTerm} />
 				</div>
 			</div>
+			Newest:
+			<div className="row recipe-wrapper">
+				{newestRecipes.map((recipe: any) => (
+					<div key={recipe.name} className="col-md-4 col-sm-6">
+						<RecipeTile {...recipe}></RecipeTile>
+					</div>
+				))}
+			</div>
+			<hr />
+			Search result:
 			<div className="row recipe-wrapper">
 				{recipes.map((recipe: any) => (
 					<div key={recipe.name} className="col-md-4 col-sm-6">

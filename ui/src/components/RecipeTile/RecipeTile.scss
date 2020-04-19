@@ -1,11 +1,25 @@
 .card {
-  margin: 15px auto;
+	margin: 15px auto;
 }
 
 .recipe-link {
-  color: #716164;
+	color: #716164;
 }
 
-.recipe-details{
+.recipe-details {
 	font-size: 14px;
+}
+
+.collection-wrapper {
+	display: none;
+}
+
+.card:hover {
+	border: 1px solid pink;
+	background-color: whitesmoke;
+
+}
+
+.card:hover .collection-wrapper {
+	display: block;
 }

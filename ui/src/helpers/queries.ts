@@ -29,7 +29,7 @@ const fragments: any = {
 	`
 };
 
-export const createRecipeQuery = gql`
+export const CREATE_RECIPE_QUERY = gql`
 	mutation($input: CreateRecipeInput) {
 		createRecipe(input: $input) {
 			...RecipeTile
@@ -38,7 +38,7 @@ export const createRecipeQuery = gql`
 	${fragments.recipeTile}
 `;
 
-export const createCollectionQuery = gql`
+export const CREATE_COLLECTION_QUERY = gql`
 	mutation($input: CreateCollectionInput) {
 		createCollection(input: $input) {
 			...CollectionTile
@@ -48,7 +48,7 @@ export const createCollectionQuery = gql`
 	${fragments.recipeTile}
 `;
 
-export const addRecipeToCollectionQuery = gql`
+export const ADD_RECIPE_TO_COLLECTION_QUERY = gql`
 	mutation($input: AddRecipeToCollection) {
 		addRecipeToACollection(input: $input) {
 			...CollectionTile
@@ -58,7 +58,7 @@ export const addRecipeToCollectionQuery = gql`
 	${fragments.recipeTile}
 `;
 
-export const removeRecipeFromCollectionQuery = gql`
+export const REMOVE_RECIPE_TO_COLLECTION_QUERY = gql`
 	mutation($input: AddRecipeToCollection) {
 		removeRecipeFromCollection(input: $input) {
 			...CollectionTile
@@ -80,7 +80,7 @@ export const registerUserQuery = gql`
 	}
 `;
 
-export const userCollectionsQuery = gql`
+export const USER_COLLECTION_QUERY = gql`
 	query($friendlyUrl: String) {
 		User(friendlyUrl: $friendlyUrl) {
 			id
@@ -107,9 +107,9 @@ export const RECIPE_BY_ID_QUERY = gql`
 	${fragments.recipeTile}
 `;
 
-export const recipeQuery = gql`
+export const NEWEST_RECIPES_QUERY = gql`
 	query {
-		Recipe(first: 30, orderBy: createdOn_asc) {
+		Recipe(first: 6, orderBy: createdOn_desc) {
 			...RecipeTile
 		}
 	}

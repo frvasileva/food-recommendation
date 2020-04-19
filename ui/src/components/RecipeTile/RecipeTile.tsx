@@ -10,7 +10,7 @@ export const RecipeTile = (props: any) => {
 		<div>
 			<div key={props.name}>
 				<div className="card">
-					<UserCollectionSelector recipeId={props.id} />
+					<UserCollectionSelector recipeId={props.id} className="collection-wrapper"/>
 					<img className="card-img-top" src={url} alt={props.name} />
 					<div className="card-body">
 						<Link to={`/recipe/${props.id}`} className="recipe-link">
@@ -26,16 +26,6 @@ export const RecipeTile = (props: any) => {
 								<i className="far fa-clock"></i>
 								{Math.round(props.cookingTime / 60)}
 								<span> min.</span>
-							</div>
-						</div>
-						<div className="row recipe-details">
-							<div className="col-md-4">
-								<i className="fas fa-hamburger"></i>
-								{props.cusine}
-							</div>
-							<div className="col-md-6">
-								<i className="far fa-star"></i>
-								{props.ratings}
 							</div>
 						</div>
 					</div>
