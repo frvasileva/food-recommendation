@@ -18,7 +18,7 @@ export const RecipeTile = (props: any) => {
 						</Link>
 						<p className="card-text">{props.description}</p>
 						<div className="row recipe-details">
-							<div className="col-md-4">
+							<div className="col-md-6">
 								<i className="fas fa-hard-hat"></i>
 								{props.skillLevel}
 							</div>

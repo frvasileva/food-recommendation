@@ -17,18 +17,19 @@ import { Register } from "./components/Register/Register";
 import { Login } from "./components/Login/Login";
 import { Profile } from "./components/Profile/Profile";
 import { ProfileEdit } from "./components/ProfileEdit/ProfileEdit";
+import { SetRecipeOfTheDay } from "./admin/RecipeOfTheDay";
 
 const client = new ApolloClient({
 	uri: "http://localhost:4000/",
-	request: operation => {
+	request: (operation) => {
 		const token = localStorage.getItem("token");
 
 		operation.setContext({
 			headers: {
-				authorization: token ? `Bearer ${token}` : ""
-			}
+				authorization: token ? `Bearer ${token}` : "",
+			},
 		});
-	}
+	},
 });
 
 const App = () => {
@@ -51,6 +52,8 @@ const App = () => {
 							path="/profile/edit/:friendlyUrl"
 							component={ProfileEdit}
 						/>
+
+						<Route exact path="/admin/add-recipe-of-the-day" component={SetRecipeOfTheDay} />
 					</Switch>
 				</div>
 			</ApolloProvider>

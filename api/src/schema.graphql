@@ -1,6 +1,7 @@
 type Recipe @isAuthenticated {
 	id: ID!
 	name: String
+	imagePath: String
 	createdOn: DateTime
 	preparationTime: Int
 	skillLevel: String
@@ -93,8 +94,8 @@ input CreateRecipeInput {
 	ingredients: [String]
 	friendlyUrl: String
 	userId: String
-	createdOn: String,
-	ratings: Int,
+	createdOn: String
+	ratings: Int
 	nutritionInfo: String
 }
 
@@ -209,6 +210,15 @@ type Query {
 			LIMIT 10
 			"""
 		)
+
+	getRecipeOfTheDay: Recipe
+		@cypher(
+			statement: """
+			MATCH (n:RecipeOfTheDay)
+			RETURN n as Recipe
+			LIMIT 1
+			"""
+		)
 }
 
 type Mutation {
@@ -256,6 +266,15 @@ type Mutation {
 			MATCH (r:Recipe{id:$input.recipeId})-[rel:RECIPE_ADDED_TO]->(c:Collection{id:$input.collectionId})
 			DELETE rel
 			RETURN c
+			"""
+		)
+
+	setRecipeOfTheDay(recipeId: String): Recipe
+		@cypher(
+			statement: """
+			MATCH (n { id: $recipeId })
+			SET n:RecipeOfTheDay
+			RETURN n
 			"""
 		)
 

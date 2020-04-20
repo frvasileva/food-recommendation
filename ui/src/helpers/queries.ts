@@ -26,7 +26,7 @@ const fragments: any = {
 				...RecipeTile
 			}
 		}
-	`
+	`,
 };
 
 export const CREATE_RECIPE_QUERY = gql`
@@ -78,6 +78,22 @@ export const registerUserQuery = gql`
 	mutation($input: RegisterUserInput) {
 		registerUser(input: $input)
 	}
+`;
+
+export const SET_RECIPE_OF_THE_DAY = gql`
+	mutation($recipeId: String) {
+		setRecipeOfTheDay(recipeId: $recipeId) {
+			name
+		}
+	}
+`;
+export const GET_RECIPE_OF_THE_DAY = gql`
+	query {
+		getRecipeOfTheDay {
+			...RecipeTile
+		}
+	}
+	${fragments.recipeTile}
 `;
 
 export const USER_COLLECTION_QUERY = gql`
