@@ -31,9 +31,9 @@ export const RecipeDetails = (props: any) => {
 			<div className="row">
 				<div className="col-md-8">
 					<div className="recipe-wrapper">
-						<h1>{recipe.name}</h1>
-						<UserCollectionSelector recipeId={recipe.id} />
+						<h1 className="recipe-title">{recipe.name}</h1>
 						<div className="img-wrapper">
+							<UserCollectionSelector recipeId={recipe.id} />
 
 							<img src={url} width="100%"></img>
 							<div className="recipe-cooking-details">
@@ -71,9 +71,7 @@ export const RecipeDetails = (props: any) => {
 						</article>
 
 						<div className="row">
-							<div className="col-md-12">
-
-							</div>
+							<div className="col-md-12"></div>
 						</div>
 						<br></br>
 						<br></br>

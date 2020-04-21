@@ -3,12 +3,22 @@ article {
 	font-family: "Roboto Slab", serif;
 }
 
+.recipe-title {
+	margin-bottom: 70px;
+}
+
 .img-wrapper {
 	position: relative;
+	margin-top: 50px;
+
+	.collection-wrapper {
+		display: inline;
+		top: -50px;
+	}
 
 	.recipe-cooking-details {
 		position: absolute;
-		top: 0;
+		bottom: 0;
 		background-color: #d23535;
 		right: 0;
 		padding: 5px;
