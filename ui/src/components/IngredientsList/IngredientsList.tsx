@@ -24,10 +24,10 @@ export const IngredientsList = (props: any) => {
           onClick={() => selectProduct(ingredient)}
         >
           <div className="row">
-            <div className="col-md-5">
+            <div className="col-6">
               <i className="fas fa-check-square"></i> {ingredient}
             </div>
-            <div className="col-md-7">150 ml</div>
+            <div className="col-6">150 ml</div>
           </div>
         </li>
       ))}
