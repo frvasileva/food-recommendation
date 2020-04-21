@@ -12,8 +12,8 @@ import ErrorScreen from "../../layout/ErrorPage/Error";
 export const RecipeDetails = (props: any) => {
 	const { loading, error, data } = useQuery(RECIPE_BY_ID_QUERY, {
 		variables: {
-			recipeId: props.match.params.recipeId
-		}
+			recipeId: props.match.params.recipeId,
+		},
 	});
 
 	if (loading) return <LoadingScreen />;
@@ -32,22 +32,45 @@ export const RecipeDetails = (props: any) => {
 				<div className="col-md-8">
 					<div className="recipe-wrapper">
 						<h1>{recipe.name}</h1>
-						<img src={url} width="100%"></img>
-						<p>{recipe.description}</p>
-						<div className="row">
-							<div className="col-md-3">
-								<i className="fas fa-hard-hat"></i>
-								{recipe.skillLevel}
-							</div>
-							<div className="col-md-3">
-								<i className="far fa-clock"></i>
-								{recipe.cookingTime / 60}
-								<span> minutes</span>
+						<div className="img-wrapper">
+							<img src={url} width="100%"></img>
+							<div className="recipe-cooking-details">
+								<div className="skill-level">
+									<i className="fas fa-hard-hat"></i>
+									{recipe.skillLevel}
+								</div>
+								<div className="time-effort">
+									<i className="far fa-clock"></i>
+									{recipe.cookingTime / 60}
+									<span> min.</span>
+								</div>
 							</div>
 						</div>
+
+						<article>
+							{recipe.description}
+							<p>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit.
+								Voluptas, rem iusto. Cumque temporibus incidunt illo ea numquam,
+								repellendus molestiae similique, accusantium, quasi aspernatur
+								dicta commodi eveniet suscipit. Sunt, magnam in. Lorem ipsum
+								dolor sit amet consectetur adipisicing elit. Necessitatibus
+								cupiditate, facere,
+							</p>
+							<p>
+								cumque odit delectus reprehenderit molestias ullam assumenda ea
+								unde ut laborum ad mollitia suscipit nostrum at quia magnam
+								saepe. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+								Nostrum id earum, esse possimus, minima consequatur eligendi
+								harum, iure reiciendis architecto quae omnis. Est ut reiciendis
+								recusandae
+							</p>
+							dolor dolorem sapiente at.
+						</article>
+
 						<div className="row">
 							<div className="col-md-12">
-								<UserCollectionSelector recipeId={recipe.id}/>
+								<UserCollectionSelector recipeId={recipe.id} />
 							</div>
 						</div>
 						<br></br>

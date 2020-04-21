@@ -1,0 +1,25 @@
+article {
+	margin: 30px auto;
+	font-family: "Roboto Slab", serif;
+}
+
+.img-wrapper {
+	position: relative;
+
+	.skill-level {
+		position: absolute;
+		top: 0;
+		background-color: #d23535;
+		right: 0;
+		padding: 5px;
+		color: white;
+	}
+
+	.time-effort {
+		background-color: gainsboro;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		padding: 5px 10px;
+	}
+}
