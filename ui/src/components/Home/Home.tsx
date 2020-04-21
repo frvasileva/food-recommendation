@@ -2,13 +2,13 @@ import React from "react";
 import "./Home.scss";
 import { useQuery } from "@apollo/react-hooks";
 import {
-	RECIPE_INGREDIENTS_FULLTEXT_QUERY,
 	NEWEST_RECIPES_QUERY,
 	GET_RECIPE_OF_THE_DAY,
 } from "../../helpers/queries";
 import LoadingScreen from "../../layout/Loading/Loading";
 import ErrorScreen from "../../layout/ErrorPage/Error";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
+import { RecipeOfTheDay } from "./RecipeOfTheDay/RecipeOfTheDay";
 
 export const Home = (props: any) => {
 	// const query = useQuery(RECIPE_INGREDIENTS_FULLTEXT_QUERY, {
@@ -28,19 +28,15 @@ export const Home = (props: any) => {
 	var recipeOfDay = [];
 	if (recipeOfTheDayQuery.data !== undefined)
 		recipeOfDay = recipeOfTheDayQuery.data.getRecipeOfTheDay;
-	console.log("recipeOfTheDayQuery", recipeOfDay);
 	return (
 		<div className="home-wrapper">
 			<div className="container">
 				<div className="row">
 					<div className="col-md">
-						<h1>Recipe of the day:</h1>
-						<img
-							src={`https://source.unsplash.com/900x400/?${props.name}`}
-						></img>
-						<p>{recipeOfDay.name}</p>
+						<RecipeOfTheDay></RecipeOfTheDay>
 					</div>
 				</div>
+				<br></br>
 				<h1>Newest</h1>
 				<div className="row recipe-wrapper">
 					{newestRecipes.map((recipe: any) => (

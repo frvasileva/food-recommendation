@@ -4,30 +4,27 @@ import "./RecipeTile.scss";
 import { UserCollectionSelector } from "../UserCollectionSelector/UserCollectionSelector";
 
 export const RecipeTile = (props: any) => {
-	const url = "https://source.unsplash.com/500x250/?" + props.name;
+	const url = "https://source.unsplash.com/500x450/?" + props.name;
 
 	return (
 		<div>
 			<div key={props.name}>
-				<div className="card">
-					<UserCollectionSelector recipeId={props.id} className="collection-wrapper"/>
-					<img className="card-img-top" src={url} alt={props.name} />
+				<div className="card-wrapper">
+					<UserCollectionSelector
+						recipeId={props.id}
+						className="collection-wrapper"
+					/>
+					<div className="img-wrapper">
+						<img className="card-img-top" src={url} alt={props.name} />
+						<div className="cooking-level">
+							<i className="fas fa-hard-hat"></i>
+							{props.skillLevel}
+						</div>
+					</div>
 					<div className="card-body">
 						<Link to={`/recipe/${props.id}`} className="recipe-link">
-							<strong>{props.name}</strong>
+							{props.name}
 						</Link>
-						<p className="card-text">{props.description}</p>
-						<div className="row recipe-details">
-							<div className="col-md-6">
-								<i className="fas fa-hard-hat"></i>
-								{props.skillLevel}
-							</div>
-							<div className="col-md-6">
-								<i className="far fa-clock"></i>
-								{Math.round(props.cookingTime / 60)}
-								<span> min.</span>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>

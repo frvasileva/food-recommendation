@@ -1,0 +1,16 @@
+.recipe-of-the-day-wrapper {
+	.recipe-wrapper {
+		position: relative;
+		display: block;
+	}
+
+	.recipe-link {
+		background-color: #d23535;
+    color: white;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    font-family: Noto Sans JP;
+    font-size: 22px;
+	}
+}
