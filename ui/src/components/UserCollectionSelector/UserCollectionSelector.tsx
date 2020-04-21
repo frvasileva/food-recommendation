@@ -7,7 +7,7 @@ import tokenHelper from "../../helpers/tokenHelper";
 import {
 	ADD_RECIPE_TO_COLLECTION_QUERY,
 	REMOVE_RECIPE_TO_COLLECTION_QUERY,
-	USER_COLLECTION_QUERY
+	USER_COLLECTION_QUERY,
 } from "../../helpers/queries";
 import ErrorScreen from "../../layout/ErrorPage/Error";
 import LoadingScreen from "../../layout/Loading/Loading";
@@ -18,8 +18,8 @@ export const UserCollectionSelector = (props: any) => {
 
 	const { loading, error, data } = useQuery(USER_COLLECTION_QUERY, {
 		variables: {
-			friendlyUrl: token.friendlyUrl()
-		}
+			friendlyUrl: token.friendlyUrl(),
+		},
 	});
 
 	var userCollections = loading ? [] : data.User[0].collections;
@@ -43,9 +43,9 @@ export const UserCollectionSelector = (props: any) => {
 						userId: token.userId(),
 						createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date()),
 						collectionId: collectionId,
-						recipeId: recipeId
-					}
-				}
+						recipeId: recipeId,
+					},
+				},
 			});
 		} else {
 			removeRecipeToCollection({
@@ -54,9 +54,9 @@ export const UserCollectionSelector = (props: any) => {
 						userId: token.userId(),
 						createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date()),
 						collectionId: collectionId,
-						recipeId: recipeId
-					}
-				}
+						recipeId: recipeId,
+					},
+				},
 			});
 		}
 	};
@@ -68,7 +68,7 @@ export const UserCollectionSelector = (props: any) => {
 	if (loading) return <LoadingScreen />;
 	if (error) return <ErrorScreen error={error} />;
 
-	const filteredUserCollections = userCollections.filter(function(el: any) {
+	const filteredUserCollections = userCollections.filter(function (el: any) {
 		if (el.name.toLowerCase().includes(filterTerm)) {
 			return el;
 		}
@@ -104,7 +104,7 @@ export const UserCollectionSelector = (props: any) => {
 						key: item.id,
 						onClick: () =>
 							addToCollection(isSelected ? "remove" : "add", item.id),
-						isSelected: isSelected
+						isSelected: isSelected,
 					};
 					return <CollectionListItem {...listItemProps} />;
 				})}

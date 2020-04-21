@@ -32,14 +32,16 @@ export const RecipeDetails = (props: any) => {
 				<div className="col-md-8">
 					<div className="recipe-wrapper">
 						<h1>{recipe.name}</h1>
+						<UserCollectionSelector recipeId={recipe.id} />
 						<div className="img-wrapper">
+
 							<img src={url} width="100%"></img>
 							<div className="recipe-cooking-details">
-								<div className="skill-level">
+								<div className="description-item skill-level">
 									<i className="fas fa-hard-hat"></i>
 									{recipe.skillLevel}
 								</div>
-								<div className="time-effort">
+								<div className="description-item time-effort">
 									<i className="far fa-clock"></i>
 									{recipe.cookingTime / 60}
 									<span> min.</span>
@@ -70,7 +72,7 @@ export const RecipeDetails = (props: any) => {
 
 						<div className="row">
 							<div className="col-md-12">
-								<UserCollectionSelector recipeId={recipe.id} />
+
 							</div>
 						</div>
 						<br></br>
