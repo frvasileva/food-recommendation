@@ -40,7 +40,7 @@ export const Home = (props: any) => {
 				<h1>Newest</h1>
 				<div className="row recipe-wrapper">
 					{newestRecipes.map((recipe: any) => (
-						<div key={recipe.name} className="col-md-4 col-sm-6">
+						<div key={recipe.name} className="col-md-3 col-sm-6">
 							<RecipeTile {...recipe}></RecipeTile>
 						</div>
 					))}

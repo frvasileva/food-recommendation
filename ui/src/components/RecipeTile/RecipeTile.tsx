@@ -4,7 +4,7 @@ import "./RecipeTile.scss";
 import { UserCollectionSelector } from "../UserCollectionSelector/UserCollectionSelector";
 
 export const RecipeTile = (props: any) => {
-	const url = "https://source.unsplash.com/500x450/?" + props.name;
+	const url = "https://source.unsplash.com/500x300/?" + props.name;
 
 	return (
 		<div>

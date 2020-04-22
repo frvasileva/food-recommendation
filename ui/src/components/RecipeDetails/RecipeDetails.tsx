@@ -30,7 +30,7 @@ export const RecipeDetails = (props: any) => {
 		<div className="container">
 			<div className="row">
 				<div className="col-md-8">
-					<div className="recipe-wrapper">
+					<div className="recipe-details recipe-wrapper">
 						<h1 className="recipe-title">{recipe.name}</h1>
 						<div className="img-wrapper">
 							<UserCollectionSelector recipeId={recipe.id} />

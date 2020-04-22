@@ -1,39 +1,41 @@
-article {
-	margin: 30px auto;
-	font-family: "Roboto Slab", serif;
-}
-
-.recipe-title {
-	margin-bottom: 70px;
-}
-
-.img-wrapper {
-	position: relative;
-	margin-top: 50px;
-
-	.collection-wrapper {
-		display: inline;
-		top: -50px;
+.recipe-details {
+	article {
+		margin: 30px auto;
+		font-family: "Roboto Slab", serif;
 	}
 
-	.recipe-cooking-details {
-		position: absolute;
-		bottom: 0;
-		background-color: #d23535;
-		right: 0;
-		padding: 5px;
-		color: #fff1d6;
+	.recipe-title {
+		margin-bottom: 70px;
 	}
 
-	.description-item {
-		padding: 5px 10px;
-		display: block;
-	}
+	.img-wrapper {
+		position: relative;
+		margin-top: 50px;
 
-	.skill-level {
-	}
+		.collection-wrapper {
+			display: inline;
+			top: -50px;
+		}
 
-	.time-effort {
-		border-top: 2px solid #fff1d6;
+		.recipe-cooking-details {
+			position: absolute;
+			bottom: 0;
+			background-color: #d23535;
+			right: 0;
+			padding: 5px;
+			color: #fff1d6;
+		}
+
+		.description-item {
+			padding: 5px 10px;
+			display: block;
+		}
+
+		.skill-level {
+		}
+
+		.time-effort {
+			border-top: 2px solid #fff1d6;
+		}
 	}
 }
