@@ -68,13 +68,13 @@ export const REMOVE_RECIPE_TO_COLLECTION_QUERY = gql`
 	${fragments.recipeTile}
 `;
 
-export const loginUserQuery = gql`
+export const LOGIN_USER_QUERY = gql`
 	mutation($email: String, $password: String) {
 		loginUser(email: $email, password: $password)
 	}
 `;
 
-export const registerUserQuery = gql`
+export const REGISTER_USER_QUERY = gql`
 	mutation($input: RegisterUserInput) {
 		registerUser(input: $input)
 	}
@@ -102,7 +102,7 @@ export const USER_COLLECTION_QUERY = gql`
 			id
 			email
 			friendlyUrl
-			collections {
+			collections(orderBy: createdOn_desc) {
 				...CollectionTile
 			}
 		}

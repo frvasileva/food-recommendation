@@ -4,7 +4,7 @@ import dateFormatter from "../../helpers/dateFormatter";
 import { useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import urlTransformer from "../../helpers/urlTransformer";
-import { registerUserQuery } from "../../helpers/queries";
+import { REGISTER_USER_QUERY } from "../../helpers/queries";
 
 export const Register = (props: any) => {
 	const [userFields, setUserFields] = React.useState({
@@ -12,10 +12,10 @@ export const Register = (props: any) => {
 		name: { value: "", error: "" },
 		createdOn: { value: "", error: "" },
 		password: { value: "", error: "" },
-		friendlyUrl: { value: "", error: "" }
+		friendlyUrl: { value: "", error: "" },
 	});
 
-	const [createUser, createUserStatus] = useMutation(registerUserQuery);
+	const [createUser, createUserStatus] = useMutation(REGISTER_USER_QUERY);
 
 	var transf = urlTransformer();
 	var dateFormat = dateFormatter();
@@ -24,7 +24,7 @@ export const Register = (props: any) => {
 	const handleChange = (e: any) => {
 		setUserFields({
 			...userFields,
-			[e.target.name]: { value: e.target.value, error: "" }
+			[e.target.name]: { value: e.target.value, error: "" },
 		});
 	};
 
@@ -40,10 +40,10 @@ export const Register = (props: any) => {
 					password: userFields.password.value,
 					createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date()),
 					friendlyUrl: userFields.name.value,
-					defaultCollectionId: uuidv4()
-				}
-			}
-		}).then(result => {
+					defaultCollectionId: uuidv4(),
+				},
+			},
+		}).then((result) => {
 			localStorage.setItem("token", result.data.registerUser);
 			history.push("/recipes");
 		});

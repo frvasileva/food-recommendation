@@ -1,7 +1,7 @@
 import React from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { useHistory } from "react-router-dom";
-import { loginUserQuery } from "../../helpers/queries";
+import { LOGIN_USER_QUERY } from "../../helpers/queries";
 
 export const Login = (props: any) => {
 	const [loginFields, setLoginFields] = React.useState({
@@ -10,7 +10,7 @@ export const Login = (props: any) => {
 		friendlyUrl: { value: "", error: "" }
 	});
 
-	const [loginUser, createUserStatus] = useMutation(loginUserQuery);
+	const [loginUser, createUserStatus] = useMutation(LOGIN_USER_QUERY);
 
 	let history = useHistory();
 

@@ -1,3 +1,21 @@
-h3 {
-	font-size: 16px;
+.profile-wrapper {
+	h3 {
+		font-size: 24px;
+		font-family: "Noto Sans JP", sans-serif;
+		font-family: "Open Sans", sans-serif;
+		font-weight: bold;
+		margin-bottom: 0;
+	}
+
+	.user-collections-wrapper .collection-item {
+		padding: 20px;
+	}
+
+	.user-collections-wrapper .collection-item:nth-child(even) {
+		background-color: white;
+	}
+
+	.user-collections-wrapper .collection-item:nth-child(odd) {
+		background-color: #f9f7f7;
+	}
 }

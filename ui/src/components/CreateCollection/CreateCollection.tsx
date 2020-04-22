@@ -46,7 +46,7 @@ export const CreateCollection = (props: any) => {
 					variables: { friendlyUrl: token.friendlyUrl() }
 				}) as any;
 
-				data.User[0].collections.push(createCollection);
+				data.User[0].collections.unshift(createCollection);
 
 				cache.writeQuery({
 					query: USER_COLLECTION_QUERY,

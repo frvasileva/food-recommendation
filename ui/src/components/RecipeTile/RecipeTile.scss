@@ -2,6 +2,20 @@
 	margin: 15px auto;
 	position: relative;
 	border: 1px solid transparent;
+
+	.collection-wrapper {
+		display: none;
+	}
+
+	&:hover {
+		border: 1px solid #d23535;
+		background-color: whitesmoke;
+		transition: 0.2s;
+	}
+
+	&:hover .collection-wrapper {
+		display: block;
+	}
 }
 
 .card-body {
@@ -12,7 +26,7 @@
 	color: black;
 	text-shadow: none;
 	font-family: "Open Sans", sans-serif;
-	font-size: 18px;
+	font-size: 16px;
 
 	&:hover {
 		text-decoration: none;
@@ -22,20 +36,6 @@
 
 .recipe-details {
 	font-size: 14px;
-}
-
-.collection-wrapper {
-	display: none;
-}
-
-.card-wrapper:hover {
-	border: 1px solid #d23535;
-	background-color: whitesmoke;
-	transition: 0.2s;
-}
-
-.card-wrapper:hover .collection-wrapper {
-	display: block;
 }
 
 .img-wrapper {
