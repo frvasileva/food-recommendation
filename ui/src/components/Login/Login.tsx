@@ -1,23 +1,26 @@
 import React from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { useHistory } from "react-router-dom";
-import { LOGIN_USER_QUERY } from "../../helpers/queries";
+import { LOGIN_USER_QUERY, SET_SESSION_QUERY } from "../../helpers/queries";
+import tokenHelper from "../../helpers/tokenHelper";
 
 export const Login = (props: any) => {
 	const [loginFields, setLoginFields] = React.useState({
 		email: { value: "", error: "" },
 		password: { value: "", error: "" },
-		friendlyUrl: { value: "", error: "" }
+		friendlyUrl: { value: "", error: "" },
 	});
 
 	const [loginUser, createUserStatus] = useMutation(LOGIN_USER_QUERY);
+	const [setSession, createUserSession] = useMutation(SET_SESSION_QUERY);
 
 	let history = useHistory();
+	var token = tokenHelper();
 
 	const handleChange = (e: any) => {
 		setLoginFields({
 			...loginFields,
-			[e.target.name]: { value: e.target.value, error: "" }
+			[e.target.name]: { value: e.target.value, error: "" },
 		});
 	};
 
@@ -27,11 +30,21 @@ export const Login = (props: any) => {
 		loginUser({
 			variables: {
 				email: loginFields.email.value,
-				password: loginFields.password.value
-			}
-		}).then(result => {
+				password: loginFields.password.value,
+			},
+		}).then((result) => {
+
 			localStorage.setItem("token", result.data.loginUser);
-			history.push("/recipes");
+
+			setSession({
+				variables: {
+					input: {
+						userId: token.explisitDecodedToken(result.data.loginUser),
+					},
+				},
+			}).then((res) => {
+				history.push("/recipes");
+			});
 		});
 	};
 

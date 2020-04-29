@@ -18,6 +18,7 @@ import { Login } from "./components/Login/Login";
 import { Profile } from "./components/Profile/Profile";
 import { ProfileEdit } from "./components/ProfileEdit/ProfileEdit";
 import { SetRecipeOfTheDay } from "./admin/RecipeOfTheDay";
+import { CollectionList } from "./components/CollectionList/CollectionList";
 
 const client = new ApolloClient({
 	uri: "http://localhost:4000/",
@@ -41,6 +42,11 @@ const App = () => {
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/recipes" component={RecipeList} />
+						<Route
+							exact
+							path="/collection/:friendlyUrl"
+							component={CollectionList}
+						/>
 						<Route exact path="/recipe/:recipeId" component={RecipeDetails} />
 						<Route exact path="/add-recipe" component={CreateRecipe} />
 						<Route exact path="/add-collection" component={CreateCollection} />
@@ -53,7 +59,11 @@ const App = () => {
 							component={ProfileEdit}
 						/>
 
-						<Route exact path="/admin/add-recipe-of-the-day" component={SetRecipeOfTheDay} />
+						<Route
+							exact
+							path="/admin/add-recipe-of-the-day"
+							component={SetRecipeOfTheDay}
+						/>
 					</Switch>
 				</div>
 			</ApolloProvider>

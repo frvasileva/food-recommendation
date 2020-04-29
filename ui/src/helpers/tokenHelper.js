@@ -1,6 +1,6 @@
 import jwt_decode from "jwt-decode";
 
-var tokenHelper = function() {
+var tokenHelper = function () {
 	"use strict";
 
 	const token = localStorage.getItem("token");
@@ -25,7 +25,12 @@ var tokenHelper = function() {
 		return token !== "";
 	};
 
-	return { userId, friendlyUrl, email, isLoggedIn };
+	const explisitDecodedToken = (token) => {
+		var decodedToken = jwt_decode(token);
+		return decodedToken.userId;
+	};
+
+	return { userId, friendlyUrl, email, isLoggedIn,explisitDecodedToken };
 };
 
 export default tokenHelper;

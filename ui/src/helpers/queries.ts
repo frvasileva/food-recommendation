@@ -70,7 +70,13 @@ export const REMOVE_RECIPE_TO_COLLECTION_QUERY = gql`
 
 export const LOGIN_USER_QUERY = gql`
 	mutation($email: String, $password: String) {
-		loginUser(email: $email, password: $password)
+		loginUser(email: $email, password: $password) {
+	}
+`;
+
+export const SET_SESSION_QUERY = gql`
+	mutation($input: CreateSessionInput) {
+		createUserSession(input: $input)
 	}
 `;
 
@@ -161,3 +167,46 @@ export const RECIPE_INGREDIENTS_FULLTEXT_QUERY = gql`
 		}
 	}
 `;
+
+export const GET_POPULAR_COLLECTIONS_QUERY = gql`
+	query {
+		getPopularCollections(first: 10) {
+			name
+			recipes(first: 3, orderBy: ratings_desc) {
+				...RecipeTile
+			}
+		}
+	}
+	${fragments.recipeTile}
+`;
+
+export const HOME_PAGE_DATA_QUERY = gql`
+	query {
+		popularCollections: getPopularCollections(first: 12) {
+			name
+			recipes(first: 3, orderBy: ratings_desc) {
+				...RecipeTile
+			}
+		}
+		newestRecipes: Recipe(first: 8, orderBy: createdOn_desc) {
+			...RecipeTile
+		}
+		recipeOfTheDay: getRecipeOfTheDay {
+			...RecipeTile
+		}
+	}
+
+	${fragments.recipeTile}
+`;
+
+// export const RECIPE_BY_ID_QUERY = gql`
+// 	query($recipeId: ID) {
+// 		Recipe: Recipe(id: $recipeId) {
+// 			...RecipeTile
+// 		}
+// 		RecipeRandomList: findSimiliarRecipe(recipeId: $recipeId, limit: 3) {
+// 			...RecipeTile
+// 		}
+// 	}
+// 	${fragments.recipeTile}
+// `;

@@ -76,6 +76,12 @@ type User {
 	recipes: [Recipe] @relation(name: "ADDED_RECIPE", direction: "OUT")
 	collections: [Collection]
 		@relation(name: "COLLECTION_CREATED", direction: "OUT")
+	sessions: [Session] @relation(name: "SESSION_STARTED", direction: "IN")
+}
+
+type Session {
+	user: User! @relation(name: "SESSION_STARTED", direction: "OUT")
+	startedOn: DateTime
 }
 
 enum Role {
@@ -122,6 +128,9 @@ input RegisterUserInput {
 	friendlyUrl: String!
 	password: String!
 	defaultCollectionId: String!
+}
+input CreateSessionInput {
+	userId: String!
 }
 
 union SearchResult = Recipe | Ingredient
@@ -219,6 +228,15 @@ type Query {
 			LIMIT 1
 			"""
 		)
+
+	getPopularCollections: [Collection]
+		@cypher(
+			statement: """
+			MATCH (collection:Collection)<-[r:RECIPE_ADDED_TO]-(recipes:Recipe)
+			RETURN collection, count(r)  as cnt
+			order by cnt desc
+			"""
+		)
 }
 
 type Mutation {
@@ -246,6 +264,17 @@ type Mutation {
 			  MATCH (u:User{id:$input.userId})
 			  CREATE (u)-[rel:COLLECTION_CREATED]->(c)
 			  RETURN  c
+			"""
+		)
+
+	createUserSession(input: CreateSessionInput): String
+		@cypher(
+			statement: """
+			CREATE (s:Session{createdOn:datetime()})
+			WITH s
+			MATCH (u:User{id:$input.userId})
+			CREATE (u)-[rel:SESSION_STARTED]->(s)
+			RETURN u.id
 			"""
 		)
 

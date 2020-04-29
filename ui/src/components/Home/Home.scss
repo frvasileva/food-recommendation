@@ -4,3 +4,27 @@
 //   background-repeat: no-repeat;
 //   background-size: cover;
 // }
+
+.collection-preview-wrapper {
+	a {
+		color: black;
+		font-family: Roboto;
+	}
+
+	.collection-item {
+		background-color: gold;
+		padding: 5px;
+		margin-bottom: 2px;
+		border-right: 1px solid white;
+
+		&:hover {
+			cursor: pointer;
+			background-color: goldenrod;
+			transition: 0.1s;
+
+			a {
+				text-decoration: none;
+			}
+		}
+	}
+}
