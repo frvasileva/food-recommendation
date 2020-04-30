@@ -21,8 +21,8 @@ const schema = makeAugmentedSchema({
 	config: {
 		auth: {
 			isAuthenticated: true,
-			hasRole: true
-		}
+			hasRole: true,
+		},
 	},
 	resolvers: {
 		Mutation: {
@@ -41,7 +41,7 @@ const schema = makeAugmentedSchema({
 						exp: Math.floor(Date.now() / 1000) + 60 * 6000,
 						userId: params.input.id,
 						email: params.input.email,
-						friendlyUrl: params.input.friendlyUrl
+						friendlyUrl: params.input.friendlyUrl,
 					},
 					process.env.JWT_SECRET
 				);
@@ -55,7 +55,7 @@ const schema = makeAugmentedSchema({
 				resolveInfo: any
 			) => {
 				const result = await neo4jgraphql(object, params, ctx, resolveInfo);
-				console.log(result);
+				console.log("server result", result);
 				const passwordIsCorrect =
 					params.password === result.properties.password;
 				// const passwordIsCorrect = bcrypt.compareSync(
@@ -68,13 +68,13 @@ const schema = makeAugmentedSchema({
 						exp: Math.floor(Date.now() / 1000) + 60 * 6000,
 						userId: result.properties.id,
 						email: result.properties.email,
-						friendlyUrl: result.properties.friendlyUrl
+						friendlyUrl: result.properties.friendlyUrl,
 					},
 					process.env.JWT_SECRET
 				);
-			}
-		}
-	}
+			},
+		},
+	},
 });
 
 /*
@@ -105,11 +105,11 @@ const server = new ApolloServer({
 			driver,
 			req,
 			cypherParams: {
-				currentUserId: tokenPayload.userId
-			}
+				currentUserId: tokenPayload.userId,
+			},
 		};
 	},
-	schema
+	schema,
 });
 
 server.listen(4000).then(({ url }) => {

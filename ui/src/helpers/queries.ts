@@ -70,7 +70,7 @@ export const REMOVE_RECIPE_TO_COLLECTION_QUERY = gql`
 
 export const LOGIN_USER_QUERY = gql`
 	mutation($email: String, $password: String) {
-		loginUser(email: $email, password: $password) {
+		loginUser(email: $email, password: $password)
 	}
 `;
 
