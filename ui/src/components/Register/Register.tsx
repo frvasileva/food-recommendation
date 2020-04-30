@@ -4,7 +4,8 @@ import dateFormatter from "../../helpers/dateFormatter";
 import { useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import urlTransformer from "../../helpers/urlTransformer";
-import { REGISTER_USER_QUERY } from "../../helpers/queries";
+import { REGISTER_USER_QUERY, SET_SESSION_QUERY } from "../../helpers/queries";
+import tokenHelper from "../../helpers/tokenHelper";
 
 export const Register = (props: any) => {
 	const [userFields, setUserFields] = React.useState({
@@ -16,10 +17,12 @@ export const Register = (props: any) => {
 	});
 
 	const [createUser, createUserStatus] = useMutation(REGISTER_USER_QUERY);
+	const [setSession, createUserSession] = useMutation(SET_SESSION_QUERY);
 
 	var transf = urlTransformer();
 	var dateFormat = dateFormatter();
 	let history = useHistory();
+	var token = tokenHelper();
 
 	const handleChange = (e: any) => {
 		setUserFields({
@@ -45,7 +48,16 @@ export const Register = (props: any) => {
 			},
 		}).then((result) => {
 			localStorage.setItem("token", result.data.registerUser);
-			history.push("/recipes");
+
+			setSession({
+				variables: {
+					input: {
+						userId: token.explisitDecodedToken(result.data.registerUser),
+					},
+				},
+			}).then((res) => {
+				history.push("/recipes");
+			});
 		});
 	};
 

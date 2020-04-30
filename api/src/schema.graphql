@@ -77,11 +77,18 @@ type User {
 	collections: [Collection]
 		@relation(name: "COLLECTION_CREATED", direction: "OUT")
 	sessions: [Session] @relation(name: "SESSION_STARTED", direction: "IN")
+	searchTerm: [SearchTerm] @relation(name: "TERM_SEARCHED", direction: "IN")
 }
 
 type Session {
 	user: User! @relation(name: "SESSION_STARTED", direction: "OUT")
 	startedOn: DateTime
+}
+
+type SearchTerm {
+	user: User! @relation(name: "TERM_SEARCHED", direction: "OUT")
+	createdOn: DateTime
+	term: String!
 }
 
 enum Role {
@@ -131,6 +138,10 @@ input RegisterUserInput {
 }
 input CreateSessionInput {
 	userId: String!
+}
+input SetSearchInputInput {
+	userId: String!
+	term: String!
 }
 
 union SearchResult = Recipe | Ingredient
@@ -275,6 +286,17 @@ type Mutation {
 			MATCH (u:User{id:$input.userId})
 			CREATE (u)-[rel:SESSION_STARTED]->(s)
 			RETURN u.id
+			"""
+		)
+
+	createSearchTerm(input: SetSearchInputInput): SearchTerm
+		@cypher(
+			statement: """
+			CREATE (s:SearcedTerm{createdOn:datetime(), term: $input.term})
+			WITH s
+			MATCH (u:User{id:$input.userId})
+			CREATE (u)-[rel:TERM_SEARCHED]->(s)
+			RETURN s
 			"""
 		)
 

@@ -79,6 +79,13 @@ export const SET_SESSION_QUERY = gql`
 		createUserSession(input: $input)
 	}
 `;
+export const SET_SEARCHED_TERM = gql`
+	mutation($input: SetSearchInputInput) {
+		createSearchTerm(input: $input) {
+			term
+		}
+	}
+`;
 
 export const REGISTER_USER_QUERY = gql`
 	mutation($input: RegisterUserInput) {

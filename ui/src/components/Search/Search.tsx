@@ -1,7 +1,12 @@
 import React from "react";
+import { useMutation } from "@apollo/react-hooks";
+import { SET_SEARCHED_TERM } from "../../helpers/queries";
+import tokenHelper from "../../helpers/tokenHelper";
 
 export const Search = (props: any) => {
 	const [term, setTerm] = React.useState("apple");
+	const [setSearchedTerm, createSearchedTerm] = useMutation(SET_SEARCHED_TERM);
+	var token = tokenHelper();
 
 	const updateTerm = (e: any) => {
 		setTerm(e.target.value);
@@ -10,7 +15,20 @@ export const Search = (props: any) => {
 	const submitForm = (e: any) => {
 		e.preventDefault();
 		props.onSearch(term);
-		setTerm("");
+
+		console.log("token.userId,", token.userId());
+		console.log("term,", term);
+
+		setSearchedTerm({
+			variables: {
+				input: {
+					userId: token.userId(),
+					term: term,
+				},
+			},
+		}).then((res) => {
+			setTerm("");
+		});
 	};
 
 	return (
