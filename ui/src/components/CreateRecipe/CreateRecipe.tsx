@@ -15,7 +15,7 @@ export const CreateRecipe = (props: any) => {
 		ingredients: { value: "", error: "" },
 		preparationTime: { value: "", error: "" },
 		cookingTime: { value: "", error: "" },
-		skillLevel: { value: "", error: "" }
+		skillLevel: { value: "", error: "" },
 	});
 
 	const [levelRbState, setlevelRbState] = React.useState("Easy");
@@ -31,8 +31,8 @@ export const CreateRecipe = (props: any) => {
 	const validateForm = () => {
 		let isValid = true;
 
-		let flds = Object.values(fields).map(item => item.error);
-		let hasIvalidFields = flds.some(element => {
+		let flds = Object.values(fields).map((item) => item.error);
+		let hasIvalidFields = flds.some((element) => {
 			return element !== "";
 		});
 
@@ -66,13 +66,13 @@ export const CreateRecipe = (props: any) => {
 
 		setFields({
 			...fields,
-			[name]: { value, error }
+			[name]: { value, error },
 		});
 
 		setFormIsTouched(true);
 	};
 
-	const handleOptionChange = function(e: any) {
+	const handleOptionChange = function (e: any) {
 		setlevelRbState(e.target.value);
 	};
 
@@ -87,7 +87,11 @@ export const CreateRecipe = (props: any) => {
 						id: uuidv4(),
 						name: fields.name.value,
 						description: fields.description.value,
-						ingredients: fields.ingredients.value.split(","),
+						ingredients: [
+							{ name: "marmalad", quantity: "123", quantityType: "kg" },
+							{ name: "marmalad 456", quantity: "456", quantityType: "ml" },
+							{ name: "marmalad 789", quantity: "789", quantityType: "g" }
+						],
 						preparationTime: parseInt(fields.preparationTime.value),
 						skillLevel: levelRbState,
 						cookingTime: parseInt(fields.cookingTime.value),
@@ -95,21 +99,21 @@ export const CreateRecipe = (props: any) => {
 						userId: currentUserId,
 						createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date()),
 						ratings: 0,
-						nutritionInfo: ""
-					}
+						nutritionInfo: "",
+					},
 				},
 				update: (cache, { data: { createRecipe } }) => {
 					let data = cache.readQuery({
-						query: RECIPE_LIST_QUERY
+						query: RECIPE_LIST_QUERY,
 					}) as any;
 					data.Recipe = [...data.Recipe, createRecipe];
 
 					cache.writeQuery({
 						query: RECIPE_LIST_QUERY,
-						data: data
+						data: data,
 					});
-				}
-			}).then(result => {
+				},
+			}).then((result) => {
 				history.push("/recipes");
 			});
 		} else {

@@ -11,9 +11,9 @@ type Recipe @isAuthenticated {
 	ratings: Int
 	nutritionInfo: String
 	cusine: String
-	ingredients: [String]
+	ingredients: [Ingredient]
 		@cypher(
-			statement: "MATCH (this)-[:CONTAINS_INGREDIENT]->(i:Ingredient) RETURN collect(i.name)"
+			statement: "MATCH (this)-[rltn:CONTAINS_INGREDIENT]->(i:Ingredient) RETURN i"
 		)
 		@relation(name: "CONTAINS_INGREDIENT", direction: "OUT")
 	dietType: [String]
@@ -39,6 +39,14 @@ type Ingredient {
 	id: ID!
 	name: String
 	friendlyUrl: String
+	quantity: String
+		@cypher(
+			statement: "MATCH (r:Recipe)-[rltn:CONTAINS_INGREDIENT]->(this) RETURN rltn.quantity"
+		)
+	quantityType: String
+		@cypher(
+			statement: "MATCH (r:Recipe)-[rltn:CONTAINS_INGREDIENT]->(this) RETURN rltn.quantityType"
+		)
 	recipes: [Recipe] @relation(name: "CONTAINS_INGREDIENT", direction: "IN")
 }
 
@@ -97,6 +105,12 @@ enum Role {
 	admin
 }
 
+input IngredientType {
+	name: String!
+	quantity: String!
+	quantityType: String!
+}
+
 input CreateRecipeInput {
 	id: ID!
 	name: String
@@ -104,7 +118,7 @@ input CreateRecipeInput {
 	preparationTime: Int
 	skillLevel: String
 	cookingTime: Int
-	ingredients: [String]
+	ingredients: [IngredientType]
 	friendlyUrl: String
 	userId: String
 	createdOn: String
@@ -257,8 +271,8 @@ type Mutation {
 			CREATE (r:Recipe{id: $input.id, name: $input.name, description: $input.description, preparationTime: $input.preparationTime,
 											 skillLevel: $input.skillLevel, cookingTime: $input.cookingTime, friendlyUrl: $input.friendlyUrl, createdOn: datetime()})
 			FOREACH (item in $input.ingredients |
-				MERGE (i:Ingredient{name:item})
-				CREATE (r)-[rel:CONTAINS_INGREDIENT]->(i)
+				MERGE (i:Ingredient{name:item.name})
+				CREATE (r)-[rel:CONTAINS_INGREDIENT{quantity: item.quantity, quantityType: item.quantityType}]->(i)
 			)
 			WITH r
 			MATCH (u:User{id:$input.userId})

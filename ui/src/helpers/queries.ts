@@ -6,7 +6,11 @@ const fragments: any = {
 			id
 			name
 			preparationTime
-			ingredients
+			ingredients {
+				name
+				quantity
+				quantityType
+			}
 			description
 			skillLevel
 			cookingTime

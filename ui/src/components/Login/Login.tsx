@@ -33,9 +33,8 @@ export const Login = (props: any) => {
 				password: loginFields.password.value,
 			},
 		}).then((result) => {
-
 			localStorage.setItem("token", result.data.loginUser);
-
+			console.log("session");
 			setSession({
 				variables: {
 					input: {

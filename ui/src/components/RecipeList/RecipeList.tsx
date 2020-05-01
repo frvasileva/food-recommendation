@@ -64,7 +64,7 @@ export const RecipeList = (props: any) => {
 					<Search onSearch={setTerm} />
 				</div>
 			</div>
-			Newest:
+			{/* Newest:
 			<div className="row recipe-wrapper">
 				{newestRecipes.map((recipe: any) => (
 					<div key={recipe.name} className="col-md-4 col-sm-6">
@@ -72,7 +72,7 @@ export const RecipeList = (props: any) => {
 					</div>
 				))}
 			</div>
-			<hr />
+			<hr /> */}
 			Search result:
 			<div className="row recipe-wrapper">
 				{recipes.map((recipe: any) => (
