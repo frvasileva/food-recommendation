@@ -1,4 +1,4 @@
-var urlTransformer = function() {
+var urlTransformer = function () {
 	"use strict";
 
 	var cyrilicToEnglish = {
@@ -63,7 +63,7 @@ var urlTransformer = function() {
 		let wordArray = text.toLowerCase().split("");
 
 		const result = wordArray.map(char => {
-			return cyrilicToEnglish[char];
+			return cyrilicToEnglish[char] || char;
 		});
 		return result.join("");
 	};
