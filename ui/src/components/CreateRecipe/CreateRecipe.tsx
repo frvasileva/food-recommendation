@@ -7,12 +7,32 @@ import { v4 as uuidv4 } from "uuid";
 import { useHistory } from "react-router-dom";
 import tokenHelper from "../../helpers/tokenHelper";
 import { CREATE_RECIPE_QUERY, RECIPE_LIST_QUERY } from "../../helpers/queries";
+import { AddIngredients } from "./AddIngredients/AddIngredients";
 
 export const CreateRecipe = (props: any) => {
 	const [fields, setFields] = React.useState({
 		name: { value: "", error: "" },
 		description: { value: "", error: "" },
-		ingredients: { value: "", error: "" },
+		ingredients: {
+			value: [
+				{
+					name: { value: "marmalad", error: "" },
+					quantity: { value: "123", error: "" },
+					quantityType: { value: "kg", error: "" },
+				},
+				{
+					name: { value: "marmalad 456", error: "" },
+					quantity: { value: "456", error: "" },
+					quantityType: { value: "ml", error: "" },
+				},
+				{
+					name: { value: "marmalad 789", error: "" },
+					quantity: { value: "789", error: "" },
+					quantityType: { value: "g", error: "" },
+				},
+			],
+			error: "",
+		},
 		preparationTime: { value: "", error: "" },
 		cookingTime: { value: "", error: "" },
 		skillLevel: { value: "", error: "" },
@@ -52,7 +72,7 @@ export const CreateRecipe = (props: any) => {
 				if (!value) error = "Please enter description!";
 				break;
 			case "ingredients":
-				if (!value) error = "Please enter ingredients!";
+				if (!value.length) error = "Please enter ingredients!";
 				break;
 			case "preparationTime":
 				if (!Number.isInteger(parseInt(value))) error = "Use number";
@@ -87,11 +107,7 @@ export const CreateRecipe = (props: any) => {
 						id: uuidv4(),
 						name: fields.name.value,
 						description: fields.description.value,
-						ingredients: [
-							{ name: "marmalad", quantity: "123", quantityType: "kg" },
-							{ name: "marmalad 456", quantity: "456", quantityType: "ml" },
-							{ name: "marmalad 789", quantity: "789", quantityType: "g" }
-						],
+						ingredients: fields.ingredients.value,
 						preparationTime: parseInt(fields.preparationTime.value),
 						skillLevel: levelRbState,
 						cookingTime: parseInt(fields.cookingTime.value),
@@ -156,15 +172,17 @@ export const CreateRecipe = (props: any) => {
 								id="description"
 								name="description"
 								value={fields.description.value}
-								placeholder="Description"
+								placeholder="Put 2 eggs..."
 								onChange={handleChange}
+								rows={10}
 							></textarea>
 							{fields.description.error && (
 								<span className="text-error">{fields.description.error}</span>
 							)}
 						</div>
 						<div className="form-group">
-							<label htmlFor="ingredients">Ingredients</label>
+							<AddIngredients onChange={handleChange} {...fields.ingredients} />
+							{/* <label htmlFor="ingredients">Ingredients</label>
 							<input
 								type="text"
 								className="form-control"
@@ -180,7 +198,7 @@ export const CreateRecipe = (props: any) => {
 							</small>
 							{fields.ingredients.error && (
 								<span className="text-error">{fields.ingredients.error}</span>
-							)}
+							)} */}
 						</div>
 						<div className="row">
 							<div className="col-md-6">

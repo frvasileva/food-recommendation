@@ -17,6 +17,7 @@ const fragments: any = {
 			ratings
 			nutritionInfo
 			cusine
+			friendlyUrl
 			createdOn {
 				formatted
 			}
