@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import tokenHelper from "../../helpers/tokenHelper";
 import { CREATE_RECIPE_QUERY, RECIPE_LIST_QUERY } from "../../helpers/queries";
 import { AddIngredients } from "./AddIngredients/AddIngredients";
+import { valueFromAST } from "graphql";
 
 export const CreateRecipe = (props: any) => {
 	const [fields, setFields] = React.useState({
@@ -16,20 +17,10 @@ export const CreateRecipe = (props: any) => {
 		ingredients: {
 			value: [
 				{
-					name: { value: "marmalad", error: "" },
-					quantity: { value: "123", error: "" },
+					name: { value: "", error: "" },
+					quantity: { value: "", error: "" },
 					quantityType: { value: "kg", error: "" },
-				},
-				{
-					name: { value: "marmalad 456", error: "" },
-					quantity: { value: "456", error: "" },
-					quantityType: { value: "ml", error: "" },
-				},
-				{
-					name: { value: "marmalad 789", error: "" },
-					quantity: { value: "789", error: "" },
-					quantityType: { value: "g", error: "" },
-				},
+				}
 			],
 			error: "",
 		},
@@ -99,6 +90,7 @@ export const CreateRecipe = (props: any) => {
 	const handleSubmit = (event: any) => {
 		event.preventDefault();
 		var currentUserId = token.userId();
+		console.log("fields.ingredients.value", fields.ingredients.value);
 
 		if (validateForm()) {
 			createRecipe({
@@ -107,7 +99,13 @@ export const CreateRecipe = (props: any) => {
 						id: uuidv4(),
 						name: fields.name.value,
 						description: fields.description.value,
-						ingredients: fields.ingredients.value,
+						ingredients: fields.ingredients.value.map(ingredient => {
+							return {
+								name: ingredient.name.value,
+								quantity: ingredient.quantity.value,
+								quantityType: ingredient.quantityType.value
+							}
+						}),
 						preparationTime: parseInt(fields.preparationTime.value),
 						skillLevel: levelRbState,
 						cookingTime: parseInt(fields.cookingTime.value),
@@ -142,7 +140,7 @@ export const CreateRecipe = (props: any) => {
 	return (
 		<div className="container create-recipe-wrapper">
 			<div className="row">
-				<div className="col-md-8">
+				<div className="col-md-12">
 					<h1>Add Recipe</h1>
 					<form onSubmit={handleSubmit}>
 						<div className="form-group">

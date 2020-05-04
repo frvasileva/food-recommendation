@@ -21,10 +21,9 @@ export const AddIngredients = (props: any) => {
 		// 		break;
 		// }
 
-		const newIngredients = [
-			...ingredients,
-		]
-		newIngredients[index][name] = value;
+		// update the ingredient value in the list of ingredients
+		const newIngredients = [ ...ingredients ];
+		newIngredients[index][name] = { value, error: '' };
 
 		props.onChange({
 			target: {
@@ -34,15 +33,44 @@ export const AddIngredients = (props: any) => {
 		})
 	};
 
+	const addIngredient = (e) => {
+		e.preventDefault();
+		props.onChange({
+			target: {
+				name: 'ingredients',
+				value: [
+					...ingredients,
+					{
+						name: { value: '', error: '' },
+						quantity: { value: '', error: '' },
+						quantityType: { value: 'kg', error: '' }
+					}
+				]
+			}
+		})
+	}
+
+	const removeIngredient = (index, e) => {
+		e.preventDefault();
+		ingredients.splice(index, 1)
+		props.onChange({
+			target: {
+				name: 'ingredients',
+				value: [ ...ingredients ]
+			}
+		})
+	}
+
 	return (
 		<div>
 			<label htmlFor="ingredients">Ingredients</label>
-			{/* <button onClick={}>NEW INGREDIENT</button> */}
+			<button onClick={addIngredient}>ADD INGREDIENT</button>
 			{ingredients.map((ingredient: any, index) => (
 				<AddIngredientItem
 					key={index}
 					value={ingredient}
 					onChange={(field: any) => handleChange(index, field)}
+					onRemove={(e) => removeIngredient(index, e)}
 				/>
 			))}
 			<small id="recipeHelp" className="form-text text-muted">

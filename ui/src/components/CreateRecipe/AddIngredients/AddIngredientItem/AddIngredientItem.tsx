@@ -7,6 +7,7 @@ export interface AddIngredientItemProps {
 		quantityType: { value: string; error: string };
 	};
 	onChange: Function;
+	onRemove: Function;
 }
 
 export default function AddIngredientItem(props: AddIngredientItemProps) {
@@ -49,7 +50,7 @@ export default function AddIngredientItem(props: AddIngredientItemProps) {
 						<span className="text-error">{fields.quantity.error}</span>
 					)}
 				</div>
-				<div className="col-md-4">
+				<div className="col-md-2">
 					{/* <input
 						type="text"
 						className="form-control"
@@ -80,6 +81,9 @@ export default function AddIngredientItem(props: AddIngredientItemProps) {
 					{fields.quantityType.error && (
 						<span className="text-error">{fields.quantityType.error}</span>
 					)}
+				</div>
+				<div className="col-md-2">
+					<button onClick={(e) => props.onRemove(e)}>REMOVE</button>
 				</div>
 			</div>
 		</div>
