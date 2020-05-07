@@ -184,6 +184,7 @@ export const GET_POPULAR_COLLECTIONS_QUERY = gql`
 	query {
 		getPopularCollections(first: 10) {
 			name
+			friendlyUrl
 			recipes(first: 3, orderBy: ratings_desc) {
 				...RecipeTile
 			}
@@ -196,6 +197,7 @@ export const HOME_PAGE_DATA_QUERY = gql`
 	query {
 		popularCollections: getPopularCollections(first: 12) {
 			name
+			friendlyUrl
 			recipes(first: 3, orderBy: ratings_desc) {
 				...RecipeTile
 			}
@@ -205,6 +207,23 @@ export const HOME_PAGE_DATA_QUERY = gql`
 		}
 		recipeOfTheDay: getRecipeOfTheDay {
 			...RecipeTile
+		}
+	}
+
+	${fragments.recipeTile}
+`;
+
+export const GET_COLLECTION_DETAILS = gql`
+	query collectionDetails($friendlyUrl: String, $skip: Int) {
+		collectionDetails: Collection(
+			first: 10
+			filter: { friendlyUrl: $friendlyUrl }
+		) {
+			name
+			friendlyUrl
+			recipes(first: 12, orderBy: ratings_desc, offset: $skip) {
+				...RecipeTile
+			}
 		}
 	}
 

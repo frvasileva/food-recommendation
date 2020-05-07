@@ -45,6 +45,11 @@ export const Header = (props: any) => {
 							</Link>
 						</li>
 						<li className="nav-item">
+							<Link to="/collections" className="nav-link">
+								Collections
+							</Link>
+						</li>
+						<li className="nav-item">
 							<Link to="/add-recipe" className="nav-link">
 								Add Recipe
 							</Link>

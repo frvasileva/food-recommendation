@@ -51,7 +51,8 @@ export const RecipeDetails = (props: any) => {
 
 						<article>
 							<p>
-								{recipe.description}
+								<strong>{recipe.description}</strong>
+								<br></br>
 								<br></br>
 								Lorem ipsum dolor sit amet consectetur adipisicing elit.
 								Voluptas, rem iusto. Cumque temporibus incidunt illo ea numquam,

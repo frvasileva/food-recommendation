@@ -1,4 +1,5 @@
 import React from "react";
+import "./AddIngredientItem.scss";
 
 export interface AddIngredientItemProps {
 	value: {
@@ -83,7 +84,9 @@ export default function AddIngredientItem(props: AddIngredientItemProps) {
 					)}
 				</div>
 				<div className="col-md-2">
-					<button onClick={(e) => props.onRemove(e)}>REMOVE</button>
+					<button onClick={(e) => props.onRemove(e)} className="remove-btn align-middle">
+						<i className="far fa-trash-alt"></i>
+					</button>
 				</div>
 			</div>
 		</div>
