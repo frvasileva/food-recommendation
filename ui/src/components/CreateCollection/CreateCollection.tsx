@@ -7,7 +7,7 @@ import tokenHelper from "../../helpers/tokenHelper";
 import { useHistory } from "react-router-dom";
 import {
 	CREATE_COLLECTION_QUERY,
-	USER_COLLECTION_QUERY
+	USER_COLLECTION_QUERY,
 } from "../../helpers/queries";
 
 export const CreateCollection = (props: any) => {
@@ -37,24 +37,29 @@ export const CreateCollection = (props: any) => {
 					name: collectionName,
 					friendlyUrl: transf.bulgarianToEnglish(collectionName),
 					userId: currentUserId,
-					createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date())
-				}
+					createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date()),
+				},
 			},
 			update: (cache, { data: { createCollection } }) => {
 				const data = cache.readQuery({
 					query: USER_COLLECTION_QUERY,
-					variables: { friendlyUrl: token.friendlyUrl() }
+					variables: { friendlyUrl: token.friendlyUrl() },
 				}) as any;
 
 				data.User[0].collections.unshift(createCollection);
 
+				data.User[0].collections = data.User[0].collections.filter(
+					(thing, index, self) =>
+						index === self.findIndex((t) => t.name === thing.name)
+				);
+
 				cache.writeQuery({
 					query: USER_COLLECTION_QUERY,
 					variables: { friendlyUrl: token.friendlyUrl() },
-					data: data
+					data: data,
 				});
-			}
-		}).then(result => {
+			},
+		}).then((result) => {
 			history.push("/recipes");
 		});
 

@@ -284,10 +284,12 @@ type Mutation {
 	createCollection(input: CreateCollectionInput): Collection
 		@cypher(
 			statement: """
-			CREATE (c:Collection{id:$input.id, name:$input.name, friendlyUrl:$input.friendlyUrl, createdOn:$input.createdOn})
+			  MERGE (c:Collection{name:$input.name, friendlyUrl:$input.friendlyUrl})
+				ON CREATE SET c.id=$input.id, c.createdOn = datetime()
 			  WITH c
 			  MATCH (u:User{id:$input.userId})
-			  CREATE (u)-[rel:COLLECTION_CREATED]->(c)
+			  MERGE (u)-[rel:COLLECTION_CREATED]->(c)
+				ON CREATE SET rel.createdOn = datetime()
 			  RETURN  c
 			"""
 		)
