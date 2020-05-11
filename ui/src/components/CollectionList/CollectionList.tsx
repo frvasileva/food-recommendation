@@ -32,14 +32,16 @@ export const CollectionList = (props: any) => {
 					if (!fetchMoreResult) return prev;
 					query.variables.skip = query.variables.skip + 10;
 					return {
-						collectionDetails: [{
-							...prev.collectionDetails[0],
-							recipes: [
-								...prev.collectionDetails[0].recipes,
-								...fetchMoreResult.collectionDetails[0].recipes,
-							]
-						}]
-					}
+						collectionDetails: [
+							{
+								...prev.collectionDetails[0],
+								recipes: [
+									...prev.collectionDetails[0].recipes,
+									...fetchMoreResult.collectionDetails[0].recipes,
+								],
+							},
+						],
+					};
 				},
 			});
 		}

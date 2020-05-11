@@ -56,7 +56,7 @@ export const RecipeList = (props: any) => {
 
 	var recipes = query.data.recipeList;
 	var newestRecipes = newest_recipes_query.data.Recipe;
-	console.log("newest_recipes_query.data.Recipes", newestRecipes);
+
 	return (
 		<div className="container">
 			<div className="row">

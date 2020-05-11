@@ -230,6 +230,20 @@ export const GET_COLLECTION_DETAILS = gql`
 	${fragments.recipeTile}
 `;
 
+export const GET_COLLECTIONS = gql`
+	query collections {
+		collections: Collection(first: 30) {
+			name
+			friendlyUrl
+			recipes(first: 12, orderBy: ratings_desc) {
+				...RecipeTile
+			}
+		}
+	}
+
+	${fragments.recipeTile}
+`;
+
 // export const RECIPE_BY_ID_QUERY = gql`
 // 	query($recipeId: ID) {
 // 		Recipe: Recipe(id: $recipeId) {

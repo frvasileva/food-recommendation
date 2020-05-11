@@ -63,6 +63,6 @@ WITH value.page.article.id AS id,
        value.page.recipe.collections AS collections
 MATCH (r:Recipe {id:id})
 FOREACH (collection IN collections |
-  MERGE (c:Collection {name: collection})
+  MERGE (c:Collection {name: collection, friendlyUrl: collection})
   MERGE (r)-[:RECIPE_ADDED_TO]->(c)
 );

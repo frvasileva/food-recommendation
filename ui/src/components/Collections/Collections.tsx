@@ -1,12 +1,13 @@
 import React from "react";
 import "./Collections.scss";
 import { useQuery } from "@apollo/react-hooks";
-import { GET_COLLECTION_DETAILS } from "../../helpers/queries";
+import { GET_COLLECTIONS } from "../../helpers/queries";
 import LoadingScreen from "../../layout/Loading/Loading";
 import ErrorScreen from "../../layout/ErrorPage/Error";
+import { Link } from "react-router-dom";
 
 export const Collections = (props: any) => {
-	const { loading, error, data } = useQuery(GET_COLLECTION_DETAILS, {
+	const { loading, error, data } = useQuery(GET_COLLECTIONS, {
 		variables: {
 			friendlyUrl: props.match.params.friendlyUrl,
 		},
@@ -15,11 +16,18 @@ export const Collections = (props: any) => {
 	if (loading) return <LoadingScreen />;
 	if (error) return <ErrorScreen error={error} />;
 
+	const collections = data.collections;
 	return (
 		<div className="collection-list-wrapper">
 			<div className="container">
 				<div className="row">
-					<div className="col-md">Collection info here</div>
+					{collections.map((collection: any) => (
+						<div key={collection.name} className="col-md-4 col-sm-6">
+							<Link to={`/collection/${collection.friendlyUrl}`}>
+								{collection.name}
+							</Link>
+						</div>
+					))}
 				</div>
 			</div>
 		</div>
