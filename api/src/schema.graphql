@@ -308,7 +308,7 @@ type Mutation {
 	createSearchTerm(input: SetSearchInputInput): SearchTerm
 		@cypher(
 			statement: """
-			CREATE (s:SearcedTerm{createdOn:datetime(), term: $input.term})
+			CREATE (s:SearchedTerm{createdOn:datetime(), term: $input.term})
 			WITH s
 			MATCH (u:User{id:$input.userId})
 			CREATE (u)-[rel:TERM_SEARCHED]->(s)
