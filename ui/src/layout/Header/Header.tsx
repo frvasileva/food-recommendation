@@ -16,7 +16,7 @@ export const Header = (props: any) => {
 	};
 
 	return (
-		<nav className="navbar navbar-expand-lg navbar-light bg-light">
+		<nav className="navbar fixed-top navbar-expand-lg navbar-light bg-custom navbar-fixed-top">
 			<div className="container">
 				<a className="navbar-brand" href="#">
 					<i className="fas fa-utensils logo"></i>
@@ -73,13 +73,14 @@ export const Header = (props: any) => {
 							<li>
 								<div className="dropdown">
 									<button
-										className="btn btn-secondary dropdown-toggle"
+										className="btn dropdown-toggle"
 										type="button"
 										id="dropdownMenuButton"
 										data-toggle="dropdown"
 										aria-haspopup="true"
 										aria-expanded="false"
 									>
+										{/* <div className="user-avatar"></div> */}
 										{token.email()}
 									</button>
 									<div

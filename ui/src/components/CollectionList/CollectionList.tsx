@@ -64,7 +64,9 @@ export const CollectionList = (props: any) => {
 		<div className="collection-list-wrapper">
 			<div className="container">
 				<div className="row">
-					<div className="col-md">{collectionName}</div>
+					<div className="col-md">
+						<h1>{collectionName} collection</h1>
+					</div>
 				</div>
 				<div className="row">
 					{collectionRecipes.map((recipe: any) => (

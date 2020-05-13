@@ -9,7 +9,34 @@
 	margin: 0;
 }
 
-.profile-link{
+.profile-link {
 	color: black;
+	margin-right: 10px;
+}
+
+.bg-custom {
+	background-color: gold;
+
+	.dropdown-menu {
+		border-radius: 0;
+	}
+}
+
+.navbar-light .navbar-nav .nav-link {
+	color: black;
+	font-weight: bold;
+}
+
+.nav-item {
+	text-transform: uppercase;
+}
+
+.user-avatar {
+	display: inline-block;
+	border-radius: 50%;
+	background-color: khaki;
+	width: 30px;
+	height: 30px;
+	float: left;
 	margin-right: 10px;
 }
