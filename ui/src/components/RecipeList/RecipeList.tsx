@@ -17,8 +17,8 @@ export const RecipeList = (props: any) => {
 			skip: 0,
 			limit: LIMIT_QUERY_RESULT,
 			ingredients: [term],
-			allergens: []
-		}
+			allergens: [],
+		},
 	});
 
 	const newest_recipes_query = useQuery(NEWEST_RECIPES_QUERY);
@@ -28,15 +28,15 @@ export const RecipeList = (props: any) => {
 		if (scroll.scrollTop + scroll.clientHeight >= scroll.scrollHeight) {
 			query.fetchMore({
 				variables: {
-					skip: query.data.recipeList.length
+					skip: query.data.recipeList.length,
 				},
 				updateQuery: (prev: any, { fetchMoreResult, ...rest }) => {
 					if (!fetchMoreResult) return prev;
 					query.variables.skip = query.variables.skip + 10;
 					return {
-						recipeList: [...prev.recipeList, ...fetchMoreResult.recipeList]
+						recipeList: [...prev.recipeList, ...fetchMoreResult.recipeList],
 					};
-				}
+				},
 			});
 		}
 	};
@@ -58,28 +58,34 @@ export const RecipeList = (props: any) => {
 	var newestRecipes = newest_recipes_query.data.Recipe;
 
 	return (
-		<div className="container">
-			<div className="row">
-				<div className="col-md-8">
-					<Search onSearch={setTerm} />
+		<div>
+			<div className="search-component-wrapper">
+				<div className="container">
+					<div className="row">
+						<div className="col-md-12">
+							<Search onSearch={setTerm} />
+						</div>
+					</div>
 				</div>
 			</div>
-			Newest:
-			<div className="row recipe-wrapper">
-				{newestRecipes.map((recipe: any) => (
-					<div key={recipe.name} className="col-md-4 col-sm-6">
-						<RecipeTile {...recipe}></RecipeTile>
-					</div>
-				))}
-			</div>
-			<hr />
-			Search result:
-			<div className="row recipe-wrapper">
-				{recipes.map((recipe: any) => (
-					<div key={recipe.name} className="col-md-4 col-sm-6">
-						<RecipeTile {...recipe}></RecipeTile>
-					</div>
-				))}
+			<div className="container">
+				Newest:
+				<div className="row recipe-wrapper">
+					{newestRecipes.map((recipe: any) => (
+						<div key={recipe.name} className="col-md-4 col-sm-6">
+							<RecipeTile {...recipe}></RecipeTile>
+						</div>
+					))}
+				</div>
+				<hr />
+				Search result:
+				<div className="row recipe-wrapper">
+					{recipes.map((recipe: any) => (
+						<div key={recipe.name} className="col-md-4 col-sm-6">
+							<RecipeTile {...recipe}></RecipeTile>
+						</div>
+					))}
+				</div>
 			</div>
 		</div>
 	);

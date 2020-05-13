@@ -1,0 +1,27 @@
+.search-component-wrapper {
+	background-color: #f7f7f7;
+	padding: 40px 0;
+}
+
+.search-input {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid black;
+	font-family: "Noto Sans JP", sans-serif;
+
+	&:focus,
+	&:active {
+		box-shadow: none;
+	}
+}
+
+.search-button {
+	background-color: black;
+	padding: 10px;
+	border: 0px;
+	width: 100%;
+	color: white;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-family: "Noto Sans JP", sans-serif;
+}
