@@ -1,56 +1,61 @@
 .card-wrapper {
 	margin: 15px auto;
 	position: relative;
-	border: 1px solid transparent;
+	border: 1px solid black;
 
 	.collection-wrapper {
 		display: none;
 	}
 
 	&:hover {
-		border: 1px solid #d23535;
-		background-color: whitesmoke;
+		box-shadow: 1px 2px 7px #bdbdbd;
 		transition: 0.2s;
 	}
 
 	&:hover .collection-wrapper {
 		display: block;
 	}
-}
 
-.card-body {
-	background-color: #f9f6f0;
-	padding: 10px;
-}
-.recipe-link {
-	color: black;
-	text-shadow: none;
-	font-family: "Open Sans", sans-serif;
-	font-size: 16px;
-
-	&:hover {
-		text-decoration: none;
-		color: #d23535;
-	}
-}
-
-.recipe-details {
-	font-size: 14px;
-}
-
-.img-wrapper {
-	position: relative;
-
-	.cooking-level {
-		position: absolute;
-		background-color: #f9f6f0;
-		right: 0;
-		bottom: 0;
-		padding: 5px 10px;
-		border-top-right-radius: 0px;
-		border-top-left-radius: 5px;
-		font-size: 12px;
-		color: #d23535;
+	& .recipe-item-details {
+		text-align: center;
 		font-family: "Noto Sans JP", sans-serif;
+		font-size: 16px;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+
+	.cooking-level-wrapper {
+		border-right: 1px solid black;
+	}
+
+	.card-body {
+		padding: 10px;
+	}
+	.recipe-link {
+		text-shadow: none;
+		font-family: "Open Sans", sans-serif;
+		font-size: 18px;
+		font-weight: bold;
+
+		position: absolute;
+		bottom: 0;
+		z-index: 1;
+		color: white;
+		display: block;
+		padding: 5px 10px;
+		background-color: rgba(52, 58, 64, 0.6);
+		text-transform: uppercase;
+
+		&:hover {
+			text-decoration: none;
+		}
+	}
+
+	.recipe-details {
+		font-size: 14px;
+	}
+
+	.img-wrapper {
+		position: relative;
 	}
 }

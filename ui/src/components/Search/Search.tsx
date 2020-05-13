@@ -16,9 +16,6 @@ export const Search = (props: any) => {
 		e.preventDefault();
 		props.onSearch(term);
 
-		console.log("token.userId,", token.userId());
-		console.log("term,", term);
-
 		setSearchedTerm({
 			variables: {
 				input: {
@@ -36,7 +33,7 @@ export const Search = (props: any) => {
 			<input
 				value={term}
 				onChange={updateTerm}
-				className="form-control mr-sm-2"
+				className="form-control mr-sm-10"
 			/>
 			<button type="submit" className="btn btn-dark my-2 my-sm-0">
 				Search

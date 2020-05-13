@@ -43,7 +43,7 @@ export const RecipeDetails = (props: any) => {
 								</div>
 								<div className="description-item time-effort">
 									<i className="far fa-clock"></i>
-									{recipe.cookingTime / 60}
+									{(recipe.cookingTime / 60).toFixed(2)}
 									<span> min.</span>
 								</div>
 							</div>
