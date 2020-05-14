@@ -6,17 +6,20 @@ import { Search } from "../Search/Search";
 import { RECIPE_LIST_QUERY, NEWEST_RECIPES_QUERY } from "../../helpers/queries";
 import LoadingScreen from "../../layout/Loading/Loading";
 import ErrorScreen from "../../layout/ErrorPage/Error";
+import { useLocation } from "react-router-dom"
 
 export const RecipeList = (props: any) => {
 	const LIMIT_QUERY_RESULT = 12;
 	const [term, setTerm] = React.useState("");
+	const location = useLocation();
+	const searchParams = new URLSearchParams(location.search)
 
 	const query = useQuery(RECIPE_LIST_QUERY, {
 		skip: false,
 		variables: {
 			skip: 0,
 			limit: LIMIT_QUERY_RESULT,
-			ingredients: [term],
+			ingredients: [searchParams.get('term')],
 			allergens: [],
 		},
 	});
@@ -63,13 +66,13 @@ export const RecipeList = (props: any) => {
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
-							<Search onSearch={setTerm} />
+							<Search term={searchParams.get('term')} />
 						</div>
 					</div>
 				</div>
 			</div>
 			<div className="container">
-				Newest:
+				{/* Newest:
 				<div className="row recipe-wrapper">
 					{newestRecipes.map((recipe: any) => (
 						<div key={recipe.name} className="col-md-4 col-sm-6">
@@ -77,7 +80,7 @@ export const RecipeList = (props: any) => {
 						</div>
 					))}
 				</div>
-				<hr />
+				<hr /> */}
 				Search result:
 				<div className="row recipe-wrapper">
 					{recipes.map((recipe: any) => (

@@ -14,8 +14,6 @@ export const SearchPredefined = (props: any) => {
 	if (query.error) return <ErrorScreen error={query.error} />;
 
 	var categories = query.data.getPredefinedSearchCategories;
-	console.log(query.data);
-	console.log(categories);
 
 	return (
 		<div className="predefined-search-wrapper">

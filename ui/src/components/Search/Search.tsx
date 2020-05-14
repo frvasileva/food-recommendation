@@ -3,9 +3,11 @@ import { useMutation } from "@apollo/react-hooks";
 import { SET_SEARCHED_TERM } from "../../helpers/queries";
 import tokenHelper from "../../helpers/tokenHelper";
 import "./Search.scss";
+import { useHistory } from 'react-router-dom';
 
 export const Search = (props: any) => {
-	const [term, setTerm] = React.useState("");
+  const history = useHistory();
+	const [term, setTerm] = React.useState(props.term || '');
 	const [setSearchedTerm, createSearchedTerm] = useMutation(SET_SEARCHED_TERM);
 	var token = tokenHelper();
 
@@ -15,7 +17,7 @@ export const Search = (props: any) => {
 
 	const submitForm = (e: any) => {
 		e.preventDefault();
-		props.onSearch(term);
+		history.push(`/recipes?term=${term}`);
 
 		setSearchedTerm({
 			variables: {
@@ -24,8 +26,6 @@ export const Search = (props: any) => {
 					term: term,
 				},
 			},
-		}).then((res) => {
-			setTerm("");
 		});
 	};
 
