@@ -33,13 +33,18 @@ export const Search = (props: any) => {
 		<form onSubmit={submitForm} className="search-form">
 			<div className="row">
 				<div className="col-md-9">
-					<input value={term} onChange={updateTerm} className="search-input" placeholder="What do you want to cook?" />
+					<input
+						value={term}
+						onChange={updateTerm}
+						className="search-input"
+						placeholder="What do you want to cook?"
+					/>
 				</div>
 				<div className="col-md-3">
 					<button type="submit" className="search-button">
 						Search
 					</button>
-				</div>{" "}
+				</div>
 			</div>
 		</form>
 	);

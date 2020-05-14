@@ -7,6 +7,7 @@ import ErrorScreen from "../../layout/ErrorPage/Error";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
 import { RecipeOfTheDay } from "./RecipeOfTheDay/RecipeOfTheDay";
 import { Link } from "react-router-dom";
+import { SearchPredefined } from "../SearchPredefined/SearchPredefined";
 
 export const Home = (props: any) => {
 	const homepageData = useQuery(HOME_PAGE_DATA_QUERY);
@@ -33,13 +34,26 @@ export const Home = (props: any) => {
 					</div>
 				</div>
 				<br></br>
+
+				<div className="search-component-wrapper">
+					<div className="container">
+						<div className="row">
+							<div className="col-md-12">
+								<SearchPredefined></SearchPredefined>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<br></br>
 				<h1>Top collections</h1>
 				<div className="row collection-preview-wrapper">
 					{popularCollections.map((collection: any) => (
-						<div key={collection.name} className="col-md-3 col-sm-6 collection-item">
-							<Link
-								to={`/collection/${collection.friendlyUrl}`}
-							>
+						<div
+							key={collection.name}
+							className="col-md-3 col-sm-6 collection-item"
+						>
+							<Link to={`/collection/${collection.friendlyUrl}`}>
 								{collection.name}
 							</Link>
 						</div>

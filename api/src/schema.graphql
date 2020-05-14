@@ -254,6 +254,14 @@ type Query {
 			"""
 		)
 
+	getPredefinedSearchCategories: [Collection]
+		@cypher(
+			statement: """
+			MATCH (n:PredefinedSearchCategory)
+			RETURN n
+			"""
+		)
+
 	getPopularCollections: [Collection]
 		@cypher(
 			statement: """
@@ -284,13 +292,13 @@ type Mutation {
 	createCollection(input: CreateCollectionInput): Collection
 		@cypher(
 			statement: """
-			  MERGE (c:Collection{name:$input.name, friendlyUrl:$input.friendlyUrl})
-				ON CREATE SET c.id=$input.id, c.createdOn = datetime()
-			  WITH c
-			  MATCH (u:User{id:$input.userId})
-			  MERGE (u)-[rel:COLLECTION_CREATED]->(c)
-				ON CREATE SET rel.createdOn = datetime()
-			  RETURN  c
+			 MERGE (c:Collection{name:$input.name, friendlyUrl:$input.friendlyUrl})
+			ON CREATE SET c.id=$input.id, c.createdOn = datetime()
+			 WITH c
+			 MATCH (u:User{id:$input.userId})
+			 MERGE (u)-[rel:COLLECTION_CREATED]->(c)
+			ON CREATE SET rel.createdOn = datetime()
+			 RETURN  c
 			"""
 		)
 
@@ -341,6 +349,15 @@ type Mutation {
 			statement: """
 			MATCH (n { id: $recipeId })
 			SET n:RecipeOfTheDay
+			RETURN n
+			"""
+		)
+
+	setPredefinedSearchCategory(friendlyUrl: String): Collection
+		@cypher(
+			statement: """
+			MATCH (n { friendlyUrl: $friendlyUrl })
+			SET n:PredefinedSearchCategory
 			RETURN n
 			"""
 		)

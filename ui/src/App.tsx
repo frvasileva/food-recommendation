@@ -20,6 +20,7 @@ import { ProfileEdit } from "./components/ProfileEdit/ProfileEdit";
 import { SetRecipeOfTheDay } from "./admin/RecipeOfTheDay";
 import { CollectionList } from "./components/CollectionList/CollectionList";
 import { Collections } from "./components/Collections/Collections";
+import { PredefinedSearchCategories } from "./admin/PredefinedSearchCategories/PredefinedSearchCategories";
 
 const client = new ApolloClient({
 	uri: "http://localhost:4000/",
@@ -65,6 +66,11 @@ const App = () => {
 							exact
 							path="/admin/add-recipe-of-the-day"
 							component={SetRecipeOfTheDay}
+						/>
+						<Route
+							exact
+							path="/admin/add-predefined-search-category"
+							component={PredefinedSearchCategories}
 						/>
 					</Switch>
 				</div>

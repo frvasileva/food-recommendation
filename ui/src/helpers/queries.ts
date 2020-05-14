@@ -92,6 +92,14 @@ export const SET_SEARCHED_TERM = gql`
 	}
 `;
 
+export const SET_PREDEFINED_SEARCH_CATEGORY = gql`
+	mutation($friendlyUrl: String) {
+		setPredefinedSearchCategory(friendlyUrl: $friendlyUrl) {
+			name
+		}
+	}
+`;
+
 export const REGISTER_USER_QUERY = gql`
 	mutation($input: RegisterUserInput) {
 		registerUser(input: $input)
@@ -105,6 +113,7 @@ export const SET_RECIPE_OF_THE_DAY = gql`
 		}
 	}
 `;
+
 export const GET_RECIPE_OF_THE_DAY = gql`
 	query {
 		getRecipeOfTheDay {
@@ -112,6 +121,15 @@ export const GET_RECIPE_OF_THE_DAY = gql`
 		}
 	}
 	${fragments.recipeTile}
+`;
+
+export const GET_PREDEFINED_SEARCH_CATEGORY = gql`
+	query {
+		getPredefinedSearchCategories {
+			name
+			friendlyUrl
+		}
+	}
 `;
 
 export const USER_COLLECTION_QUERY = gql`
