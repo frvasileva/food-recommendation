@@ -19,17 +19,26 @@
 	& .recipe-item-details {
 		text-align: center;
 		font-family: "Noto Sans JP", sans-serif;
-		font-size: 16px;
-		font-weight: bold;
+		font-size: 12px;
 		text-transform: uppercase;
+		min-height: 30px;
+
+		.label-info {
+			font-size: 10px;
+			font-family: Roboto;
+		}
 	}
 
-	.cooking-level-wrapper {
+	.recipe-item-details:nth-child(1) {
 		border-right: 1px solid black;
 	}
 
 	.card-body {
 		padding: 10px;
+
+		& .row {
+			margin-bottom: 5px;
+		}
 	}
 	.recipe-link {
 		text-shadow: none;
@@ -57,5 +66,9 @@
 
 	.img-wrapper {
 		position: relative;
+	}
+
+	.cooking-level{
+		padding-top:10px;
 	}
 }

@@ -4,8 +4,8 @@ type Recipe @isAuthenticated {
 	imagePath: String
 	createdOn: DateTime
 	preparationTime: Int
-	skillLevel: String
 	cookingTime: Int
+	skillLevel: String
 	description: String
 	friendlyUrl: String
 	ratings: Int

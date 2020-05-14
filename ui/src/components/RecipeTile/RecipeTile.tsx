@@ -22,7 +22,7 @@ export const RecipeTile = (props: any) => {
 					</div>
 					<div className="card-body">
 						<div className="row">
-							<div className="col-md-6 recipe-item-details cooking-level-wrapper">
+							<div className="col-md-6 recipe-item-details">
 								<div className="cooking-level">
 									<i className="fas fa-hard-hat"></i>
 									{props.skillLevel}
@@ -30,9 +30,28 @@ export const RecipeTile = (props: any) => {
 							</div>
 							<div className="col-md-6 recipe-item-details">
 								<div className="cooking-level">
+									<i className="fas fa-hard-hat"></i>
+									<span>Vegeterian</span>
+								</div>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col-md-6 recipe-item-details">
+								<div className="time-info">
+									<i className="far fa-clock"></i>
+									{(props.preparationTime / 60).toFixed(2)}
+									<span> min.</span>
+									<br />
+									<span className="label-info">preparation time</span>
+								</div>
+							</div>
+							<div className="col-md-6 recipe-item-details">
+							<div className="time-info">
 									<i className="far fa-clock"></i>
 									{(props.cookingTime / 60).toFixed(2)}
 									<span> min.</span>
+									<br />
+									<span className="label-info">cooking time</span>
 								</div>
 							</div>
 						</div>

@@ -202,7 +202,7 @@ export const HOME_PAGE_DATA_QUERY = gql`
 				...RecipeTile
 			}
 		}
-		newestRecipes: Recipe(first: 8, orderBy: createdOn_desc) {
+		newestRecipes: Recipe(first: 6, orderBy: createdOn_desc) {
 			...RecipeTile
 		}
 		recipeOfTheDay: getRecipeOfTheDay {
