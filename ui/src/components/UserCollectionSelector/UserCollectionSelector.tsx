@@ -11,6 +11,7 @@ import {
 } from "../../helpers/queries";
 import ErrorScreen from "../../layout/ErrorPage/Error";
 import LoadingScreen from "../../layout/Loading/Loading";
+import { CreateCollection } from "../CreateCollection/CreateCollection";
 
 export const UserCollectionSelector = (props: any) => {
 	var token = tokenHelper();
@@ -78,7 +79,10 @@ export const UserCollectionSelector = (props: any) => {
 		<div className="collection-wrapper">
 			<div className="header">
 				<span>
-					<strong>Add to collection</strong>
+					<strong>
+						{" "}
+						<i className="far fa-bookmark"></i> Save
+					</strong>
 				</span>
 				<Link to="/add-collection" className="add-new-collection">
 					<i className="far fa-plus-square"></i>

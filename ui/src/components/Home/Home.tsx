@@ -26,7 +26,7 @@ export const Home = (props: any) => {
 	}
 
 	return (
-		<div className="home-wrapper">
+		<div className="container-wrapper home-wrapper">
 			<div className="container">
 				<div className="row">
 					<div className="col-md">
@@ -35,7 +35,7 @@ export const Home = (props: any) => {
 				</div>
 				<br></br>
 			</div>{" "}
-			<div className="search-component-wrapper">
+			<div className="container-wrapper search-component-wrapper">
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
@@ -44,7 +44,7 @@ export const Home = (props: any) => {
 					</div>
 				</div>
 			</div>
-			<div className="container">
+			<div className="container-wrapper container">
 				<h1>Top collections</h1>
 				<div className="row collection-preview-wrapper">
 					{popularCollections.map((collection: any) => (
@@ -59,7 +59,7 @@ export const Home = (props: any) => {
 					))}
 				</div>
 			</div>
-			<div className="container">
+			<div className="container-wrapper container">
 				<br></br>
 				<h1>Newest</h1>
 				<div className="row recipe-wrapper">

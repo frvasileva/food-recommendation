@@ -3,26 +3,40 @@ import { useQuery } from "@apollo/react-hooks";
 import "./RecipeList.scss";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
 import { Search } from "../Search/Search";
-import { RECIPE_LIST_QUERY, NEWEST_RECIPES_QUERY } from "../../helpers/queries";
+import {
+	RECIPE_LIST_QUERY,
+	NEWEST_RECIPES_QUERY,
+	RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY,
+} from "../../helpers/queries";
 import LoadingScreen from "../../layout/Loading/Loading";
 import ErrorScreen from "../../layout/ErrorPage/Error";
-import { useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom";
 
 export const RecipeList = (props: any) => {
 	const LIMIT_QUERY_RESULT = 12;
-	const [term, setTerm] = React.useState("");
 	const location = useLocation();
-	const searchParams = new URLSearchParams(location.search)
+	const searchParams = new URLSearchParams(location.search);
 
 	const query = useQuery(RECIPE_LIST_QUERY, {
 		skip: false,
 		variables: {
 			skip: 0,
 			limit: LIMIT_QUERY_RESULT,
-			ingredients: [searchParams.get('term')],
+			ingredients: [searchParams.get("term")],
 			allergens: [],
 		},
 	});
+
+	const queryFullText = useQuery(RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY, {
+		variables: {
+			skip: 0,
+			limit: LIMIT_QUERY_RESULT,
+			ingredients: [],
+			term: "banana",
+		},
+	});
+
+	console.log("full text", queryFullText.data);
 
 	const newest_recipes_query = useQuery(NEWEST_RECIPES_QUERY);
 
@@ -66,7 +80,7 @@ export const RecipeList = (props: any) => {
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
-							<Search term={searchParams.get('term')} />
+							<Search term={searchParams.get("term")} />
 						</div>
 					</div>
 				</div>

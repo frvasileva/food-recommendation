@@ -222,15 +222,21 @@ type Query {
 			"""
 		)
 
-	recipeFullTextSearch(searchTerm: String!, ingredients: [String]): [Recipe]
+	recipeFullTextSearch(
+		term: String
+		ingredients: [String]
+		skip: Int
+		limit: Int
+	): [Recipe]
 		@cypher(
 			statement: """
-			CALL db.index.fulltext.queryNodes('RecipeTitleAndDescription', $searchTerm) YIELD node, score
+			CALL db.index.fulltext.queryNodes('RecipeTitleAndDescription', $term) YIELD node, score
 			with node, score
 			WHERE all(i in $ingredients WHERE exists((node)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
 			RETURN node
 			order by score desc, node.ratings desc
-			limit 100
+			SKIP $skip
+			LIMIT $limit
 			"""
 		)
 

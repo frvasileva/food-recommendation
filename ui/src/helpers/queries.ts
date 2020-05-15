@@ -181,6 +181,19 @@ export const RECIPE_LIST_QUERY = gql`
 	}
 	${fragments.recipeTile}
 `;
+export const RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY = gql`
+	query($term: String, $ingredients: [String], $skip: Int, $limit: Int) {
+		recipeFullTextSearch(
+			skip: $skip
+			limit: $limit
+			ingredients: $ingredients
+			term: $term
+		) {
+			...RecipeTile
+		}
+	}
+	${fragments.recipeTile}
+`;
 
 export const RECIPE_INGREDIENTS_FULLTEXT_QUERY = gql`
 	query($searchTerm: String) {
