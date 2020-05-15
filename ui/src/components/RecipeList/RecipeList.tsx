@@ -5,7 +5,6 @@ import { RecipeTile } from "../RecipeTile/RecipeTile";
 import { Search } from "../Search/Search";
 import {
 	RECIPE_LIST_QUERY,
-	NEWEST_RECIPES_QUERY,
 	RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY,
 } from "../../helpers/queries";
 import LoadingScreen from "../../layout/Loading/Loading";
@@ -17,28 +16,16 @@ export const RecipeList = (props: any) => {
 	const location = useLocation();
 	const searchParams = new URLSearchParams(location.search);
 
-	const query = useQuery(RECIPE_LIST_QUERY, {
-		skip: false,
-		variables: {
-			skip: 0,
-			limit: LIMIT_QUERY_RESULT,
-			ingredients: [searchParams.get("term")],
-			allergens: [],
-		},
-	});
+	var searchTerm = searchParams.get("term") ?? "chocolate";
 
-	const queryFullText = useQuery(RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY, {
+	const query = useQuery(RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY, {
 		variables: {
 			skip: 0,
 			limit: LIMIT_QUERY_RESULT,
 			ingredients: [],
-			term: "banana",
+			term: searchTerm,
 		},
 	});
-
-	console.log("full text", queryFullText.data);
-
-	const newest_recipes_query = useQuery(NEWEST_RECIPES_QUERY);
 
 	const scrollElement = (e: any) => {
 		var scroll = document.documentElement;
@@ -68,11 +55,7 @@ export const RecipeList = (props: any) => {
 	if (query.loading) return <LoadingScreen />;
 	if (query.error) return <ErrorScreen error={query.error} />;
 
-	if (newest_recipes_query.loading) return <LoadingScreen />;
-	if (newest_recipes_query.error) return <ErrorScreen error={query.error} />;
-
 	var recipes = query.data.recipeList;
-	var newestRecipes = newest_recipes_query.data.Recipe;
 
 	return (
 		<div>
@@ -86,15 +69,6 @@ export const RecipeList = (props: any) => {
 				</div>
 			</div>
 			<div className="container">
-				{/* Newest:
-				<div className="row recipe-wrapper">
-					{newestRecipes.map((recipe: any) => (
-						<div key={recipe.name} className="col-md-4 col-sm-6">
-							<RecipeTile {...recipe}></RecipeTile>
-						</div>
-					))}
-				</div>
-				<hr /> */}
 				Search result:
 				<div className="row recipe-wrapper">
 					{recipes.map((recipe: any) => (
