@@ -146,6 +146,13 @@ export const USER_COLLECTION_QUERY = gql`
 	${fragments.collectionTile}
 	${fragments.recipeTile}
 `;
+export const TOP_INGREDIENTS_QUERY = gql`
+	query {
+		topIngredients: getMostPopularIngredients {
+			name
+		}
+	}
+`;
 
 export const RECIPE_BY_ID_QUERY = gql`
 	query($recipeId: ID) {

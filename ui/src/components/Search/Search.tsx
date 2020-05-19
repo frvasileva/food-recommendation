@@ -3,11 +3,12 @@ import { useMutation } from "@apollo/react-hooks";
 import { SET_SEARCHED_TERM } from "../../helpers/queries";
 import tokenHelper from "../../helpers/tokenHelper";
 import "./Search.scss";
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from "react-router-dom";
+import { SearchAdvanced } from "./SearchAdvanced/SearchAdvanced";
 
 export const Search = (props: any) => {
-  const history = useHistory();
-	const [term, setTerm] = React.useState(props.term || '');
+	const history = useHistory();
+	const [term, setTerm] = React.useState(props.term || "");
 	const [setSearchedTerm, createSearchedTerm] = useMutation(SET_SEARCHED_TERM);
 	var token = tokenHelper();
 
@@ -44,6 +45,10 @@ export const Search = (props: any) => {
 					<button type="submit" className="search-button">
 						Search
 					</button>
+					<br></br>
+					<div className="advanced-search-btn-wrapper">
+						<SearchAdvanced />
+					</div>
 				</div>
 			</div>
 		</form>

@@ -3,10 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import "./RecipeList.scss";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
 import { Search } from "../Search/Search";
-import {
-	RECIPE_LIST_QUERY,
-	RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY,
-} from "../../helpers/queries";
+import { RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY } from "../../helpers/queries";
 import LoadingScreen from "../../layout/Loading/Loading";
 import ErrorScreen from "../../layout/ErrorPage/Error";
 import { useLocation } from "react-router-dom";

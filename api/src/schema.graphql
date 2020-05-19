@@ -276,6 +276,16 @@ type Query {
 			order by cnt desc
 			"""
 		)
+
+	getMostPopularIngredients: [Ingredient]
+		@cypher(
+			statement: """
+			MATCH (rec:Recipe)-[r:CONTAINS_INGREDIENT]->(i:Ingredient)
+			RETURN i, count(r) AS num
+			ORDER BY num desc
+			limit 30
+			"""
+		)
 }
 
 type Mutation {
