@@ -14,6 +14,8 @@ import "./SearchAdvanced.scss";
 
 export const SearchAdvanced = (props: any) => {
 	const [show, setShow] = useState(false);
+	const [fPreparationTime, setPreparationTime] = useState([] as string[]);
+	const [fCookingTime, setCookingTime] = useState([] as string[]);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
@@ -23,6 +25,23 @@ export const SearchAdvanced = (props: any) => {
 	if (query.error) return <ErrorScreen error={query.error} />;
 
 	const ingredients = query.data.topIngredients;
+	const setPrepTime = (e: any) => {
+		if (e.target.type !== "checkbox") return;
+		if (fPreparationTime.includes(e.target.value)) {
+			setPreparationTime(fPreparationTime.filter((i) => i !== e.target.value));
+		} else {
+			setPreparationTime([...fPreparationTime, e.target.value]);
+		}
+	};
+	const setCookTime = (e: any) => {
+		if (e.target.type !== "checkbox") return;
+		if (fCookingTime.includes(e.target.value)) {
+			setCookingTime(fCookingTime.filter((i) => i !== e.target.value));
+		} else {
+			setCookingTime([...fCookingTime, e.target.value]);
+		}
+	};
+
 	const preparationTime = [
 		{ label: "15 min", value: "15" },
 		{ label: "30 min", value: "30" },
@@ -100,6 +119,7 @@ export const SearchAdvanced = (props: any) => {
 												value={item.value}
 												variant="outline-info"
 												className="custom-btn"
+												onClick={setPrepTime}
 											>
 												{item.label}
 											</ToggleButton>
@@ -121,6 +141,7 @@ export const SearchAdvanced = (props: any) => {
 											value={item.value}
 											variant="outline-info"
 											className="custom-btn"
+											onClick={setCookTime}
 										>
 											{item.label}
 										</ToggleButton>

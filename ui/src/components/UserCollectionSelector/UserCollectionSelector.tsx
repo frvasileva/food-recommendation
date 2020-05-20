@@ -11,7 +11,6 @@ import {
 } from "../../helpers/queries";
 import ErrorScreen from "../../layout/ErrorPage/Error";
 import LoadingScreen from "../../layout/Loading/Loading";
-import { CreateCollection } from "../CreateCollection/CreateCollection";
 
 export const UserCollectionSelector = (props: any) => {
 	var token = tokenHelper();
