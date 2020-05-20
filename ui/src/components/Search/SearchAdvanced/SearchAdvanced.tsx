@@ -14,10 +14,10 @@ import "./SearchAdvanced.scss";
 
 export const SearchAdvanced = (props: any) => {
 	const [show, setShow] = useState(false);
+	const [fIngredients, setSelectedIngredients] = useState([] as string[]);
 	const [fPreparationTime, setPreparationTime] = useState([] as string[]);
 	const [fCookingTime, setCookingTime] = useState([] as string[]);
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
+	const [fSkillLevel, setSkillLevel] = useState([] as string[]);
 
 	const query = useQuery(TOP_INGREDIENTS_QUERY);
 
@@ -25,6 +25,15 @@ export const SearchAdvanced = (props: any) => {
 	if (query.error) return <ErrorScreen error={query.error} />;
 
 	const ingredients = query.data.topIngredients;
+
+	const setSelIngredients = (e: any) => {
+		if (e.target.type !== "checkbox") return;
+		if (fIngredients.includes(e.target.value)) {
+			setSelectedIngredients(fIngredients.filter((i) => i !== e.target.value));
+		} else {
+			setSelectedIngredients([...fIngredients, e.target.value]);
+		}
+	};
 	const setPrepTime = (e: any) => {
 		if (e.target.type !== "checkbox") return;
 		if (fPreparationTime.includes(e.target.value)) {
@@ -40,6 +49,40 @@ export const SearchAdvanced = (props: any) => {
 		} else {
 			setCookingTime([...fCookingTime, e.target.value]);
 		}
+	};
+	const setLevel = (e: any) => {
+		console.log("setLevel");
+		if (e.target.type !== "checkbox") return;
+		if (fSkillLevel.includes(e.target.value)) {
+			setSkillLevel(fSkillLevel.filter((i) => i !== e.target.value));
+		} else {
+			setSkillLevel([...fSkillLevel, e.target.value]);
+		}
+	};
+
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+	const handleSaveChanges = () => {
+		var param = "";
+		if (fIngredients != []) {
+			let url = "&term=" + fIngredients.join(",");
+			param = url;
+		}
+		if (fPreparationTime != []) {
+			let url = "&prepTime=" + fPreparationTime.join(",");
+			param = param + url;
+		}
+		if (fCookingTime != []) {
+			let url = "&cookingTime=" + fCookingTime.join(",");
+			param = param + url;
+		}
+		if (fSkillLevel != []) {
+			let url = "&skillLevel=" + fSkillLevel.join(",");
+			param = param + url;
+		}
+
+		console.log("param", param);
+		setShow(false);
 	};
 
 	const preparationTime = [
@@ -96,6 +139,7 @@ export const SearchAdvanced = (props: any) => {
 										value={ingredient.name}
 										variant="outline-info"
 										className="custom-btn"
+										onClick={setSelIngredients}
 									>
 										{ingredient.name}
 									</ToggleButton>
@@ -163,6 +207,7 @@ export const SearchAdvanced = (props: any) => {
 										value={item.value}
 										variant="outline-info"
 										className="custom-btn"
+										onClick={setLevel}
 									>
 										{item.label}
 									</ToggleButton>
@@ -195,7 +240,7 @@ export const SearchAdvanced = (props: any) => {
 					<Button variant="secondary" onClick={handleClose}>
 						Close
 					</Button>
-					<Button variant="primary" onClick={handleClose}>
+					<Button variant="primary" onClick={handleSaveChanges}>
 						Save Changes
 					</Button>
 				</Modal.Footer>
