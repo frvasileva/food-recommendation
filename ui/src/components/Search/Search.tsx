@@ -31,7 +31,7 @@ export const Search = (props: any) => {
 	};
 
 	const advancedFilterSubmitted = (args) => {
-		console.log("submitted ROOT", args);
+		history.push(`/recipes?term=${term}` + args);
 	};
 
 	return (
