@@ -12,14 +12,20 @@ export const RecipeList = (props: any) => {
 	const LIMIT_QUERY_RESULT = 12;
 	const location = useLocation();
 	const searchParams = new URLSearchParams(location.search);
+	console.log("search Params", searchParams);
 
 	var searchTerm = searchParams.get("term") ?? "chocolate";
+	var searchedIngredients = searchParams.get("ingredients") ?? "";
+	var searchIngredientsArray: string[] = [];
+	if (searchedIngredients != "") {
+		searchIngredientsArray = searchedIngredients.split(",");
+	}
 
 	const query = useQuery(RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY, {
 		variables: {
 			skip: 0,
 			limit: LIMIT_QUERY_RESULT,
-			ingredients: [],
+			ingredients: searchIngredientsArray,
 			term: searchTerm,
 		},
 	});

@@ -62,10 +62,10 @@ export const SearchAdvanced = (props: any) => {
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-	const handleSaveChanges = () => {
+	const advancedFilterSubmitted = () => {
 		var param = "";
 		if (fIngredients != []) {
-			let url = "&term=" + fIngredients.join(",");
+			let url = "&ingredients=" + fIngredients.join(",");
 			param = url;
 		}
 		if (fPreparationTime != []) {
@@ -83,6 +83,10 @@ export const SearchAdvanced = (props: any) => {
 
 		console.log("param", param);
 		setShow(false);
+
+		console.log("submitted from child");
+
+		props.advancedFilterSubmitted(param);
 	};
 
 	const preparationTime = [
@@ -240,7 +244,7 @@ export const SearchAdvanced = (props: any) => {
 					<Button variant="secondary" onClick={handleClose}>
 						Close
 					</Button>
-					<Button variant="primary" onClick={handleSaveChanges}>
+					<Button variant="primary" onClick={advancedFilterSubmitted}>
 						Save Changes
 					</Button>
 				</Modal.Footer>

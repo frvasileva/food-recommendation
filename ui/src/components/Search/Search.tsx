@@ -30,6 +30,10 @@ export const Search = (props: any) => {
 		});
 	};
 
+	const advancedFilterSubmitted = (args) => {
+		console.log("submitted ROOT", args);
+	};
+
 	return (
 		<form onSubmit={submitForm} className="search-form">
 			<div className="row">
@@ -47,7 +51,7 @@ export const Search = (props: any) => {
 					</button>
 					<br></br>
 					<div className="advanced-search-btn-wrapper">
-						<SearchAdvanced />
+						<SearchAdvanced advancedFilterSubmitted={advancedFilterSubmitted} />
 					</div>
 				</div>
 			</div>
