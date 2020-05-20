@@ -12,6 +12,20 @@
 .search-modal {
 	p {
 		font-weight: bold;
-    margin: 15px 0 0;
+		margin: 15px 0 0;
+	}
+
+	.custom-toggle-btn {
+		color: indianred;
+		display: block;
+	}
+
+	.custom-btn {
+		border-radius: 5px !important;
+		margin: 5px;
+
+		&:hover {
+			cursor: pointer;
+		}
 	}
 }

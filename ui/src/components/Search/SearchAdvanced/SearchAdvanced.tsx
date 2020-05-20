@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import "./SearchAdvanced.scss";
-import { Button, Modal } from "react-bootstrap";
+import {
+	Button,
+	Modal,
+	ToggleButtonGroup,
+	ToggleButton,
+} from "react-bootstrap";
 import { TOP_INGREDIENTS_QUERY } from "../../../helpers/queries";
 import { useQuery } from "@apollo/react-hooks";
-import LoadingScreen from "../../../layout/Loading/Loading";
+
 import ErrorScreen from "../../../layout/ErrorPage/Error";
 import "./SearchAdvanced.scss";
 
@@ -18,6 +23,30 @@ export const SearchAdvanced = (props: any) => {
 	if (query.error) return <ErrorScreen error={query.error} />;
 
 	const ingredients = query.data.topIngredients;
+	const preparationTime = [
+		{ label: "15 min", value: "15" },
+		{ label: "30 min", value: "30" },
+		{ label: "60 min", value: "60" },
+	];
+	const cookingTime = [
+		{ label: "15 min", value: "15" },
+		{ label: "30 min", value: "30" },
+		{ label: "60 min", value: "60" },
+	];
+	const skillLevel = [
+		{ label: "Easy", value: "Easy" },
+		{ label: "Medium", value: "Medium" },
+		{ label: "Hard", value: "Hard" },
+	];
+	const specialDiet = [
+		{ label: "Diary free", value: "Diary free" },
+		{ label: "Egg free", value: "Egg free" },
+		{ label: "Vegan", value: "Vegan" },
+		{ label: "Vegetarenian", value: "Vegetarenian" },
+		{ label: "Gluten free", value: "Gluten free" },
+		{ label: "Low carb", value: "Low carb" },
+		{ label: "High protein", value: "High protein" },
+	];
 
 	return (
 		<>
@@ -37,120 +66,107 @@ export const SearchAdvanced = (props: any) => {
 				<Modal.Body>
 					<div className="row">
 						<div className="col-md">
-							{" "}
 							<p>Select ingredients:</p>
-							<ul className="search-filer-list top-ingredients-list">
+							<ToggleButtonGroup
+								type="checkbox"
+								// defaultValue={["lemon", "orange"]}
+								className="custom-toggle-btn"
+							>
 								{ingredients.map((ingredient: any) => (
-									<li key={ingredient.name}>
-										<Button variant="outline-info" size="sm">
-											{ingredient.name}
-										</Button>
-									</li>
+									<ToggleButton
+										value={ingredient.name}
+										variant="outline-info"
+										className="custom-btn"
+									>
+										{ingredient.name}
+									</ToggleButton>
 								))}
-							</ul>
+							</ToggleButtonGroup>
+						</div>
+					</div>
+
+					<div className="row">
+						<div className="col-md-6">
+							<p>Preparation time:</p>
+							<div className="row">
+								<div className="col-md">
+									<ToggleButtonGroup
+										type="checkbox"
+										defaultValue={["30"]}
+										className="custom-toggle-btn"
+									>
+										{preparationTime.map((item: any) => (
+											<ToggleButton
+												value={item.value}
+												variant="outline-info"
+												className="custom-btn"
+											>
+												{item.label}
+											</ToggleButton>
+										))}
+									</ToggleButtonGroup>
+								</div>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col-md">
+								<p>Cooking time:</p>
+								<ToggleButtonGroup
+									type="checkbox"
+									defaultValue={["30"]}
+									className="custom-toggle-btn"
+								>
+									{cookingTime.map((item: any) => (
+										<ToggleButton
+											value={item.value}
+											variant="outline-info"
+											className="custom-btn"
+										>
+											{item.label}
+										</ToggleButton>
+									))}
+								</ToggleButtonGroup>
+							</div>
 						</div>
 					</div>
 					<div className="row">
-						<div className="col-md-4">
-							{" "}
-							<p>Preparation time:</p>
-							<ul className="search-filer-list  preparation-time-list">
-								<li>
-									<Button variant="outline-info" size="sm">
-										15 min
-									</Button>
-								</li>
-								<li>
-									<Button variant="outline-info" size="sm">
-										30 min
-									</Button>
-								</li>
-								<li>
-									<Button variant="outline-info" size="sm">
-										60 min
-									</Button>
-								</li>
-							</ul>
-						</div>
-						<div className="col-md-4">
-							{" "}
-							<p>Cooking time:</p>
-							<ul className="search-filer-list  preparation-time-list">
-								<li>
-									<Button variant="outline-info" size="sm">
-										15 min
-									</Button>
-								</li>
-								<li>
-									<Button variant="outline-info" size="sm">
-										30 min
-									</Button>
-								</li>
-								<li>
-									<Button variant="outline-info" size="sm">
-										60 min
-									</Button>
-								</li>
-							</ul>
-						</div>
-
-						<div className="col-md-4">
-							{" "}
+						<div className="col-md-12">
 							<p>Difficulty:</p>
-							<ul className="search-filer-list  preparation-time-list">
-								<li>
-									<Button variant="outline-info" size="sm">
-										Easy
-									</Button>
-								</li>
-								<li>
-									<Button variant="outline-info" size="sm">
-										Medium
-									</Button>
-								</li>
-								<li>
-									<Button variant="outline-info" size="sm">
-										Hard
-									</Button>
-								</li>
-							</ul>
+							<ToggleButtonGroup
+								type="checkbox"
+								defaultValue={["30"]}
+								className="custom-toggle-btn"
+							>
+								{skillLevel.map((item: any) => (
+									<ToggleButton
+										value={item.value}
+										variant="outline-info"
+										className="custom-btn"
+									>
+										{item.label}
+									</ToggleButton>
+								))}
+							</ToggleButtonGroup>
 						</div>
 					</div>
 					<div className="row">
 						<div className="col-md">
 							<p>Special diet:</p>
-							<ul className="search-filer-list  preparation-time-list">
-								<li>
-									<Button variant="outline-info" size="sm">
-										Gluten free
-									</Button>
-								</li>
-								<li>
-									<Button variant="outline-info" size="sm">
-										Diary free
-									</Button>
-								</li>
-								<li>
-									<Button variant="outline-info" size="sm">
-										Egg free
-									</Button>
-								</li>
-								<li>
-									<Button variant="outline-info" size="sm">
-										Vegan
-									</Button>
-								</li>
-								<li>
-									<Button variant="outline-info" size="sm">
-										Vegeterian
-									</Button>
-								</li>
-								<li>
-									<Button variant="outline-info" size="sm">
-										Healthy
-									</Button>
-								</li>
-							</ul>
+							<ToggleButtonGroup
+								type="checkbox"
+								defaultValue={["30"]}
+								className="custom-toggle-btn"
+							>
+								{specialDiet.map((item: any) => (
+									<ToggleButton
+										value={item.value}
+										variant="outline-info"
+										className="custom-btn"
+									>
+										{item.label}
+									</ToggleButton>
+								))}
+							</ToggleButtonGroup>
 						</div>
 					</div>
 				</Modal.Body>
