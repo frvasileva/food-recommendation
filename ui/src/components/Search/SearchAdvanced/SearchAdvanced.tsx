@@ -64,19 +64,20 @@ export const SearchAdvanced = (props: any) => {
 	const handleShow = () => setShow(true);
 	const advancedFilterSubmitted = () => {
 		var param = "";
-		if (fIngredients != []) {
+		if (fIngredients.length != 0) {
 			let url = "&ingredients=" + fIngredients.join(",");
 			param = url;
 		}
-		if (fPreparationTime != []) {
+		if (fPreparationTime.length != 0) {
 			let url = "&prepTime=" + fPreparationTime.join(",");
 			param = param + url;
 		}
-		if (fCookingTime != []) {
+		if (fCookingTime.length != 0) {
 			let url = "&cookingTime=" + fCookingTime.join(",");
 			param = param + url;
 		}
-		if (fSkillLevel != []) {
+
+		if (fSkillLevel.length != 0) {
 			let url = "&skillLevel=" + fSkillLevel.join(",");
 			param = param + url;
 		}
@@ -100,18 +101,16 @@ export const SearchAdvanced = (props: any) => {
 		{ label: "60 min", value: "60" },
 	];
 	const skillLevel = [
-		{ label: "Easy", value: "Easy" },
-		{ label: "Medium", value: "Medium" },
-		{ label: "Hard", value: "Hard" },
+		{ label: "Easy", value: "easy" },
+		{ label: "Medium", value: "medium" },
+		{ label: "Hard", value: "hard" },
 	];
 	const specialDiet = [
-		{ label: "Diary free", value: "Diary free" },
-		{ label: "Egg free", value: "Egg free" },
-		{ label: "Vegan", value: "Vegan" },
-		{ label: "Vegetarenian", value: "Vegetarenian" },
-		{ label: "Gluten free", value: "Gluten free" },
-		{ label: "Low carb", value: "Low carb" },
-		{ label: "High protein", value: "High protein" },
+		{ label: "Diary free", value: "diary-free" },
+		{ label: "Egg free", value: "egg-free" },
+		{ label: "Vegan", value: "vegan" },
+		{ label: "Vegetarenian", value: "vegetarenian" },
+		{ label: "Gluten free", value: "gluten-free" },
 	];
 
 	return (
@@ -126,9 +125,9 @@ export const SearchAdvanced = (props: any) => {
 				size="lg"
 				className="search-modal"
 			>
-				<Modal.Header closeButton>
+				{/* <Modal.Header closeButton>
 					<Modal.Title>Detailed filter</Modal.Title>
-				</Modal.Header>
+				</Modal.Header> */}
 				<Modal.Body>
 					<div className="row">
 						<div className="col-md">
@@ -203,7 +202,7 @@ export const SearchAdvanced = (props: any) => {
 							<p>Difficulty:</p>
 							<ToggleButtonGroup
 								type="checkbox"
-								defaultValue={["30"]}
+								defaultValue={["medium"]}
 								className="custom-toggle-btn"
 							>
 								{skillLevel.map((item: any) => (
@@ -244,7 +243,7 @@ export const SearchAdvanced = (props: any) => {
 					<Button variant="secondary" onClick={handleClose}>
 						Close
 					</Button>
-					<Button variant="primary" onClick={advancedFilterSubmitted}>
+					<Button variant="info" onClick={advancedFilterSubmitted}>
 						Save Changes
 					</Button>
 				</Modal.Footer>

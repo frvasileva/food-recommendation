@@ -114,6 +114,14 @@ export const SET_RECIPE_OF_THE_DAY = gql`
 	}
 `;
 
+export const SET_MAIN_PRODUCT = gql`
+	mutation($ingredientId: String) {
+		setMainProduct(ingredientId: $ingredientId) {
+			name
+		}
+	}
+`;
+
 export const GET_RECIPE_OF_THE_DAY = gql`
 	query {
 		getRecipeOfTheDay {

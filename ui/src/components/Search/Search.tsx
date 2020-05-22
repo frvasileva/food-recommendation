@@ -31,7 +31,13 @@ export const Search = (props: any) => {
 	};
 
 	const advancedFilterSubmitted = (args) => {
-		history.push(`/recipes?term=${term}` + args);
+		if (term !== "") {
+			history.push(`/recipes?term=${term}` + args);
+		}
+		else{
+			history.push(`/recipes`);
+
+		}
 	};
 
 	return (

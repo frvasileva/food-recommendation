@@ -280,10 +280,9 @@ type Query {
 	getMostPopularIngredients: [Ingredient]
 		@cypher(
 			statement: """
-			MATCH (rec:Recipe)-[r:CONTAINS_INGREDIENT]->(i:Ingredient)
-			RETURN i, count(r) AS num
-			ORDER BY num desc
-			limit 30
+			MATCH (mainProduct:MainProduct)
+			RETURN mainProduct
+			LIMIT 30
 			"""
 		)
 }
@@ -363,6 +362,14 @@ type Mutation {
 			statement: """
 			MATCH (n { id: $recipeId })
 			SET n:RecipeOfTheDay
+			RETURN n
+			"""
+		)
+	setMainProduct(ingredientId: String): Recipe
+		@cypher(
+			statement: """
+			MATCH (n:Ingredient { name: $ingredientId })
+			SET n:MainProduct
 			RETURN n
 			"""
 		)

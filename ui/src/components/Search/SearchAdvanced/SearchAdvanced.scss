@@ -13,6 +13,7 @@
 	p {
 		font-weight: bold;
 		margin: 15px 0 0;
+		font-family: "Open Sans", sans-serif;
 	}
 
 	.custom-toggle-btn {
@@ -26,6 +27,20 @@
 
 		&:hover {
 			cursor: pointer;
+			background-color: rgb(241, 207, 9) !important;
+			border-color: gold !important;
+
+		}
+
+		&.active {
+			background-color: gold !important;
+			border-color: gold !important;
+		}
+
+		&.active::before {
+			content: "✔";
+			font-weight: bold;
+			padding-right: 5px;
 		}
 	}
 }
