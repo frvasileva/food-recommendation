@@ -17,16 +17,38 @@ export const RecipeList = (props: any) => {
 	var searchTerm = searchParams.get("term") ?? "chocolate";
 	var searchedIngredients = searchParams.get("ingredients") ?? "";
 	var searchIngredientsArray: string[] = [];
+
 	if (searchedIngredients != "") {
 		searchIngredientsArray = searchedIngredients.split(",");
 	}
 
+	var sPrepTimeRange: number[] = [];
+	var fPrepTimeRange = searchParams.get("prepTime");
+	if (fPrepTimeRange != null) {
+		sPrepTimeRange = fPrepTimeRange.split(",").map(Number) || [];
+	}
+
+	var sCookingTimeRange: number[] = [];
+	var fCookingTimeRange = searchParams.get("cookingTime");
+	if (fCookingTimeRange != null) {
+		sCookingTimeRange = fCookingTimeRange.split(",").map(Number) || [];
+	}
+
+	var sSkillLevel: string[] = [];
+	var fSkillLevel = searchParams.get("skillLevel");
+	if (fSkillLevel != null) {
+		sSkillLevel = fSkillLevel.split(",") || [];
+	}
+
 	const query = useQuery(RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY, {
 		variables: {
+			term: searchTerm,
+			ingredients: searchIngredientsArray,
+			preparationTimeRange: sPrepTimeRange,
+			cookingTimeRange: sCookingTimeRange,
+			skillLevel: sSkillLevel,
 			skip: 0,
 			limit: LIMIT_QUERY_RESULT,
-			ingredients: searchIngredientsArray,
-			term: searchTerm,
 		},
 	});
 

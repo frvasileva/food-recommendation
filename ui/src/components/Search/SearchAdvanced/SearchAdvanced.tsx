@@ -85,8 +85,6 @@ export const SearchAdvanced = (props: any) => {
 		console.log("param", param);
 		setShow(false);
 
-		console.log("submitted from child");
-
 		props.advancedFilterSubmitted(param);
 	};
 
@@ -101,9 +99,9 @@ export const SearchAdvanced = (props: any) => {
 		{ label: "60 min", value: "60" },
 	];
 	const skillLevel = [
-		{ label: "Easy", value: "easy" },
-		{ label: "Medium", value: "medium" },
-		{ label: "Hard", value: "hard" },
+		{ label: "Easy", value: "Easy" },
+		{ label: "Medium", value: "Medium" },
+		{ label: "Hard", value: "Hard" },
 	];
 	const specialDiet = [
 		{ label: "Diary free", value: "diary-free" },
@@ -137,14 +135,15 @@ export const SearchAdvanced = (props: any) => {
 								// defaultValue={["lemon", "orange"]}
 								className="custom-toggle-btn"
 							>
-								{ingredients.map((ingredient: any) => (
+								{ingredients.map((item: any) => (
 									<ToggleButton
-										value={ingredient.name}
+										value={item.name}
 										variant="outline-info"
 										className="custom-btn"
 										onClick={setSelIngredients}
+										key={item.name}
 									>
-										{ingredient.name}
+										{item.name}
 									</ToggleButton>
 								))}
 							</ToggleButtonGroup>
@@ -158,7 +157,7 @@ export const SearchAdvanced = (props: any) => {
 								<div className="col-md">
 									<ToggleButtonGroup
 										type="checkbox"
-										defaultValue={["30"]}
+										// defaultValue={["30"]}
 										className="custom-toggle-btn"
 									>
 										{preparationTime.map((item: any) => (
@@ -167,6 +166,7 @@ export const SearchAdvanced = (props: any) => {
 												variant="outline-info"
 												className="custom-btn"
 												onClick={setPrepTime}
+												key={item.value}
 											>
 												{item.label}
 											</ToggleButton>
@@ -180,7 +180,7 @@ export const SearchAdvanced = (props: any) => {
 								<p>Cooking time:</p>
 								<ToggleButtonGroup
 									type="checkbox"
-									defaultValue={["30"]}
+									// defaultValue={["30"]}
 									className="custom-toggle-btn"
 								>
 									{cookingTime.map((item: any) => (
@@ -189,6 +189,7 @@ export const SearchAdvanced = (props: any) => {
 											variant="outline-info"
 											className="custom-btn"
 											onClick={setCookTime}
+											key={item.value}
 										>
 											{item.label}
 										</ToggleButton>
@@ -202,7 +203,7 @@ export const SearchAdvanced = (props: any) => {
 							<p>Difficulty:</p>
 							<ToggleButtonGroup
 								type="checkbox"
-								defaultValue={["medium"]}
+								// defaultValue={["medium"]}
 								className="custom-toggle-btn"
 							>
 								{skillLevel.map((item: any) => (
@@ -211,6 +212,7 @@ export const SearchAdvanced = (props: any) => {
 										variant="outline-info"
 										className="custom-btn"
 										onClick={setLevel}
+										key={item.value}
 									>
 										{item.label}
 									</ToggleButton>
@@ -231,6 +233,7 @@ export const SearchAdvanced = (props: any) => {
 										value={item.value}
 										variant="outline-info"
 										className="custom-btn"
+										key={item.value}
 									>
 										{item.label}
 									</ToggleButton>
