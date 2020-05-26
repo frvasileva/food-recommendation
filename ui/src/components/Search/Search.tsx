@@ -9,34 +9,39 @@ import { SearchAdvanced } from "./SearchAdvanced/SearchAdvanced";
 export const Search = (props: any) => {
 	const history = useHistory();
 	const [term, setTerm] = React.useState(props.term || "");
+	const [isSearchValid, setisSearchValid] = React.useState(true);
 	const [setSearchedTerm, createSearchedTerm] = useMutation(SET_SEARCHED_TERM);
 	var token = tokenHelper();
 
 	const updateTerm = (e: any) => {
 		setTerm(e.target.value);
+		setisSearchValid(true);
 	};
 
 	const submitForm = (e: any) => {
 		e.preventDefault();
-		history.push(`/recipes?term=${term}`);
+		if (term != "") {
+			setisSearchValid(true);
+			history.push(`/recipes?term=${term}`);
 
-		setSearchedTerm({
-			variables: {
-				input: {
-					userId: token.userId(),
-					term: term,
+			setSearchedTerm({
+				variables: {
+					input: {
+						userId: token.userId(),
+						term: term,
+					},
 				},
-			},
-		});
+			});
+		} else {
+			setisSearchValid(false);
+		}
 	};
 
 	const advancedFilterSubmitted = (args) => {
 		if (term !== "") {
 			history.push(`/recipes?term=${term}` + args);
-		}
-		else{
+		} else {
 			history.push(`/recipes`);
-
 		}
 	};
 
@@ -50,6 +55,10 @@ export const Search = (props: any) => {
 						className="search-input"
 						placeholder="What do you want to cook?"
 					/>
+					<br />
+					{!isSearchValid && (
+						<span className="error-message">Select recipe</span>
+					)}
 				</div>
 				<div className="col-md-3">
 					<button type="submit" className="search-button">
