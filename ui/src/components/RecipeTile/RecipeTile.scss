@@ -20,9 +20,9 @@
 	& .recipe-item-details {
 		text-align: center;
 		font-family: "Noto Sans JP", sans-serif;
-		font-size: 12px;
+		font-size: 11px;
 		text-transform: uppercase;
-		min-height: 30px;
+		// min-height: 30px;
 
 		.label-info {
 			font-size: 10px;
@@ -59,6 +59,10 @@
 		&:hover {
 			text-decoration: none;
 		}
+
+		.minutes-suffix {
+			text-transform: none;
+		}
 	}
 
 	.recipe-details {
@@ -69,7 +73,7 @@
 		position: relative;
 	}
 
-	.cooking-level{
-		padding-top:10px;
+	.cooking-level {
+		padding-top: 3px;
 	}
 }

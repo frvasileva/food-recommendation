@@ -40,7 +40,7 @@ export const RecipeTile = (props: any) => {
 								<div className="time-info">
 									<i className="far fa-clock"></i>
 									{(props.preparationTime / 60).toFixed(2)}
-									<span> min.</span>
+									<span  className="minutes-suffix"> min.</span>
 									<br />
 									<span className="label-info">preparation time</span>
 								</div>
@@ -49,7 +49,7 @@ export const RecipeTile = (props: any) => {
 							<div className="time-info">
 									<i className="far fa-clock"></i>
 									{(props.cookingTime / 60).toFixed(2)}
-									<span> min.</span>
+									<span className="minutes-suffix"> min.</span>
 									<br />
 									<span className="label-info">cooking time</span>
 								</div>
