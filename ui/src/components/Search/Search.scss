@@ -25,8 +25,16 @@
 	text-transform: uppercase;
 	font-weight: bold;
 	font-family: "Noto Sans JP", sans-serif;
+	border-radius: 3px;
 }
 
-.advanced-search-btn-wrapper{
+.advanced-search-btn-wrapper {
 	text-align: center;
+	margin-top: 5px;
+
+	button {
+		text-decoration: underline;
+		font-weight: bold;
+	}
+
 }

@@ -243,10 +243,10 @@ export const SearchAdvanced = (props: any) => {
 					</div>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant="secondary" onClick={handleClose}>
+					<Button variant="outline-secondary" onClick={handleClose}>
 						Close
 					</Button>
-					<Button variant="info" onClick={advancedFilterSubmitted}>
+					<Button variant="dark" onClick={advancedFilterSubmitted}>
 						Save Changes
 					</Button>
 				</Modal.Footer>

@@ -62,7 +62,7 @@ export const Search = (props: any) => {
 				</div>
 				<div className="col-md-3">
 					<button type="submit" className="search-button">
-						Search
+						<i className="fas fa-search"></i> Search
 					</button>
 					<br></br>
 					<div className="advanced-search-btn-wrapper">

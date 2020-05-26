@@ -29,7 +29,6 @@
 			cursor: pointer;
 			background-color: rgb(241, 207, 9) !important;
 			border-color: gold !important;
-
 		}
 
 		&.active {
@@ -42,5 +41,10 @@
 			font-weight: bold;
 			padding-right: 5px;
 		}
+	}
+
+	.btn-outline-info {
+		color: black;
+		border-color: black;
 	}
 }
