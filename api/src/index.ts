@@ -6,6 +6,8 @@ import { neo4jgraphql, makeAugmentedSchema } from "neo4j-graphql-js";
 // import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+import memwatch from memwatch;
+
 // console.log({ bcrypt })
 
 /*
