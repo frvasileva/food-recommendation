@@ -281,10 +281,10 @@ export const GET_COLLECTION_DETAILS = gql`
 
 export const GET_COLLECTIONS = gql`
 	query collections {
-		collections: Collection(first: 30) {
+		collections: Collection(first: 32) {
 			name
 			friendlyUrl
-			recipes(first: 12, orderBy: ratings_desc) {
+			recipes(first: 3, orderBy: ratings_desc) {
 				...RecipeTile
 			}
 		}

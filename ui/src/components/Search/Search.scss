@@ -1,6 +1,7 @@
 .search-component-wrapper {
-	background-color: #f7f7f7;
-	padding: 40px 0;
+	background-color:#ffd70130;
+	padding: 70px 0 40px;
+	margin-top: -20px;
 }
 
 .search-input {
@@ -35,6 +36,6 @@
 	button {
 		text-decoration: underline;
 		font-weight: bold;
+		background-color: transparent;
 	}
-
 }

@@ -1,0 +1,24 @@
+.collection-list-wrapper {
+	a {
+		color: black;
+	}
+
+	h2 {
+		font-size: 24px;
+		font-weight: bold;
+		font-family: "Noto Sans JP", sans-serif;
+	}
+
+	.collection-item-wrapper {
+		margin-bottom: 30px;
+    padding: 15px;
+    background-color: #fdf1cc;
+    border: 1px dotted #ffd701;
+
+		& span {
+			display: block;
+			margin-bottom: 10px;
+			font-family: "Noto Sans JP", sans-serif;
+		}
+	}
+}
