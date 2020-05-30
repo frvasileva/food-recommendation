@@ -83,10 +83,16 @@ const schema = makeAugmentedSchema({
  * using credentials specified as environment variables
  * with fallback to defaults
  */
-const driver = neo4j.driver(
-	"bolt://localhost:7687",
-	neo4j.auth.basic("neo4j", "parola")
-);
+const graphenedbURL = process.env.GRAPHENEDB_BOLT_URL;
+const graphenedbUser = process.env.GRAPHENEDB_BOLT_USER;
+const graphenedbPass = process.env.GRAPHENEDB_BOLT_PASSWORD;
+
+const driver = neo4j.driver(graphenedbURL, neo4j.auth.basic(graphenedbUser, graphenedbPass), {encrypted: 'ENCRYPTION_ON'});
+
+// const driver = neo4j.driver(
+// 	"bolt://localhost:7687",
+// 	neo4j.auth.basic("neo4j", "parola")
+// );
 
 /*
  * Create a new ApolloServer instance, serving the GraphQL schema
