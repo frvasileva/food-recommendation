@@ -24,7 +24,7 @@ import { PredefinedSearchCategories } from "./admin/PredefinedSearchCategories/P
 import { SetMainProduct } from "./admin/MainProduct/SetMainProduct/SetMainProduct";
 
 const client = new ApolloClient({
-	uri: "http://localhost:4000/",
+	uri: "/api",
 	request: (operation) => {
 		const token = localStorage.getItem("token");
 

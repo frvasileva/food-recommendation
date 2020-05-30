@@ -1,12 +1,11 @@
 import fs from "fs";
 import path from "path";
-import { ApolloServer } from "apollo-server";
 import neo4j from "neo4j-driver";
 import { neo4jgraphql, makeAugmentedSchema } from "neo4j-graphql-js";
 // import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-
-import memwatch from memwatch;
+import express from 'express';
+import { ApolloServer  } from 'apollo-server-express';
 
 // console.log({ bcrypt })
 
@@ -17,7 +16,7 @@ import memwatch from memwatch;
  * in generated queries and/or mutations. Read more in the docs:
  * https://grandstack.io/docs/neo4j-graphql-js-api.html#makeaugmentedschemaoptions-graphqlschema
  */
-const schemaFilePath = path.join(__dirname, "schema.graphql");
+const schemaFilePath = path.join(__dirname, "../src/schema.graphql");
 const schema = makeAugmentedSchema({
 	typeDefs: fs.readFileSync(schemaFilePath).toString("utf-8"),
 	config: {
@@ -114,6 +113,13 @@ const server = new ApolloServer({
 	schema,
 });
 
-server.listen(4000).then(({ url }) => {
-	console.log(`GraphQL API ready at ${url}`);
+const app = express();
+server.applyMiddleware({ app, path: '/api' });
+
+app.use(express.static(path.join(__dirname, '../ui/build')));
+app.use('*', (req, res) => {
+	res.sendFile(path.join(__dirname, '../ui/build', 'index.html'));
 });
+
+app.listen(process.env.PORT || 4000);
+console.log(`GraphQL API ready`);

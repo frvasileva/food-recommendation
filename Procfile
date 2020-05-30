@@ -1,1 +1,1 @@
-web: sh -c 'cd api && npm install && npm start'
+web: npm run start:production
