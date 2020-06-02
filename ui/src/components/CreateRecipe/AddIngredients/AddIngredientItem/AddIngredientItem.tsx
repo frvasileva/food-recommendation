@@ -69,6 +69,7 @@ export default function AddIngredientItem(props: AddIngredientItemProps) {
 							name="quantityType"
 							className="form-control"
 						>
+							<option>Number</option>
 							<option>Teaspoon</option>
 							<option>Tablespoon</option>
 							<option>Cup</option>
