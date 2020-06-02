@@ -1,17 +1,29 @@
 import React from "react";
-import { useMutation } from "@apollo/react-hooks";
-import { SET_SEARCHED_TERM } from "../../helpers/queries";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import {
+	SET_SEARCHED_TERM,
+	GET_PREDEFINED_SEARCH_CATEGORY,
+} from "../../helpers/queries";
 import tokenHelper from "../../helpers/tokenHelper";
 import "./Search.scss";
 import { useHistory, Link } from "react-router-dom";
 import { SearchAdvanced } from "./SearchAdvanced/SearchAdvanced";
+import LoadingScreen from "../../layout/Loading/Loading";
+import ErrorScreen from "../../layout/ErrorPage/Error";
 
 export const Search = (props: any) => {
 	const history = useHistory();
 	const [term, setTerm] = React.useState(props.term || "");
 	const [isSearchValid, setisSearchValid] = React.useState(true);
+
 	const [setSearchedTerm, createSearchedTerm] = useMutation(SET_SEARCHED_TERM);
 	var token = tokenHelper();
+
+	const query = useQuery(GET_PREDEFINED_SEARCH_CATEGORY);
+	if (query.loading) return <LoadingScreen />;
+	if (query.error) return <ErrorScreen error={query.error} />;
+
+	var categories = query.data.getPredefinedSearchCategories;
 
 	const updateTerm = (e: any) => {
 		setTerm(e.target.value);
@@ -59,6 +71,17 @@ export const Search = (props: any) => {
 					{!isSearchValid && (
 						<span className="error-message">Избери рецепта</span>
 					)}
+					<div className="predefined-search-wrapper">
+						<ul className="predefined-filters">
+							{categories.map((collection: any) => (
+								<li key={collection.name}>
+									<Link to={`/collection/${collection.friendlyUrl}`}>
+										{collection.name}
+									</Link>
+								</li>
+							))}
+						</ul>
+					</div>
 				</div>
 				<div className="col-md-3">
 					<button type="submit" className="search-button">

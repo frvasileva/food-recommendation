@@ -7,7 +7,7 @@ import ErrorScreen from "../../layout/ErrorPage/Error";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
 import { RecipeOfTheDay } from "./RecipeOfTheDay/RecipeOfTheDay";
 import { Link } from "react-router-dom";
-import { SearchPredefined } from "../SearchPredefined/SearchPredefined";
+import { Search } from "../Search/Search";
 
 export const Home = (props: any) => {
 	const homepageData = useQuery(HOME_PAGE_DATA_QUERY);
@@ -34,12 +34,12 @@ export const Home = (props: any) => {
 					</div>
 				</div>
 				<br></br>
-			</div>{" "}
+			</div>
 			<div className="container-wrapper search-component-wrapper">
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
-							<SearchPredefined></SearchPredefined>
+							<Search />
 						</div>
 					</div>
 				</div>

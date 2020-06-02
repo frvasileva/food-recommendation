@@ -89,32 +89,32 @@ export const SearchAdvanced = (props: any) => {
 	};
 
 	const preparationTime = [
-		{ label: "15 min", value: "15" },
-		{ label: "30 min", value: "30" },
-		{ label: "60 min", value: "60" },
+		{ label: "15 мин", value: "15" },
+		{ label: "30 мин", value: "30" },
+		{ label: "60 мин", value: "60" },
 	];
 	const cookingTime = [
-		{ label: "15 min", value: "15" },
-		{ label: "30 min", value: "30" },
-		{ label: "60 min", value: "60" },
+		{ label: "15 мин", value: "15" },
+		{ label: "30 мин", value: "30" },
+		{ label: "60 мин", value: "60" },
 	];
 	const skillLevel = [
-		{ label: "Easy", value: "Easy" },
-		{ label: "Medium", value: "Medium" },
-		{ label: "Hard", value: "Hard" },
+		{ label: "Лесно", value: "Easy" },
+		{ label: "Средно", value: "Medium" },
+		{ label: "Трудно", value: "Hard" },
 	];
 	const specialDiet = [
-		{ label: "Diary free", value: "diary-free" },
-		{ label: "Egg free", value: "egg-free" },
-		{ label: "Vegan", value: "vegan" },
-		{ label: "Vegetarenian", value: "vegetarenian" },
-		{ label: "Gluten free", value: "gluten-free" },
+		{ label: "Безмлечна", value: "diary-free" },
+		{ label: "Без яйца", value: "egg-free" },
+		{ label: "Веган", value: "vegan" },
+		{ label: "Вегетарианска", value: "vegetarenian" },
+		{ label: "Без глутен", value: "gluten-free" },
 	];
 
 	return (
 		<>
 			<Button variant="light" size="sm" onClick={handleShow}>
-				Advanced search
+				Филтри
 			</Button>
 
 			<Modal
@@ -129,7 +129,7 @@ export const SearchAdvanced = (props: any) => {
 				<Modal.Body>
 					<div className="row">
 						<div className="col-md">
-							<p>Select ingredients:</p>
+							<p>Основни продукти:</p>
 							<ToggleButtonGroup
 								type="checkbox"
 								// defaultValue={["lemon", "orange"]}
@@ -152,7 +152,7 @@ export const SearchAdvanced = (props: any) => {
 
 					<div className="row">
 						<div className="col-md-6">
-							<p>Preparation time:</p>
+							<p>Време за приготвяне:</p>
 							<div className="row">
 								<div className="col-md">
 									<ToggleButtonGroup
@@ -177,7 +177,7 @@ export const SearchAdvanced = (props: any) => {
 						</div>
 						<div className="row">
 							<div className="col-md">
-								<p>Cooking time:</p>
+								<p>Време за готвене:</p>
 								<ToggleButtonGroup
 									type="checkbox"
 									// defaultValue={["30"]}
@@ -244,10 +244,10 @@ export const SearchAdvanced = (props: any) => {
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="outline-secondary" onClick={handleClose}>
-						Close
+						Затвори
 					</Button>
 					<Button variant="dark" onClick={advancedFilterSubmitted}>
-						Save Changes
+						Запази
 					</Button>
 				</Modal.Footer>
 			</Modal>

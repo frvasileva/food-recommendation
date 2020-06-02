@@ -19,7 +19,7 @@
 	& .recipe-item-details {
 		text-align: center;
 		font-family: "Noto Sans JP", sans-serif;
-		font-size: 11px;
+		font-size: 10px;
 		text-transform: uppercase;
 		// min-height: 30px;
 
@@ -29,17 +29,14 @@
 		}
 	}
 
-	.recipe-item-details:nth-child(1) {
-		border-right: 1px solid black;
+	.recipe-item-details:nth-child(2n) {
+		border-right: 1px solid #afac9b;
+		border-left: 1px solid #afac9b;
 	}
 
 	.card-body {
 		padding: 10px;
 		background-color: #efecec;
-
-		& .row {
-			margin-bottom: 5px;
-		}
 	}
 	.recipe-link {
 		text-shadow: none;
