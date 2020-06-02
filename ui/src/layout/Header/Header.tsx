@@ -36,22 +36,17 @@ export const Header = (props: any) => {
 					<ul className="navbar-nav mr-auto mt-2 mt-lg-0">
 						<li className="nav-item">
 							<Link to="/" className="nav-link">
-								Home
+								Начало
 							</Link>
 						</li>
 						<li className="nav-item">
 							<Link to="/recipes" className="nav-link">
-								Recipes
+								Рецепти
 							</Link>
 						</li>
 						<li className="nav-item">
 							<Link to="/collections" className="nav-link">
-								Collections
-							</Link>
-						</li>
-						<li className="nav-item">
-							<Link to="/add-recipe" className="nav-link">
-								Add Recipe
+								Колекции
 							</Link>
 						</li>
 					</ul>
@@ -59,12 +54,12 @@ export const Header = (props: any) => {
 						<ul className="nav navbar-nav navbar-right">
 							<li className="nav-item">
 								<Link to="/Login" className="nav-link">
-									Login
+									вход
 								</Link>
 							</li>
 							<li className="nav-item">
 								<Link to="/register" className="nav-link">
-									Register
+									регистрация
 								</Link>
 							</li>
 						</ul>
@@ -91,13 +86,17 @@ export const Header = (props: any) => {
 											to={"/profile/" + token.friendlyUrl()}
 											className="dropdown-item profile-link"
 										>
-											View profile
+											Профил
 										</Link>
 										<Link
 											to={"/profile/edit/" + token.friendlyUrl()}
 											className="dropdown-item profile-link"
 										>
-											Edit profile
+											Редактирай профил
+										</Link>
+
+										<Link to="/add-recipe" className="nav-link">
+											Добави рецепта
 										</Link>
 										<hr />
 										<input

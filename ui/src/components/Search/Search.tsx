@@ -53,16 +53,16 @@ export const Search = (props: any) => {
 						value={term}
 						onChange={updateTerm}
 						className="search-input"
-						placeholder="What do you want to cook?"
+						placeholder="Какво да сготвя?"
 					/>
 					<br />
 					{!isSearchValid && (
-						<span className="error-message">Select recipe</span>
+						<span className="error-message">Избери рецепта</span>
 					)}
 				</div>
 				<div className="col-md-3">
 					<button type="submit" className="search-button">
-						<i className="fas fa-search"></i> Search
+						<i className="fas fa-search"></i> Търси
 					</button>
 					<br></br>
 					<div className="advanced-search-btn-wrapper">

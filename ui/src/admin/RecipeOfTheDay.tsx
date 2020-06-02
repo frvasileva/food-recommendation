@@ -27,7 +27,7 @@ export const SetRecipeOfTheDay = (props: any) => {
 
 	return (
 		<div className="container">
-			<h3>Set recipe of the day</h3>
+			<h3>Рецепта на деня</h3>
 			<form onSubmit={handleSubmit}>
 				<div className="row">
 					<div className="col">
@@ -42,7 +42,7 @@ export const SetRecipeOfTheDay = (props: any) => {
 					</div>
 					<div className="col">
 						<button type="submit" className="btn btn-info">
-							Set recipe
+							Добави
 						</button>
 					</div>
 				</div>

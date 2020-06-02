@@ -45,7 +45,7 @@ export const Home = (props: any) => {
 				</div>
 			</div>
 			<div className="container-wrapper container">
-				<h1>Top collections</h1>
+				<h1>Популярни колекции</h1>
 				<div className="row collection-preview-wrapper">
 					{popularCollections.map((collection: any) => (
 						<div
@@ -61,7 +61,7 @@ export const Home = (props: any) => {
 			</div>
 			<div className="container-wrapper container">
 				<br></br>
-				<h1>Newest</h1>
+				<h1>Най-нови</h1>
 				<div className="row recipe-wrapper">
 					{newestRecipes.map((recipe: any) => (
 						<div key={recipe.name} className="col-md-4 col-sm-6">
