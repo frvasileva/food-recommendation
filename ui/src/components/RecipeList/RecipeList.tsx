@@ -94,7 +94,6 @@ export const RecipeList = (props: any) => {
 				</div>
 			</div>
 			<div className="container search-result-wrapper">
-				<h2> Results:</h2>
 				<div className="row recipe-wrapper">
 					{recipes.map((recipe: any) => (
 						<div key={recipe.name} className="col-md-4 col-sm-6">

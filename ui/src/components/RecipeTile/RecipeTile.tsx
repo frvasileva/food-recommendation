@@ -10,9 +10,10 @@ export const RecipeTile = (props: any) => {
 		<div>
 			<div key={props.name}>
 				<div className="card-wrapper">
+					<div className="collection-wrapper-plus">+</div>
 					<UserCollectionSelector
 						recipeId={props.id}
-						className="collection-wrapper"
+						className="collection-items-wrapper"
 					/>
 					<div className="img-wrapper">
 						<Link to={`/recipe/${props.id}`}>
@@ -23,15 +24,12 @@ export const RecipeTile = (props: any) => {
 					<div className="card-body">
 						<div className="row">
 							<div className="col-md-4 recipe-item-details">
-								<div className="cooking-level">
-									<i className="fas fa-hard-hat"></i>
-									{props.skillLevel}
-								</div>
+								<div className="cooking-level">{props.skillLevel}</div>
 							</div>
 							<div className="col-md-4 recipe-item-details">
 								<div className="time-info">
 									<i className="far fa-clock"></i>
-									{(props.preparationTime / 60).toFixed(2)}
+									{props.preparationTime}
 									<span className="minutes-suffix"> мин.</span>
 									<br />
 									<span className="label-info">приготвяне</span>
@@ -39,8 +37,9 @@ export const RecipeTile = (props: any) => {
 							</div>
 							<div className="col-md-4 recipe-item-details">
 								<div className="time-info">
-									<i className="far fa-clock"></i>
-									{(props.cookingTime / 60).toFixed(2)}
+									<i className="fas fa-hard-hat"></i>
+
+									{props.cookingTime}
 									<span className="minutes-suffix"> мин.</span>
 									<br />
 									<span className="label-info">готвене</span>

@@ -24,29 +24,30 @@
 		cursor: pointer;
 	}
 
-	&:hover .collection-list {
-		display: block;
-		position: absolute;
-		background-color: white;
-		width: 100%;
-		margin: 0;
-		padding: 0;
-		list-style-type: none;
-		transition: 0.2s;
-		right: 0;
-		top: 50px;
+// 	.collection-item:hover {
+// 		background-color: linen;
+// 	}
 
-		max-height: 200px;
-		overflow-y: scroll;
-		overflow-x: hidden;
-	}
+// 	.add-new-collection {
+// 		float: right;
+// 		color: black;
+// 	}
 
-	.collection-item:hover {
-		background-color: linen;
-	}
+// }
 
-	.add-new-collection {
-		float: right;
-		color: black;
-	}
-}
+// .collection-wrapper-plus:hover .collection-list {
+// 	display: block;
+// 	position: absolute;
+// 	background-color: white;
+// 	width: 100%;
+// 	margin: 0;
+// 	padding: 0;
+// 	list-style-type: none;
+// 	transition: 0.2s;
+// 	right: 0;
+// 	top: 50px;
+
+// 	max-height: 200px;
+// 	overflow-y: scroll;
+// 	overflow-x: hidden;
+// }

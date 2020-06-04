@@ -76,7 +76,8 @@ export const Header = (props: any) => {
 										aria-expanded="false"
 									>
 										{/* <div className="user-avatar"></div> */}
-										{token.email()}
+										<i className="fas fa-user-alt"></i>
+										{/* {token.email()} */}
 									</button>
 									<div
 										className="dropdown-menu"
@@ -95,7 +96,10 @@ export const Header = (props: any) => {
 											Редактирай профил
 										</Link>
 
-										<Link to="/add-recipe" className="nav-link">
+										<Link
+											to="/add-recipe"
+											className="dropdown-item profile-link"
+										>
 											Добави рецепта
 										</Link>
 										<hr />

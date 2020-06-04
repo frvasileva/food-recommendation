@@ -12,7 +12,20 @@
 		transition: 0.2s;
 	}
 
-	&:hover .collection-wrapper {
+	.collection-wrapper-plus {
+		display: block;
+		width: 40px;
+		height: 40px;
+		background-color: white;
+		cursor: pointer;
+		position: absolute;
+		top: 0;
+		right: 0;
+		border-radius: 20px;
+		z-index: 1;
+	}
+
+	.collection-wrapper-plus:hover .collection-wrapper {
 		display: block;
 	}
 
@@ -21,10 +34,12 @@
 		font-family: "Noto Sans JP", sans-serif;
 		font-size: 10px;
 		text-transform: uppercase;
-		// min-height: 30px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
 		.label-info {
-			font-size: 10px;
+			font-size: 9px;
 			font-family: Roboto;
 		}
 	}
@@ -35,15 +50,14 @@
 	}
 
 	.card-body {
-		padding: 10px;
+		padding: 6px;
 		background-color: #efecec;
 	}
 	.recipe-link {
 		text-shadow: none;
 		font-family: "Open Sans", sans-serif;
-		font-size: 18px;
+		font-size: 14px;
 		font-weight: bold;
-
 		position: absolute;
 		bottom: 0;
 		z-index: 1;
