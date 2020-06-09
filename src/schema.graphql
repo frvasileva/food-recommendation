@@ -1,4 +1,4 @@
-type Recipe @isAuthenticated {
+type Recipe {
 	id: ID!
 	name: String
 	imagePath: String
