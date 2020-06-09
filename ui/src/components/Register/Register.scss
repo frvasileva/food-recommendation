@@ -1,0 +1,19 @@
+.register-wrapper {
+	form label {
+		font-family: "Noto Sans JP", sans-serif;
+		font-weight: bold;
+	}
+
+	.form-control {
+		font-family: "Noto Sans JP", sans-serif;
+		padding: 20px 30px;
+	}
+
+	.register-wrapper-form {
+		border: 1px solid gainsboro;
+		border-radius: 3px;
+		padding: 30px;
+		box-shadow: 1px 2px 7px #bdbdbd;
+		margin-top: 10%;
+	}
+}

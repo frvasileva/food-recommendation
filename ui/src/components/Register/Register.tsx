@@ -6,7 +6,8 @@ import { v4 as uuidv4 } from "uuid";
 import urlTransformer from "../../helpers/urlTransformer";
 import { REGISTER_USER_QUERY, SET_SESSION_QUERY } from "../../helpers/queries";
 import tokenHelper from "../../helpers/tokenHelper";
-
+import { FacebookLogin } from "../FacebookLogin/FacebookLogin";
+import "./Register.scss";
 export const Register = (props: any) => {
 	const [userFields, setUserFields] = React.useState({
 		email: { value: "", error: "" },
@@ -62,13 +63,13 @@ export const Register = (props: any) => {
 	};
 
 	return (
-		<div className="container create-recipe-wrapper">
+		<div className="container register-wrapper">
 			<div className="row">
-				<div className="col-md-6 offset-md-3">
-					<h1>Create Account</h1>
+				<div className="col-md-6 offset-md-3 register-wrapper-form">
+					<h1>Регистрация</h1>
 					<form onSubmit={submitForm} className="form">
 						<div className="form-group">
-							<label htmlFor="name">Name</label>
+							<label htmlFor="name">Име</label>
 							<input
 								type="text"
 								className="form-control"
@@ -82,9 +83,6 @@ export const Register = (props: any) => {
 							{userFields.name.error && (
 								<span className="text-error">{userFields.name.error}</span>
 							)}
-							<small id="recipeHelp" className="form-text text-muted">
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-							</small>
 						</div>
 						<div className="form-group">
 							<label htmlFor="name">Email</label>
@@ -101,12 +99,9 @@ export const Register = (props: any) => {
 							{userFields.email.error && (
 								<span className="text-error">{userFields.email.error}</span>
 							)}
-							<small id="recipeHelp" className="form-text text-muted">
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-							</small>
 						</div>
 						<div className="form-group">
-							<label htmlFor="name">Password</label>
+							<label htmlFor="name">Парола</label>
 							<input
 								type="password"
 								className="form-control"
@@ -120,14 +115,14 @@ export const Register = (props: any) => {
 							{userFields.password.error && (
 								<span className="text-error">{userFields.password.error}</span>
 							)}
-							<small id="recipeHelp" className="form-text text-muted">
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-							</small>
 						</div>
 						<button type="submit" className="btn btn-dark btn-lg btn-block">
-							Register
+							Регистрация
 						</button>
 					</form>
+					<hr></hr>
+
+					<FacebookLogin />
 				</div>
 			</div>
 		</div>

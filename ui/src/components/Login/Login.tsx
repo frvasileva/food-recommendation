@@ -3,6 +3,8 @@ import { useMutation } from "@apollo/react-hooks";
 import { useHistory } from "react-router-dom";
 import { LOGIN_USER_QUERY, SET_SESSION_QUERY } from "../../helpers/queries";
 import tokenHelper from "../../helpers/tokenHelper";
+import "./Login.scss";
+import { FacebookLogin } from "../FacebookLogin/FacebookLogin";
 
 export const Login = (props: any) => {
 	const [loginFields, setLoginFields] = React.useState({
@@ -48,7 +50,7 @@ export const Login = (props: any) => {
 	};
 
 	return (
-		<div className="container create-recipe-wrapper">
+		<div className="container login-wrapper">
 			<div className="row">
 				<div className="col-md-6 offset-md-3">
 					<h1>Login</h1>
@@ -68,9 +70,6 @@ export const Login = (props: any) => {
 							{loginFields.email.error && (
 								<span className="text-error">{loginFields.email.error}</span>
 							)}
-							<small id="recipeHelp" className="form-text text-muted">
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-							</small>
 						</div>
 						<div className="form-group">
 							<label htmlFor="name">Password</label>
@@ -87,14 +86,13 @@ export const Login = (props: any) => {
 							{loginFields.password.error && (
 								<span className="text-error">{loginFields.password.error}</span>
 							)}
-							<small id="recipeHelp" className="form-text text-muted">
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-							</small>
 						</div>
 						<button type="submit" className="btn btn-dark btn-lg btn-block">
 							Login
 						</button>
 					</form>
+					<br></br>
+					<FacebookLogin />
 				</div>
 			</div>
 		</div>
