@@ -69,14 +69,14 @@ export const Register = (props: any) => {
 					<h1>Регистрация</h1>
 					<form onSubmit={submitForm} className="form">
 						<div className="form-group">
-							<label htmlFor="name">Име</label>
+							{/* <label htmlFor="name">Име</label> */}
 							<input
 								type="text"
 								className="form-control"
 								id="name"
 								name="name"
 								aria-describedby="recipeHelp"
-								placeholder="Name"
+								placeholder="Име"
 								value={userFields.name.value}
 								onChange={handleChange}
 							/>
@@ -85,14 +85,14 @@ export const Register = (props: any) => {
 							)}
 						</div>
 						<div className="form-group">
-							<label htmlFor="name">Email</label>
+							{/* <label htmlFor="name">Имейл</label> */}
 							<input
 								type="text"
 								className="form-control"
 								id="email"
 								name="email"
 								aria-describedby="recipeHelp"
-								placeholder="Email name"
+								placeholder="Имейл"
 								value={userFields.email.value}
 								onChange={handleChange}
 							/>
@@ -101,14 +101,14 @@ export const Register = (props: any) => {
 							)}
 						</div>
 						<div className="form-group">
-							<label htmlFor="name">Парола</label>
+							{/* <label htmlFor="name">Парола</label> */}
 							<input
 								type="password"
 								className="form-control"
 								id="password"
 								name="password"
 								aria-describedby="recipeHelp"
-								placeholder="Password"
+								placeholder="Парола"
 								value={userFields.password.value}
 								onChange={handleChange}
 							/>
@@ -116,7 +116,7 @@ export const Register = (props: any) => {
 								<span className="text-error">{userFields.password.error}</span>
 							)}
 						</div>
-						<button type="submit" className="btn btn-dark btn-lg btn-block">
+						<button type="submit" className="btn btn-dark btn-lg btn-block register-btn">
 							Регистрация
 						</button>
 					</form>
