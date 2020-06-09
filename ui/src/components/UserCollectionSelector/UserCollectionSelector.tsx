@@ -78,15 +78,12 @@ export const UserCollectionSelector = (props: any) => {
 		<div className="collection-wrapper">
 			<div className="header">
 				<span>
-					<strong>
-						{" "}
-						<i className="far fa-bookmark"></i> Save
-					</strong>
+					<i className="fas fa-plus-circle"></i>
 				</span>
-				<Link to="/add-collection" className="add-new-collection">
+				{/* <Link to="/add-collection" className="add-new-collection">
 					<i className="far fa-plus-square"></i>
 					New
-				</Link>
+				</Link> */}
 			</div>
 			<ul className="collection-list">
 				<li key="search-collection">

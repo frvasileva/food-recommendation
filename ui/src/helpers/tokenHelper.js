@@ -8,17 +8,17 @@ var tokenHelper = function () {
 
 	const userId = () => {
 		if (isLoggedIn()) return decodedToken.userId;
-		else throw "User not loggedin";
+		else return null;
 	};
 
 	const friendlyUrl = () => {
 		if (isLoggedIn()) return decodedToken.friendlyUrl;
-		else throw "User not loggedin";
+		else throw "User not loggedin 1";
 	};
 
 	const email = () => {
 		if (isLoggedIn()) return decodedToken.email;
-		else throw "User not loggedin";
+		else throw "User not loggedin 2";
 	};
 
 	const isLoggedIn = () => {
@@ -30,7 +30,7 @@ var tokenHelper = function () {
 		return decodedToken.userId;
 	};
 
-	return { userId, friendlyUrl, email, isLoggedIn,explisitDecodedToken };
+	return { userId, friendlyUrl, email, isLoggedIn, explisitDecodedToken };
 };
 
 export default tokenHelper;

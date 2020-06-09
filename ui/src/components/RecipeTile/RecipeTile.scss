@@ -3,31 +3,18 @@
 	position: relative;
 	border-radius: 3px;
 
-	.collection-wrapper {
-		display: none;
-	}
+	// .collection-wrapper {
+	// 	display: none;
+	// }
 
 	&:hover {
 		box-shadow: 1px 2px 7px #bdbdbd;
 		transition: 0.2s;
 	}
 
-	.collection-wrapper-plus {
-		display: block;
-		width: 40px;
-		height: 40px;
-		background-color: white;
-		cursor: pointer;
-		position: absolute;
-		top: 0;
-		right: 0;
-		border-radius: 20px;
-		z-index: 1;
-	}
-
-	.collection-wrapper-plus:hover .collection-wrapper {
-		display: block;
-	}
+	// &:hover .collection-wrapper {
+	// 	display: block;
+	// }
 
 	& .recipe-item-details {
 		text-align: center;
@@ -50,7 +37,7 @@
 	}
 
 	.card-body {
-		padding: 6px;
+		padding: 10px 6px;
 		background-color: #efecec;
 	}
 	.recipe-link {

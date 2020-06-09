@@ -1,6 +1,4 @@
 .collection-wrapper {
-	background-color: #f7f2f2;
-	padding: 15px;
 	z-index: 10;
 	position: relative;
 	text-transform: uppercase;
@@ -8,7 +6,6 @@
 	position: absolute;
 	top: 0;
 	width: 100%;
-	font-family: "Noto Sans JP", sans-serif;
 
 	& .collection-list {
 		display: none;
@@ -18,36 +15,60 @@
 			padding: 6px 5px 6px 10px;
 			border-bottom: 1px solid #c1c1c1;
 		}
+
+		&::before {
+			content: " ";
+			content: " ";
+			width: 0;
+			height: 0;
+			display: block;
+			position: absolute;
+			right: 0px;
+			top: 0;
+			border-right: 7px solid transparent;
+			border-left: 7px solid transparent;
+			border-bottom: 7px solid #c1c1c1;
+		}
 	}
 
 	&:hover {
 		cursor: pointer;
 	}
 
-// 	.collection-item:hover {
-// 		background-color: linen;
-// 	}
+	&:hover .collection-list {
+		display: block;
+		position: absolute;
+		background-color: white;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
+		transition: 0.2s;
+		right: 0;
+		top: 50px;
 
-// 	.add-new-collection {
-// 		float: right;
-// 		color: black;
-// 	}
+		// max-height: 200px;
+		overflow-y: hidden;
+		overflow-x: hidden;
+	}
 
-// }
+	& .header {
+		position: absolute;
+		right: 0;
+		font-size: 30px;
+		color: white;
+	}
 
-// .collection-wrapper-plus:hover .collection-list {
-// 	display: block;
-// 	position: absolute;
-// 	background-color: white;
-// 	width: 100%;
-// 	margin: 0;
-// 	padding: 0;
-// 	list-style-type: none;
-// 	transition: 0.2s;
-// 	right: 0;
-// 	top: 50px;
+	.collection-item:hover {
+		background-color: linen;
+	}
 
-// 	max-height: 200px;
-// 	overflow-y: scroll;
-// 	overflow-x: hidden;
-// }
+	.collection-item.selected{
+		background-color: #fff7d6;
+	}
+
+	.add-new-collection {
+		float: right;
+		color: black;
+	}
+}

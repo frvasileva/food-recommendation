@@ -21,10 +21,6 @@ export const Profile = (props: any) => {
 		<div className="container profile-wrapper">
 			<div className="row">
 				<div className="col-md-12">
-					<div>{user.email}</div>
-					<div>{user.name}</div>
-
-					<h2></h2>
 					<div className="row user-collections-wrapper">
 						{user.collections.map((collection: any) => (
 							<div key={collection.name} className="col-md-12 collection-item">

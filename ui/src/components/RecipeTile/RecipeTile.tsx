@@ -2,19 +2,25 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./RecipeTile.scss";
 import { UserCollectionSelector } from "../UserCollectionSelector/UserCollectionSelector";
+import tokenHelper from "../../helpers/tokenHelper";
 
 export const RecipeTile = (props: any) => {
+	var token = tokenHelper();
+	var isLoggedIn = token.isLoggedIn();
+	console.log("isLoggedIn", isLoggedIn);
+
 	const url = "https://source.unsplash.com/500x300/?" + props.name;
 
 	return (
 		<div>
 			<div key={props.name}>
 				<div className="card-wrapper">
-					<div className="collection-wrapper-plus">+</div>
-					<UserCollectionSelector
-						recipeId={props.id}
-						className="collection-items-wrapper"
-					/>
+					{isLoggedIn ? (
+						<UserCollectionSelector
+							recipeId={props.id}
+							className="collection-wrapper"
+						/>
+					) : null}
 					<div className="img-wrapper">
 						<Link to={`/recipe/${props.id}`}>
 							<img className="card-img-top" src={url} alt={props.name} />

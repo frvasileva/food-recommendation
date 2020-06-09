@@ -1,11 +1,10 @@
+$top-margin: 40px;
 .recipe-details {
+	margin-top: $top-margin;
+
 	article {
 		margin: 30px auto;
 		font-family: "Roboto Slab", serif;
-	}
-
-	.recipe-title {
-		margin-bottom: 70px;
 	}
 
 	.img-wrapper {
@@ -38,4 +37,8 @@
 			border-top: 2px solid #fff1d6;
 		}
 	}
+}
+
+.similiar-recipes-wrapper {
+	margin-top: $top-margin;
 }

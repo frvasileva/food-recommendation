@@ -9,6 +9,7 @@ import { RECIPE_BY_ID_QUERY } from "../../helpers/queries";
 import LoadingScreen from "../../layout/Loading/Loading";
 import ErrorScreen from "../../layout/ErrorPage/Error";
 import EmailSubscription from "../../layout/EmailSubscription/EmailSubscription";
+import tokenHelper from "../../helpers/tokenHelper";
 
 export const RecipeDetails = (props: any) => {
 	const { loading, error, data } = useQuery(RECIPE_BY_ID_QUERY, {
@@ -25,6 +26,9 @@ export const RecipeDetails = (props: any) => {
 
 	const url = "https://source.unsplash.com/900x400/?" + recipe.name;
 
+	var token = tokenHelper();
+	var isLoggedIn = token.isLoggedIn();
+
 	if (!recipe) return <p>Recipe was not found :(</p>;
 
 	return (
@@ -35,7 +39,9 @@ export const RecipeDetails = (props: any) => {
 						<div className="recipe-details recipe-wrapper">
 							<h1 className="recipe-title">{recipe.name}</h1>
 							<div className="img-wrapper">
-								<UserCollectionSelector recipeId={recipe.id} />
+								{isLoggedIn ? (
+									<UserCollectionSelector recipeId={recipe.id} />
+								) : null}
 
 								<img src={url} width="100%"></img>
 								<div className="recipe-cooking-details">
@@ -87,8 +93,8 @@ export const RecipeDetails = (props: any) => {
 							></IngredientsList>
 						</div>
 					</div>
-					<div className="col-md-4">
-						See more recipe here...
+					<div className="col-md-4 similiar-recipes-wrapper">
+						{/* See more recipe here... */}
 						<div className="row">
 							{randomRecipeList.map((recipe: any) => (
 								<div key={recipe.name} className="col-md-12">
@@ -99,7 +105,7 @@ export const RecipeDetails = (props: any) => {
 					</div>
 				</div>
 			</div>
-			<EmailSubscription/>
+			<EmailSubscription />
 		</div>
 	);
 };
