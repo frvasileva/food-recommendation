@@ -1,10 +1,12 @@
 import React from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+
 import { LOGIN_USER_QUERY, SET_SESSION_QUERY } from "../../helpers/queries";
 import tokenHelper from "../../helpers/tokenHelper";
-import "./Login.scss";
 import { FacebookLogin } from "../FacebookLogin/FacebookLogin";
+import "./Login.scss";
+import "../../layout/layout.scss";
 
 export const Login = (props: any) => {
 	const [loginFields, setLoginFields] = React.useState({
@@ -52,18 +54,17 @@ export const Login = (props: any) => {
 	return (
 		<div className="container login-wrapper">
 			<div className="row">
-				<div className="col-md-6 offset-md-3">
-					<h1>Login</h1>
-					<form onSubmit={submitForm} className="form">
+				<div className="col-md-6 offset-md-3 login-wrapper-form">
+					<form onSubmit={submitForm} className="form ">
+						<h1>Вход</h1>
 						<div className="form-group">
-							<label htmlFor="name">Email</label>
 							<input
 								type="text"
 								className="form-control"
 								id="email"
 								name="email"
 								aria-describedby="recipeHelp"
-								placeholder="Email name"
+								placeholder="Имейл"
 								value={loginFields.email.value}
 								onChange={handleChange}
 							/>
@@ -72,14 +73,13 @@ export const Login = (props: any) => {
 							)}
 						</div>
 						<div className="form-group">
-							<label htmlFor="name">Password</label>
 							<input
 								type="password"
 								className="form-control"
 								id="password"
 								name="password"
 								aria-describedby="recipeHelp"
-								placeholder="Password"
+								placeholder="Парола"
 								value={loginFields.password.value}
 								onChange={handleChange}
 							/>
@@ -87,12 +87,19 @@ export const Login = (props: any) => {
 								<span className="text-error">{loginFields.password.error}</span>
 							)}
 						</div>
-						<button type="submit" className="btn btn-dark btn-lg btn-block">
-							Login
+						<button
+							type="submit"
+							className="btn btn-dark btn-lg btn-block main-action-btn"
+						>
+							Вход
 						</button>
+						<hr></hr>
+						<FacebookLogin />
+						<br></br>
+						<Link to="/register" className="secondary-link">
+							Регистрация
+						</Link>
 					</form>
-					<br></br>
-					<FacebookLogin />
 				</div>
 			</div>
 		</div>

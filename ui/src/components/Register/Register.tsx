@@ -1,13 +1,15 @@
 import React from "react";
 import { useMutation } from "@apollo/react-hooks";
 import dateFormatter from "../../helpers/dateFormatter";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import urlTransformer from "../../helpers/urlTransformer";
 import { REGISTER_USER_QUERY, SET_SESSION_QUERY } from "../../helpers/queries";
 import tokenHelper from "../../helpers/tokenHelper";
 import { FacebookLogin } from "../FacebookLogin/FacebookLogin";
 import "./Register.scss";
+import "../../layout/layout.scss";
+
 export const Register = (props: any) => {
 	const [userFields, setUserFields] = React.useState({
 		email: { value: "", error: "" },
@@ -116,13 +118,18 @@ export const Register = (props: any) => {
 								<span className="text-error">{userFields.password.error}</span>
 							)}
 						</div>
-						<button type="submit" className="btn btn-dark btn-lg btn-block register-btn">
+						<button type="submit" className="btn btn-dark btn-lg btn-block main-action-btn">
 							Регистрация
 						</button>
 					</form>
 					<hr></hr>
 
 					<FacebookLogin />
+
+					<br></br>
+						<Link to="/login" className="secondary-link">
+							Вход
+						</Link>
 				</div>
 			</div>
 		</div>
