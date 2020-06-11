@@ -6,6 +6,7 @@ import { neo4jgraphql, makeAugmentedSchema } from "neo4j-graphql-js";
 import jwt from "jsonwebtoken";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
+import "dotenv/config";
 
 // console.log({ bcrypt })
 
@@ -99,40 +100,21 @@ const schema = makeAugmentedSchema({
  * using credentials specified as environment variables
  * with fallback to defaults
  */
-const graphenedbURL = process.env.GRAPHENEDB_BOLT_URL;
-const graphenedbUser = process.env.GRAPHENEDB_BOLT_USER;
-const graphenedbPass = process.env.GRAPHENEDB_BOLT_PASSWORD;
-
-// const NEO4J_CONNECTION = {
-// 	heroku: {
-// 		url: process.env.GRAPHENEDB_BOLT_URL,
-// 		user: process.env.GRAPHENEDB_BOLT_USER,
-// 		pass: process.env.GRAPHENEDB_BOLT_PASSWORD,
-// 	},
-// 	graphene: {
-// 		url: "bolt://hobby-ophlmnchcpaogbkeobhgkdel.dbs.graphenedb.com:24787",
-// 		user: "fani",
-// 		pass: "b.7btxtg1eSy0P.wfToo9orPasdoJRV",
-// 	},
-// 	development: {
-// 		url: "bolt://localhost:7687",
-// 		user: "neo4j",
-// 		pass: "parola",
-// 	},
-// };
-
-// const credentials = NEO4J_CONNECTION.heroku;
-// const driver = neo4j.driver(
-// 	credentials.url,
-// 	neo4j.auth.basic(credentials.user, credentials.pass),
-// 	{ encrypted: "ENCRYPTION_OFF" }
-// );
 
 const driver = neo4j.driver(
-	graphenedbURL,
-	neo4j.auth.basic(graphenedbUser, graphenedbPass),
-	{ encrypted: "ENCRYPTION_ON" }
+	process.env.GRAPHENEDB_BOLT_URL,
+	neo4j.auth.basic(
+		process.env.GRAPHENEDB_BOLT_USER,
+		process.env.GRAPHENEDB_BOLT_PASSWORD
+	),
+	{ encrypted: process.env.NEO4J_CONN_ENCRYPTION as any }
 );
+
+// const driver = neo4j.driver(
+// 	graphenedbURL,
+// 	neo4j.auth.basic(graphenedbUser, graphenedbPass),
+// 	{ encrypted: "ENCRYPTION_ON" }
+// );
 
 /*
  * Create a new ApolloServer instance, serving the GraphQL schema

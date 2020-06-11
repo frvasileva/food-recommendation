@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "cross-env JWT_SECRET=123456 ts-node-dev --watch ./src --respawn --transpileOnly ./src/index.ts",
+		"start": "ts-node-dev --watch ./src --respawn --transpileOnly ./src/index.ts",
 		"start:production": "node built/index.js",
 		"build": "tsc && cd ui && npm install && npm run build",
 		"test": "echo \"Error: no test specified\" && exit 1"
