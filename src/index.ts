@@ -89,6 +89,7 @@ const schema = makeAugmentedSchema({
 					},
 					process.env.JWT_SECRET
 				);
+				console.log("token", token);
 				return token;
 			},
 		},

@@ -85,30 +85,37 @@ export const UserCollectionSelector = (props: any) => {
 					New
 				</Link> */}
 			</div>
-			<ul className="collection-list">
-				<li key="search-collection">
-					<input
-						type="text"
-						placeholder="Search"
-						className="form-control"
-						onChange={filterCatalogs}
-					/>
-				</li>
-				{filteredUserCollections.map((item: any) => {
-					var isSelected = (item.recipes || []).some(
-						(r: any) => r.id === recipeId
-					);
+			<div className="collection-list">
+				<ul>
+					<li key="search-collection">
+						<input
+							type="text"
+							placeholder="Search"
+							className="form-control"
+							onChange={filterCatalogs}
+						/>
+					</li>
+					{filteredUserCollections.map((item: any) => {
+						var isSelected = (item.recipes || []).some(
+							(r: any) => r.id === recipeId
+						);
 
-					const listItemProps = {
-						...item,
-						key: item.id,
-						onClick: () =>
-							addToCollection(isSelected ? "remove" : "add", item.id),
-						isSelected: isSelected,
-					};
-					return <CollectionListItem {...listItemProps} />;
-				})}
-			</ul>
+						const listItemProps = {
+							...item,
+							key: item.id,
+							onClick: () =>
+								addToCollection(isSelected ? "remove" : "add", item.id),
+							isSelected: isSelected,
+						};
+						return <CollectionListItem {...listItemProps} />;
+					})}
+				</ul>
+				<div key="add-collection-wrapper">
+					<Link to="/add-collection" className="add-collection-btn">
+						Добави нова колекция
+					</Link>
+				</div>
+			</div>
 		</div>
 	);
 };

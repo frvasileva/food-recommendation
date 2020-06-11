@@ -10,46 +10,25 @@
 	& .collection-list {
 		display: none;
 		border: 1px solid #c1c1c1;
+		min-height: 150px;
 
+		ul {
+			overflow-y: scroll;
+			overflow-x: hidden;
+			max-height: 200px;
+			height: 225px;
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
 		li {
 			padding: 6px 5px 6px 10px;
 			border-bottom: 1px solid #c1c1c1;
-		}
-
-		&::before {
-			content: " ";
-			content: " ";
-			width: 0;
-			height: 0;
-			display: block;
-			position: absolute;
-			right: 0px;
-			top: 0;
-			border-right: 7px solid transparent;
-			border-left: 7px solid transparent;
-			border-bottom: 7px solid #c1c1c1;
 		}
 	}
 
 	&:hover {
 		cursor: pointer;
-	}
-
-	&:hover .collection-list {
-		display: block;
-		position: absolute;
-		background-color: white;
-		width: 100%;
-		margin: 0;
-		padding: 0;
-		list-style-type: none;
-		transition: 0.2s;
-		right: 0;
-		top: 50px;
-
-		// max-height: 200px;
-		overflow-y: hidden;
-		overflow-x: hidden;
 	}
 
 	& .header {
@@ -63,7 +42,7 @@
 		background-color: linen;
 	}
 
-	.collection-item.selected{
+	.collection-item.selected {
 		background-color: #fff7d6;
 	}
 
@@ -71,4 +50,39 @@
 		float: right;
 		color: black;
 	}
+
+	.add-collection-btn {
+		background-color: lightgoldenrodyellow;
+		text-decoration: none;
+		font-size: 12px;
+		width: 100%;
+		padding: 10px;
+		display: block;
+		color: black;
+		text-align: center;
+	}
+}
+
+.collection-wrapper:hover .collection-list {
+	display: block;
+	position: absolute;
+	background-color: white;
+	padding: 0;
+	list-style-type: none;
+	transition: 0.2s;
+	right: 0;
+	left: 0;
+	top: 0;
+	margin: 0 auto;
+	width: 95%;
+	// overflow-y: scroll;
+	// overflow-x: hidden;
+	border-radius: 3px;
+}
+
+.add-collection-wrapper {
+	position: absolute;
+	width: 100%;
+	display: block;
+	bottom: 0;
 }
