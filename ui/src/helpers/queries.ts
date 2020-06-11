@@ -78,6 +78,11 @@ export const LOGIN_USER_QUERY = gql`
 		loginUser(email: $email, password: $password)
 	}
 `;
+export const LOGIN_FACEBOOK_USER_QUERY = gql`
+	mutation($email: String, $fbUserId: String) {
+		loginFacebookUser(email: $email, fbUserId: $fbUserId)
+	}
+`;
 
 export const SET_SESSION_QUERY = gql`
 	mutation($input: CreateSessionInput) {

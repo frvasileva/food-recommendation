@@ -4,8 +4,8 @@ import neo4j from "neo4j-driver";
 import { neo4jgraphql, makeAugmentedSchema } from "neo4j-graphql-js";
 // import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import express from 'express';
-import { ApolloServer  } from 'apollo-server-express';
+import express from "express";
+import { ApolloServer } from "apollo-server-express";
 
 // console.log({ bcrypt })
 
@@ -59,10 +59,7 @@ const schema = makeAugmentedSchema({
 				console.log("server result", result);
 				const passwordIsCorrect =
 					params.password === result.properties.password;
-				// const passwordIsCorrect = bcrypt.compareSync(
-				// 	params.password,
-				// 	result.properties.password
-				// );
+
 				if (!passwordIsCorrect) throw new Error("Invalid credentials");
 				return jwt.sign(
 					{
@@ -73,6 +70,25 @@ const schema = makeAugmentedSchema({
 					},
 					process.env.JWT_SECRET
 				);
+			},
+			loginFacebookUser: async (
+				object: any,
+				params: any,
+				ctx: any,
+				resolveInfo: any
+			) => {
+				const result = await neo4jgraphql(object, params, ctx, resolveInfo);
+
+				var token = jwt.sign(
+					{
+						exp: Math.floor(Date.now() / 1000) + 60 * 6000,
+						userId: result.properties.id,
+						email: result.properties.email,
+						friendlyUrl: result.properties.friendlyUrl,
+					},
+					process.env.JWT_SECRET
+				);
+				return token;
 			},
 		},
 	},
@@ -87,12 +103,30 @@ const graphenedbURL = process.env.GRAPHENEDB_BOLT_URL;
 const graphenedbUser = process.env.GRAPHENEDB_BOLT_USER;
 const graphenedbPass = process.env.GRAPHENEDB_BOLT_PASSWORD;
 
-const driver = neo4j.driver(graphenedbURL, neo4j.auth.basic(graphenedbUser, graphenedbPass), {encrypted: 'ENCRYPTION_ON'});
+const NEO4J_CONNECTION = {
+	heroku: {
+		url: process.env.GRAPHENEDB_BOLT_URL,
+		user: process.env.GRAPHENEDB_BOLT_USER,
+		pass: process.env.GRAPHENEDB_BOLT_PASSWORD,
+	},
+	graphene: {
+		url: "bolt://hobby-oipmnfcgbflagbkefgofgdel.dbs.graphenedb.com:24787",
+		user: "fani",
+		pass: "b.7btxtg1eSy0P.wfToo9orPasdoJRV",
+	},
+	development: {
+		url: "bolt://localhost:7687",
+		user: "neo4j",
+		pass: "parola",
+	},
+};
 
-// const driver = neo4j.driver(
-// 	"bolt://localhost:7687",
-// 	neo4j.auth.basic("neo4j", "parola")
-// );
+const credentials = NEO4J_CONNECTION.development;
+const driver = neo4j.driver(
+	credentials.url,
+	neo4j.auth.basic(credentials.user, credentials.pass),
+	{ encrypted: "ENCRYPTION_OFF" }
+);
 
 /*
  * Create a new ApolloServer instance, serving the GraphQL schema
@@ -120,11 +154,11 @@ const server = new ApolloServer({
 });
 
 const app = express();
-server.applyMiddleware({ app, path: '/api' });
+server.applyMiddleware({ app, path: "/api" });
 
-app.use(express.static(path.join(__dirname, '../ui/build')));
-app.use('*', (req, res) => {
-	res.sendFile(path.join(__dirname, '../ui/build', 'index.html'));
+app.use(express.static(path.join(__dirname, "../ui/build")));
+app.use("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "../ui/build", "index.html"));
 });
 
 app.listen(process.env.PORT || 4000);

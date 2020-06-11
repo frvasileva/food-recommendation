@@ -124,7 +124,7 @@ export const Register = (props: any) => {
 					</form>
 					<hr></hr>
 
-					<FacebookLogin />
+					<FacebookLogin source="register" />
 
 					<br></br>
 						<Link to="/login" className="secondary-link">

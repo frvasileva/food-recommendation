@@ -81,6 +81,7 @@ type User {
 	friendlyUrl: String!
 	email: String!
 	password: String!
+	isFacebookLoggedIn: Int
 	recipes: [Recipe] @relation(name: "ADDED_RECIPE", direction: "OUT")
 	collections: [Collection]
 		@relation(name: "COLLECTION_CREATED", direction: "OUT")
@@ -149,6 +150,7 @@ input RegisterUserInput {
 	friendlyUrl: String!
 	password: String!
 	defaultCollectionId: String!
+	fbUserId: String
 }
 input CreateSessionInput {
 	userId: String!
@@ -400,12 +402,23 @@ type Mutation {
 			"""
 		)
 
+	loginFacebookUser(email: String, fbUserId: String): String
+		@cypher(
+			statement: """
+			MATCH (u:User)
+			WHERE u.fbUserId = $fbUserId and email=$email
+			return u
+			"""
+		)
+
 	registerUser(input: RegisterUserInput): String
 		@cypher(
 			statement: """
 			CREATE (c:Collection{id:$input.defaultCollectionId, name:\"Want to cook\", friendlyUrl:\"want-to-cook\", createdOn:$input.createdOn})
 			WITH c
-			CREATE (u:User {id:$input.id, email:$input.email, name: $input.name, createdOn:$input.createdOn, friendlyUrl:$input.friendlyUrl, password:$input.password})
+			CREATE (u:User
+			{id:$input.id, email:$input.email, name: $input.name, createdOn:$input.createdOn,
+			 friendlyUrl:$input.friendlyUrl, password:$input.password, fbUserId:$input.fbUserId})
 			WITH u, c
 			CREATE (u)-[rel:COLLECTION_CREATED]->(c)
 			return u.name

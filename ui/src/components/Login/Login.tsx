@@ -38,7 +38,6 @@ export const Login = (props: any) => {
 			},
 		}).then((result) => {
 			localStorage.setItem("token", result.data.loginUser);
-			console.log("session");
 			setSession({
 				variables: {
 					input: {
@@ -94,7 +93,7 @@ export const Login = (props: any) => {
 							Вход
 						</button>
 						<hr></hr>
-						<FacebookLogin />
+						<FacebookLogin source="login" />
 						<br></br>
 						<Link to="/register" className="secondary-link">
 							Регистрация
