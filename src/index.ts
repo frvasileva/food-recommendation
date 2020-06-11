@@ -121,7 +121,7 @@ const NEO4J_CONNECTION = {
 	},
 };
 
-const credentials = NEO4J_CONNECTION.development;
+const credentials = NEO4J_CONNECTION.heroku;
 const driver = neo4j.driver(
 	credentials.url,
 	neo4j.auth.basic(credentials.user, credentials.pass),
