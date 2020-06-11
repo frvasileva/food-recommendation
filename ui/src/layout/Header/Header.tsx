@@ -16,7 +16,6 @@ export const Header = (props: any) => {
 		history.push("/login");
 	};
 
-
 	return (
 		<div>
 			{/* <FacebookProvider appId="259177898749113">
@@ -25,9 +24,10 @@ export const Header = (props: any) => {
 
 			<nav className="navbar fixed-top navbar-expand-lg navbar-light bg-custom navbar-fixed-top">
 				<div className="container">
-					<a className="navbar-brand" href="#">
+					{/* <a className="navbar-brand" href="#"> */}
+					<Link to="/" className="navbar-brand">
 						<i className="fas fa-utensils logo"></i>
-					</a>
+					</Link>
 					<button
 						className="navbar-toggler"
 						type="button"

@@ -22,7 +22,8 @@ var tokenHelper = function () {
 	};
 
 	const isLoggedIn = () => {
-		return token !== "";
+		console.log("token: ", token);
+		return token !== "" && token !== null;
 	};
 
 	const explisitDecodedToken = (token) => {
