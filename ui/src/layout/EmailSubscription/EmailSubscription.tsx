@@ -9,7 +9,7 @@ export const EmailSubscription = (props: any) => {
 			<div className="container">
 				<div className="row">
 					<div className="col-md">
-						<p>
+						<p className="section-title">
 							<strong>Want more delicious ideas?</strong>
 						</p>
 						<p>

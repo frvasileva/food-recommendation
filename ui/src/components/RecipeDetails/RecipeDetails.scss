@@ -42,3 +42,27 @@ $top-margin: 40px;
 .similiar-recipes-wrapper {
 	margin-top: $top-margin;
 }
+
+.mobile-title{
+	display: none;
+}
+
+@media only screen and (max-width: 768px) {
+	$top-margin: 15px;
+
+	.recipe-details {
+		margin-top: $top-margin;
+	}
+	.recipe-title {
+		font-size: 24px;
+	}
+
+	.recipe-details .img-wrapper {
+		margin-top: 15px;
+	}
+
+	.mobile-title{
+		display: block;
+	}
+
+}

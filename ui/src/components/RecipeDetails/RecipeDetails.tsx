@@ -77,14 +77,8 @@ export const RecipeDetails = (props: any) => {
 									eligendi harum, iure reiciendis architecto quae omnis. Est ut
 									reiciendis recusandae
 								</p>
-								dolor dolorem sapiente at.
 							</article>
 
-							<div className="row">
-								<div className="col-md-12"></div>
-							</div>
-							<br></br>
-							<br></br>
 							<p>
 								<strong>Products:</strong>
 							</p>
@@ -95,6 +89,11 @@ export const RecipeDetails = (props: any) => {
 					</div>
 					<div className="col-md-4 similiar-recipes-wrapper">
 						{/* See more recipe here... */}
+						<div className="row mobile-title">
+							<div className="col-md">
+								<h2>Виж подобни рецепти</h2>
+							</div>
+						</div>
 						<div className="row">
 							{randomRecipeList.map((recipe: any) => (
 								<div key={recipe.name} className="col-md-12">

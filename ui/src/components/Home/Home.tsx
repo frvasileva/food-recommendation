@@ -44,7 +44,7 @@ export const Home = (props: any) => {
 					</div>
 				</div>
 			</div>
-			<div className="container-wrapper container">
+			<div className="container">
 				<h1>Популярни колекции</h1>
 				<div className="row collection-preview-wrapper">
 					{popularCollections.map((collection: any) => (
