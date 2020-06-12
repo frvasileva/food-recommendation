@@ -22,7 +22,6 @@ var tokenHelper = function () {
 	};
 
 	const isLoggedIn = () => {
-		console.log("token: ", token);
 		return token !== "" && token !== null;
 	};
 

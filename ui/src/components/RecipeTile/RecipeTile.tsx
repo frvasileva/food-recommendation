@@ -7,7 +7,6 @@ import tokenHelper from "../../helpers/tokenHelper";
 export const RecipeTile = (props: any) => {
 	var token = tokenHelper();
 	var isLoggedIn = token.isLoggedIn();
-	console.log("isLoggedIn", isLoggedIn);
 
 	const url = "https://source.unsplash.com/500x300/?" + props.name;
 

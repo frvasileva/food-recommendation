@@ -31,8 +31,6 @@ export const UserCollectionSelector = (props: any) => {
 		REMOVE_RECIPE_TO_COLLECTION_QUERY
 	);
 
-	console.log(userCollections);
-
 	var parameters = useParams() as any;
 	var dateFormat = dateFormatter();
 	var recipeId = props.recipeId || parameters.recipeId;

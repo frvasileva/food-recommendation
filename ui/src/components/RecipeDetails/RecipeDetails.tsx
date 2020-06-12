@@ -69,51 +69,57 @@ export const RecipeDetails = (props: any) => {
 											<p>
 												<strong>{recipe.description}</strong>
 												<br />
-												Lorem ipsum dolor sit amet consectetur adipisicing elit.
-												Voluptas, rem iusto. Cumque temporibus incidunt illo ea
-												numquam, repellendus molestiae similique, accusantium,
+												Съществуват много вариации на пасажа Lorem Ipsum, но
+												повечето от тях са променени по един или друг начин чрез
+												добавяне на смешни думи или разбъркване на думите, което
+												не изглежда много достоверно. Ако искате да използвате
+												пасаж от Lorem Ipsum, трябва да сте сигурни, че в него
+												няма смущаващи или нецензурни думи. Всички Lorem Ipsum
+												генератори в Интернет използват предефинирани пасажи,
+												който се повтарят, което прави този този генератор
+												първия истински такъв. Той използва речник от над 200
+												латински думи, комбинирани по подходящ начин като
+												изречения, за да генерират истински Lorem Ipsum пасажи.
+												Оттук следва, че генерираният Lorem Ipsum пасаж не
+												съдържа повторения, смущаващи, нецензурни и всякакви
+												неподходящи думи.
 											</p>
 											<h3>Начин на приготвяне:</h3>
 											<div className="recipe-steps-wrapper">
 												<p className="recipe-steps-wrapper">
 													<span className="step-number"> 1</span>
-													cumque odit delectus reprehenderit molestias ullam
-													assumenda ea unde ut laborum ad mollitia suscipit
-													nostrum at quia magnam saepe. Lorem ipsum dolor sit
-													amet consectetur adipisicing elit. Nostrum id earum,
-													esse possimus, minima consequatur eligendi harum, iure
-													reiciendis architecto quae omnis. Est ut reiciendis
-													recusandae
+													Съществуват много вариации на пасажа Lorem Ipsum, но
+													повечето от тях са променени по един или друг начин
+													чрез добавяне на смешни думи или разбъркване на
+													думите, което не изглежда много достоверно. Ако искате
+													да използвате пасаж от Lorem Ipsum, трябва да сте
+													сигурни, че в него няма смущаващи или нецензурни думи.
 												</p>
 												<p className="recipe-steps-wrapper">
 													<span className="step-number"> 2</span>
-													cumque odit delectus reprehenderit molestias ullam
-													assumenda ea unde ut laborum ad mollitia suscipit
-													nostrum at quia magnam saepe. Lorem ipsum dolor sit
-													amet consectetur adipisicing elit. Nostrum id earum,
-													esse possimus, minima consequatur eligendi harum, iure
-													reiciendis architecto quae omnis. Est ut reiciendis
-													recusandae
+													Всички Lorem Ipsum генератори в Интернет използват
+													предефинирани пасажи, който се повтарят, което прави
+													този този генератор първия истински такъв. Той
+													използва речник от над 200 латински думи, комбинирани
+													по подходящ начин като изречения, за да генерират
+													истински Lorem Ipsum пасажи. Оттук следва, че
+													генерираният Lorem Ipsum пасаж не съдържа повторения,
+													смущаващи, нецензурни и всякакви неподходящи думи.
 												</p>
 												<p className="recipe-steps-wrapper">
 													<span className="step-number"> 3</span>
-													cumque odit delectus reprehenderit molestias ullam
-													assumenda ea unde ut laborum ad mollitia suscipit
-													nostrum at quia magnam saepe. Lorem ipsum dolor sit
-													amet consectetur adipisicing elit. Nostrum id earum,
-													esse possimus, minima consequatur eligendi harum, iure
-													reiciendis architecto quae omnis. Est ut reiciendis
-													recusandae
+													Оттук следва, че генерираният Lorem Ipsum пасаж не
+													съдържа повторения, смущаващи, нецензурни и всякакви
+													неподходящи думи.
 												</p>
 												<p className="recipe-steps-wrapper">
 													<span className="step-number"> 4</span>
-													cumque odit delectus reprehenderit molestias ullam
-													assumenda ea unde ut laborum ad mollitia suscipit
-													nostrum at quia magnam saepe. Lorem ipsum dolor sit
-													amet consectetur adipisicing elit. Nostrum id earum,
-													esse possimus, minima consequatur eligendi harum, iure
-													reiciendis architecto quae omnis. Est ut reiciendis
-													recusandae
+													Съществуват много вариации на пасажа Lorem Ipsum, но
+													повечето от тях са променени по един или друг начин
+													чрез добавяне на смешни думи или разбъркване на
+													думите, което не изглежда много достоверно. Ако искате
+													да използвате пасаж от Lorem Ipsum, трябва да сте
+													сигурни, че в него няма смущаващи или нецензурни думи.
 												</p>
 											</div>
 										</div>
