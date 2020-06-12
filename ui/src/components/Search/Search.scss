@@ -48,13 +48,14 @@
 
 		li {
 			display: inline-block;
-			padding: 0 10px 0 0;
+			padding: 0 5px 0 0;
 
 			a {
 				color: black;
 				padding: 5px 5px 0 0;
 				display: inline-block;
 				border-bottom: 2px solid transparent;
+				font-size: 14px;
 
 				&:hover {
 					text-decoration: none;

@@ -33,7 +33,6 @@ export const Home = (props: any) => {
 						<RecipeOfTheDay recipeOfDay={recipeOfDay}></RecipeOfTheDay>
 					</div>
 				</div>
-				<br></br>
 			</div>
 			<div className="container-wrapper search-component-wrapper">
 				<div className="container">
@@ -44,8 +43,12 @@ export const Home = (props: any) => {
 					</div>
 				</div>
 			</div>
-			<div className="container">
-				<h1>Популярни колекции</h1>
+			<div className="container container-wrapper">
+				<div className="row">
+					<div className="col-md">
+						<h2 className="section-title">Популярни колекции</h2>
+					</div>
+				</div>
 				<div className="row collection-preview-wrapper">
 					{popularCollections.map((collection: any) => (
 						<div
@@ -60,8 +63,11 @@ export const Home = (props: any) => {
 				</div>
 			</div>
 			<div className="container-wrapper container">
-				<br></br>
-				<h1>Най-нови</h1>
+				<div className="row">
+					<div className="col-md">
+						<h2 className="section-title">Най-нови</h2>
+					</div>
+				</div>
 				<div className="row recipe-wrapper">
 					{newestRecipes.map((recipe: any) => (
 						<div key={recipe.name} className="col-md-4 col-sm-6">

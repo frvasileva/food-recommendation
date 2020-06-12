@@ -23,7 +23,8 @@
 		}
 		li {
 			padding: 6px 5px 6px 10px;
-			border-bottom: 1px solid #c1c1c1;
+			border-bottom: 1px solid #eae9e9;
+			text-transform: none;
 		}
 	}
 
@@ -39,7 +40,7 @@
 	}
 
 	.collection-item:hover {
-		background-color: linen;
+		background-color: #fff7d6;
 	}
 
 	.collection-item.selected {
@@ -52,7 +53,7 @@
 	}
 
 	.add-collection-btn {
-		background-color: lightgoldenrodyellow;
+		background-color: #eaeaea;
 		text-decoration: none;
 		font-size: 12px;
 		width: 100%;
@@ -60,6 +61,7 @@
 		display: block;
 		color: black;
 		text-align: center;
+		font-weight: 500;
 	}
 }
 

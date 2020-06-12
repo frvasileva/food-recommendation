@@ -43,8 +43,19 @@ $top-margin: 40px;
 	margin-top: $top-margin;
 }
 
-.mobile-title{
+.mobile-title {
 	display: none;
+}
+
+.ingredients-wrapper {
+	float: left;
+	min-width: 200px;
+	margin-right: 15px;
+	padding: 0 10px 5px 0;
+}
+
+.recipe-description{
+	font-size: 14px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -61,8 +72,7 @@ $top-margin: 40px;
 		margin-top: 15px;
 	}
 
-	.mobile-title{
+	.mobile-title {
 		display: block;
 	}
-
 }

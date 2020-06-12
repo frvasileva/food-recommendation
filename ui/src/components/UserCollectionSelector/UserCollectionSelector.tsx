@@ -31,6 +31,8 @@ export const UserCollectionSelector = (props: any) => {
 		REMOVE_RECIPE_TO_COLLECTION_QUERY
 	);
 
+	console.log(userCollections);
+
 	var parameters = useParams() as any;
 	var dateFormat = dateFormatter();
 	var recipeId = props.recipeId || parameters.recipeId;
@@ -87,14 +89,16 @@ export const UserCollectionSelector = (props: any) => {
 			</div>
 			<div className="collection-list">
 				<ul>
-					<li key="search-collection">
-						<input
-							type="text"
-							placeholder="Search"
-							className="form-control"
-							onChange={filterCatalogs}
-						/>
-					</li>
+					{userCollections.length > 3 && (
+						<li key="search-collection">
+							<input
+								type="text"
+								placeholder="Търси колекция"
+								className="form-control"
+								onChange={filterCatalogs}
+							/>
+						</li>
+					)}
 					{filteredUserCollections.map((item: any) => {
 						var isSelected = (item.recipes || []).some(
 							(r: any) => r.id === recipeId

@@ -58,33 +58,34 @@ export const RecipeDetails = (props: any) => {
 							</div>
 
 							<article>
-								<p>
-									<strong>{recipe.description}</strong>
-									<br></br>
-									<br></br>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Voluptas, rem iusto. Cumque temporibus incidunt illo ea
-									numquam, repellendus molestiae similique, accusantium, quasi
-									aspernatur dicta commodi eveniet suscipit. Sunt, magnam in.
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Necessitatibus cupiditate, facere,
-								</p>
-								<p>
-									cumque odit delectus reprehenderit molestias ullam assumenda
-									ea unde ut laborum ad mollitia suscipit nostrum at quia magnam
-									saepe. Lorem ipsum dolor sit amet consectetur adipisicing
-									elit. Nostrum id earum, esse possimus, minima consequatur
-									eligendi harum, iure reiciendis architecto quae omnis. Est ut
-									reiciendis recusandae
-								</p>
+								<div className="row">
+									<div className="col-12">
+										<div className="ingredients-wrapper">
+											<IngredientsList
+												ingredients={recipe.ingredients}
+											></IngredientsList>
+										</div>
+										<div className="recipe-description">
+											<p>
+												<strong>{recipe.description}</strong>
+												<br />
+												Lorem ipsum dolor sit amet consectetur adipisicing elit.
+												Voluptas, rem iusto. Cumque temporibus incidunt illo ea
+												numquam, repellendus molestiae similique, accusantium,
+											</p>
+											<p>
+												cumque odit delectus reprehenderit molestias ullam
+												assumenda ea unde ut laborum ad mollitia suscipit
+												nostrum at quia magnam saepe. Lorem ipsum dolor sit amet
+												consectetur adipisicing elit. Nostrum id earum, esse
+												possimus, minima consequatur eligendi harum, iure
+												reiciendis architecto quae omnis. Est ut reiciendis
+												recusandae
+											</p>
+										</div>
+									</div>
+								</div>
 							</article>
-
-							<p>
-								<strong>Products:</strong>
-							</p>
-							<IngredientsList
-								ingredients={recipe.ingredients}
-							></IngredientsList>
 						</div>
 					</div>
 					<div className="col-md-4 similiar-recipes-wrapper">
