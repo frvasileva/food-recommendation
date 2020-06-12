@@ -54,8 +54,30 @@ $top-margin: 40px;
 	padding: 0 10px 5px 0;
 }
 
-.recipe-description{
+.recipe-description {
 	font-size: 14px;
+}
+
+.recipe-description {
+	max-width: 900px;
+	.step-number {
+		display: inline-block;
+		width: 30px;
+		height: 30px;
+		border-radius: 20px;
+		background-color: #3cb6ca;
+		color: white;
+		margin-right: 10px;
+		padding-top: 4px;
+		text-align: center;
+		font-weight: bold;
+		float: left;
+	}
+
+	h3 {
+		font-size: 24px;
+		margin-bottom: 20px;
+	}
 }
 
 @media only screen and (max-width: 768px) {

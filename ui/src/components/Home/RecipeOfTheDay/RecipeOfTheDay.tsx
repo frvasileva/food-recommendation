@@ -9,7 +9,7 @@ export const RecipeOfTheDay = (props: any) => {
 			<h1 className="section-title">Рецепта на деня</h1>
 			<Link to={`/recipe/${recipe.id}`} className="recipe-wrapper">
 				<img
-					src={`https://source.unsplash.com/1200x400?${recipe.name}`}
+					src={`https://source.unsplash.com/1200x600?${recipe.name}`}
 					className="recipe-img img-fluid"
 				></img>
 				<p className="recipe-link">{recipe.name}</p>

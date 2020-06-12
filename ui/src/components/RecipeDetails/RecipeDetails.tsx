@@ -73,33 +73,49 @@ export const RecipeDetails = (props: any) => {
 												Voluptas, rem iusto. Cumque temporibus incidunt illo ea
 												numquam, repellendus molestiae similique, accusantium,
 											</p>
-											<p>
-												cumque odit delectus reprehenderit molestias ullam
-												assumenda ea unde ut laborum ad mollitia suscipit
-												nostrum at quia magnam saepe. Lorem ipsum dolor sit amet
-												consectetur adipisicing elit. Nostrum id earum, esse
-												possimus, minima consequatur eligendi harum, iure
-												reiciendis architecto quae omnis. Est ut reiciendis
-												recusandae
-											</p>
-											<p>
-												cumque odit delectus reprehenderit molestias ullam
-												assumenda ea unde ut laborum ad mollitia suscipit
-												nostrum at quia magnam saepe. Lorem ipsum dolor sit amet
-												consectetur adipisicing elit. Nostrum id earum, esse
-												possimus, minima consequatur eligendi harum, iure
-												reiciendis architecto quae omnis. Est ut reiciendis
-												recusandae
-											</p>
-											<p>
-												cumque odit delectus reprehenderit molestias ullam
-												assumenda ea unde ut laborum ad mollitia suscipit
-												nostrum at quia magnam saepe. Lorem ipsum dolor sit amet
-												consectetur adipisicing elit. Nostrum id earum, esse
-												possimus, minima consequatur eligendi harum, iure
-												reiciendis architecto quae omnis. Est ut reiciendis
-												recusandae
-											</p>
+											<h3>Начин на приготвяне:</h3>
+											<div className="recipe-steps-wrapper">
+												<p className="recipe-steps-wrapper">
+													<span className="step-number"> 1</span>
+													cumque odit delectus reprehenderit molestias ullam
+													assumenda ea unde ut laborum ad mollitia suscipit
+													nostrum at quia magnam saepe. Lorem ipsum dolor sit
+													amet consectetur adipisicing elit. Nostrum id earum,
+													esse possimus, minima consequatur eligendi harum, iure
+													reiciendis architecto quae omnis. Est ut reiciendis
+													recusandae
+												</p>
+												<p className="recipe-steps-wrapper">
+													<span className="step-number"> 2</span>
+													cumque odit delectus reprehenderit molestias ullam
+													assumenda ea unde ut laborum ad mollitia suscipit
+													nostrum at quia magnam saepe. Lorem ipsum dolor sit
+													amet consectetur adipisicing elit. Nostrum id earum,
+													esse possimus, minima consequatur eligendi harum, iure
+													reiciendis architecto quae omnis. Est ut reiciendis
+													recusandae
+												</p>
+												<p className="recipe-steps-wrapper">
+													<span className="step-number"> 3</span>
+													cumque odit delectus reprehenderit molestias ullam
+													assumenda ea unde ut laborum ad mollitia suscipit
+													nostrum at quia magnam saepe. Lorem ipsum dolor sit
+													amet consectetur adipisicing elit. Nostrum id earum,
+													esse possimus, minima consequatur eligendi harum, iure
+													reiciendis architecto quae omnis. Est ut reiciendis
+													recusandae
+												</p>
+												<p className="recipe-steps-wrapper">
+													<span className="step-number"> 4</span>
+													cumque odit delectus reprehenderit molestias ullam
+													assumenda ea unde ut laborum ad mollitia suscipit
+													nostrum at quia magnam saepe. Lorem ipsum dolor sit
+													amet consectetur adipisicing elit. Nostrum id earum,
+													esse possimus, minima consequatur eligendi harum, iure
+													reiciendis architecto quae omnis. Est ut reiciendis
+													recusandae
+												</p>
+											</div>
 										</div>
 									</div>
 								</div>
