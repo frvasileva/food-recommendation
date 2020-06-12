@@ -35,7 +35,7 @@ export const RecipeDetails = (props: any) => {
 		<div>
 			<div className="container">
 				<div className="row">
-					<div className="col-md-8">
+					<div className="col-md-12">
 						<div className="recipe-details recipe-wrapper">
 							<h1 className="recipe-title">{recipe.name}</h1>
 							<div className="img-wrapper">
@@ -82,26 +82,44 @@ export const RecipeDetails = (props: any) => {
 												reiciendis architecto quae omnis. Est ut reiciendis
 												recusandae
 											</p>
+											<p>
+												cumque odit delectus reprehenderit molestias ullam
+												assumenda ea unde ut laborum ad mollitia suscipit
+												nostrum at quia magnam saepe. Lorem ipsum dolor sit amet
+												consectetur adipisicing elit. Nostrum id earum, esse
+												possimus, minima consequatur eligendi harum, iure
+												reiciendis architecto quae omnis. Est ut reiciendis
+												recusandae
+											</p>
+											<p>
+												cumque odit delectus reprehenderit molestias ullam
+												assumenda ea unde ut laborum ad mollitia suscipit
+												nostrum at quia magnam saepe. Lorem ipsum dolor sit amet
+												consectetur adipisicing elit. Nostrum id earum, esse
+												possimus, minima consequatur eligendi harum, iure
+												reiciendis architecto quae omnis. Est ut reiciendis
+												recusandae
+											</p>
 										</div>
 									</div>
 								</div>
 							</article>
 						</div>
 					</div>
-					<div className="col-md-4 similiar-recipes-wrapper">
-						{/* See more recipe here... */}
-						<div className="row mobile-title">
-							<div className="col-md">
-								<h2>Виж подобни рецепти</h2>
+				</div>
+				<hr></hr>
+				<div className="container-wrapper">
+					<div className="row ">
+						<div className="col-md">
+							<h2>Виж подобни рецепти</h2>
+						</div>
+					</div>
+					<div className="row">
+						{randomRecipeList.map((recipe: any) => (
+							<div key={recipe.name} className="col-md-4 col-sm-6">
+								<RecipeTile {...recipe}></RecipeTile>
 							</div>
-						</div>
-						<div className="row">
-							{randomRecipeList.map((recipe: any) => (
-								<div key={recipe.name} className="col-md-12">
-									<RecipeTile {...recipe}></RecipeTile>
-								</div>
-							))}
-						</div>
+						))}
 					</div>
 				</div>
 			</div>

@@ -28,8 +28,8 @@ export const IngredientsList = (props: any) => {
 							<i className="fas fa-check-square"></i> {ingredient.name}
 						</div>
 						<div className="col-4">
-							{ingredient.quantity}
-							{ingredient.quantityType}
+							<span className="ingredient-quantity">{ingredient.quantity}</span>
+							<span className="measurmenet">{ingredient.quantityType}</span>
 						</div>
 					</div>
 				</li>
