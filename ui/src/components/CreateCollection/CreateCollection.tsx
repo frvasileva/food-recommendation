@@ -10,6 +10,8 @@ import {
 	USER_COLLECTION_QUERY,
 } from "../../helpers/queries";
 
+import "./CreateCollection.scss";
+
 export const CreateCollection = (props: any) => {
 	const [collectionName, setCollectionName] = React.useState("");
 	const [createCollection, createCollectionStatus] = useMutation(
@@ -69,22 +71,29 @@ export const CreateCollection = (props: any) => {
 	return (
 		<div className="container">
 			<div className="row">
-				<div className="col-md">
-					<h2>Create collection</h2>
-				</div>
-			</div>
-			<div className="row">
-				<div className="col-md">
-					<form onSubmit={submitForm} className="form-inline">
-						<input
-							value={collectionName}
-							onChange={updateTerm}
-							className="form-control mr-sm-2"
-							placeholder="Collection name"
-						/>
-						<button type="submit" className="btn btn-dark">
-							Add Collection
-						</button>
+				<div className="col-md-12 ">
+					<form
+						onSubmit={submitForm}
+						className="form create-collection-wrapper"
+					>
+						<h2>Нова колекция</h2>
+						<div className="form-group">
+							<input
+								value={collectionName}
+								onChange={updateTerm}
+								className="form-control"
+								placeholder="Име на колекцията"
+							/>
+						</div>
+						<div className="form-group">
+							{" "}
+							<button
+								type="submit"
+								className="btn btn-dark btn-lg btn-block main-action-btn"
+							>
+								Добави колекция
+							</button>
+						</div>
 					</form>
 				</div>
 			</div>

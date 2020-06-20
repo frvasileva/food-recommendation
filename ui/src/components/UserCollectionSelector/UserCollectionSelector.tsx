@@ -87,6 +87,7 @@ export const UserCollectionSelector = (props: any) => {
 			</div>
 			<div className="collection-list">
 				<ul>
+					<li className="collection-title">Запази в колекция</li>
 					{userCollections.length > 3 && (
 						<li key="search-collection">
 							<input

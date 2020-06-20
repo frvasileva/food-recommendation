@@ -10,28 +10,29 @@ export const EmailSubscription = (props: any) => {
 				<div className="row">
 					<div className="col-md">
 						<p className="section-title">
-							<strong>Want more delicious ideas?</strong>
+							<strong>Още кулинарни вдъхновения?</strong>
 						</p>
 						<p>
-							Our best tips for eating thoughtfully and living joyfully, right
-							to your inbox.
+							Нашите вкусни рецепти и съвети директно във вашата пощенска кутия.
 						</p>
 					</div>
 				</div>
-				{/* <div className="row">
-					<div className="col-md">
-						Subscribe
-						<MailchimpSubscribe url="https://gmail.us18.list-manage.com/subscribe/post?u=4bae6593cec0e9d49b367a960&amp;id=78f38de8ab" />
+				{
+					<div className="row">
+						<div className="col-md">
+							{/* Subscribe */}
+							<MailchimpSubscribe url="https://gmail.us18.list-manage.com/subscribe/post?u=4bae6593cec0e9d49b367a960&amp;id=78f38de8ab"/>
+						</div>
 					</div>
-				</div> */}
-				<div className="row">
+				}
+				{/* <div className="row">
 					<div className="col-md-12">
 						<Form.Control size="lg" type="text" placeholder="Email" />
 						<Button variant="secondary" size="lg">
 							<i className="far fa-envelope"></i> Subscribe
 						</Button>
 					</div>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

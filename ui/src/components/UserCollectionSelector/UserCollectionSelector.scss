@@ -1,3 +1,5 @@
+@import "../../layout/variables.scss";
+
 .collection-wrapper {
 	z-index: 10;
 	position: relative;
@@ -5,7 +7,9 @@
 	font-size: 14px;
 	position: absolute;
 	top: 0;
+	right: 0;
 	width: 100%;
+	max-width: 320px;
 
 	& .collection-list {
 		display: none;
@@ -52,14 +56,18 @@
 		color: black;
 	}
 
+	.collection-title {
+		font-weight: bold;
+		font-size: 18px;
+	}
 	.add-collection-btn {
-		background-color: #eaeaea;
+		background-color: $purple-navy;
+		color: white;
 		text-decoration: none;
 		font-size: 12px;
 		width: 100%;
 		padding: 10px;
 		display: block;
-		color: black;
 		text-align: center;
 		font-weight: 500;
 	}
@@ -77,8 +85,6 @@
 	top: 0;
 	margin: 0 auto;
 	width: 95%;
-	// overflow-y: scroll;
-	// overflow-x: hidden;
 	border-radius: 3px;
 }
 
