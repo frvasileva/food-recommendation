@@ -10,7 +10,7 @@ export const RecipeTile = (props: any) => {
 	let url: string;
 
 	if (props.imagePath === "") {
-		url = "https://source.unsplash.com/500x300/?" + props.name;
+		url = "https://source.unsplash.com/500x300/?lunch";
 	} else {
 		url = props.imagePath;
 	}

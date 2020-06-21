@@ -182,7 +182,7 @@ export const RECIPE_BY_ID_QUERY = gql`
 
 export const NEWEST_RECIPES_QUERY = gql`
 	query {
-		Recipe(first: 8, orderBy: createdOn_desc) {
+		Recipe(first: 8, orderBy: createdOn_asc) {
 			...RecipeTile
 		}
 	}
