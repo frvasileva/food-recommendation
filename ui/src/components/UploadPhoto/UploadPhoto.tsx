@@ -7,12 +7,22 @@ export const UploadPhoto = (props: any) => {
 	let cloudinaryWidget: any;
 
 	React.useEffect(function () {
+		console.log("process.env.CLOUDINARY_NAME", process.env.CLOUDINARY_NAME)
+		console.log("process.env.CLOUDINARY_NAME", process.env.CLOUDINARY_API_KEY)
+		console.log("process.env.CLOUDINARY_NAME", process.env.CLOUDINARY_API_SECRET)
+		console.log("process.env.CLOUDINARY_NAME", process.env.CLOUDINARY_UPLOAD_PRESET)
 		cloudinaryWidget = cloudinary.createUploadWidget(
+			// {
+			// 	cloudName: process.env.CLOUDINARY_NAME,
+			// 	apiKey: process.env.CLOUDINARY_API_KEY,
+			// 	apiSecret: process.env.CLOUDINARY_API_SECRET,
+			// 	uploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET,
+			// },
 			{
-				cloudName: process.env.CLOUDINARY_NAME,
-				apiKey: process.env.CLOUDINARY_API_KEY,
-				apiSecret: process.env.CLOUDINARY_API_SECRET,
-				uploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET,
+				cloudName: "deumq4qrd",
+				apiKey: "991123829249252",
+				apiSecret: "7LjQEUa2Ts01KzyuiqdbGRAop_8",
+				uploadPreset: "glnbmjl8",
 			},
 			getResponse
 		);
