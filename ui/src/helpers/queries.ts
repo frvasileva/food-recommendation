@@ -6,6 +6,7 @@ const fragments: any = {
 			id
 			name
 			preparationTime
+			imagePath
 			ingredients {
 				name
 				quantity

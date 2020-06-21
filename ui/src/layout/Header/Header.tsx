@@ -112,7 +112,7 @@ export const Header = (props: any) => {
 											<hr />
 											<input
 												type="button"
-												value="Logout"
+												value="Изход"
 												className="dropdown-item"
 												onClick={logout}
 											></input>

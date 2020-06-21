@@ -24,7 +24,12 @@ export const RecipeDetails = (props: any) => {
 	const recipe = data.Recipe[0];
 	const randomRecipeList = data.RecipeRandomList;
 
-	const url = "https://source.unsplash.com/900x400/?" + recipe.name;
+	let url: string;
+	if (recipe.imagePath === "") {
+		url = "https://source.unsplash.com/500x300/?" + recipe.name;
+	} else {
+		url = recipe.imagePath;
+	}
 
 	var token = tokenHelper();
 	var isLoggedIn = token.isLoggedIn();

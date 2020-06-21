@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import tokenHelper from "../../helpers/tokenHelper";
 import { CREATE_RECIPE_QUERY, RECIPE_LIST_QUERY } from "../../helpers/queries";
 import { AddIngredients } from "./AddIngredients/AddIngredients";
-import { valueFromAST } from "graphql";
+import { UploadPhoto } from "../UploadPhoto/UploadPhoto";
 
 export const CreateRecipe = (props: any) => {
 	const [fields, setFields] = React.useState({
@@ -20,13 +20,14 @@ export const CreateRecipe = (props: any) => {
 					name: { value: "", error: "" },
 					quantity: { value: "", error: "" },
 					quantityType: { value: "kg", error: "" },
-				}
+				},
 			],
 			error: "",
 		},
 		preparationTime: { value: "", error: "" },
 		cookingTime: { value: "", error: "" },
 		skillLevel: { value: "", error: "" },
+		imagePath: { value: "", error: "" },
 	});
 
 	const [levelRbState, setlevelRbState] = React.useState("Easy");
@@ -90,21 +91,21 @@ export const CreateRecipe = (props: any) => {
 	const handleSubmit = (event: any) => {
 		event.preventDefault();
 		var currentUserId = token.userId();
-		console.log("fields.ingredients.value", fields.ingredients.value);
 
 		if (validateForm()) {
+			console.log("fields", fields);
 			createRecipe({
 				variables: {
 					input: {
 						id: uuidv4(),
 						name: fields.name.value,
 						description: fields.description.value,
-						ingredients: fields.ingredients.value.map(ingredient => {
+						ingredients: fields.ingredients.value.map((ingredient) => {
 							return {
 								name: ingredient.name.value,
 								quantity: ingredient.quantity.value,
-								quantityType: ingredient.quantityType.value
-							}
+								quantityType: ingredient.quantityType.value,
+							};
 						}),
 						preparationTime: parseInt(fields.preparationTime.value),
 						skillLevel: levelRbState,
@@ -114,6 +115,7 @@ export const CreateRecipe = (props: any) => {
 						createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date()),
 						ratings: 0,
 						nutritionInfo: "",
+						imagePath: fields.imagePath.value,
 					},
 				},
 				update: (cache, { data: { createRecipe } }) => {
@@ -137,11 +139,20 @@ export const CreateRecipe = (props: any) => {
 		return true;
 	};
 
+	const onImageUpload = (imagePath) => {
+		console.log("imgPath", imagePath);
+		//		setFields(imagePath);
+		fields.imagePath.value = imagePath;
+
+		console.log(fields.imagePath);
+	};
+
 	return (
 		<div className="container create-recipe-wrapper">
 			<div className="row">
 				<div className="col-md-12">
 					<h1>Add Recipe</h1>
+
 					<form onSubmit={handleSubmit}>
 						<div className="form-group">
 							<label htmlFor="name">Name</label>
@@ -180,23 +191,6 @@ export const CreateRecipe = (props: any) => {
 						</div>
 						<div className="form-group">
 							<AddIngredients onChange={handleChange} {...fields.ingredients} />
-							{/* <label htmlFor="ingredients">Ingredients</label>
-							<input
-								type="text"
-								className="form-control"
-								id="ingredients"
-								name="ingredients"
-								aria-describedby="recipeHelp"
-								placeholder="Ingredients"
-								value={fields.ingredients.value}
-								onChange={handleChange}
-							/>
-							<small id="recipeHelp" className="form-text text-muted">
-								Describe ingredeints you use here...
-							</small>
-							{fields.ingredients.error && (
-								<span className="text-error">{fields.ingredients.error}</span>
-							)} */}
 						</div>
 						<div className="row">
 							<div className="col-md-6">
@@ -306,7 +300,7 @@ export const CreateRecipe = (props: any) => {
 						<div className="form-group">
 							<label>Photo</label>
 							<br />
-							<input type="file" accept="image/png, image/jpeg" />
+							<UploadPhoto onImageUpload={onImageUpload} />
 						</div>
 						<div className="row">
 							<div className="col-md-6">

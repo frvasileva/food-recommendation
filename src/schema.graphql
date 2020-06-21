@@ -125,6 +125,7 @@ input CreateRecipeInput {
 	createdOn: String
 	ratings: Int
 	nutritionInfo: String
+	imagePath: String
 }
 
 input CreateCollectionInput {
@@ -303,7 +304,8 @@ type Mutation {
 		@cypher(
 			statement: """
 			CREATE (r:Recipe{id: $input.id, name: $input.name, description: $input.description, preparationTime: $input.preparationTime,
-											 skillLevel: $input.skillLevel, cookingTime: $input.cookingTime, friendlyUrl: $input.friendlyUrl, createdOn: datetime()})
+											 skillLevel: $input.skillLevel, cookingTime: $input.cookingTime, friendlyUrl: $input.friendlyUrl,
+											 createdOn: datetime(), imagePath:$input.imagePath})
 			FOREACH (item in $input.ingredients |
 				MERGE (i:Ingredient{name:item.name})
 				CREATE (r)-[rel:CONTAINS_INGREDIENT{quantity: item.quantity, quantityType: item.quantityType}]->(i)
