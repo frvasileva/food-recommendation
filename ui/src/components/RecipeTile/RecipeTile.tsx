@@ -9,7 +9,7 @@ export const RecipeTile = (props: any) => {
 	var isLoggedIn = token.isLoggedIn();
 	let url: string;
 
-	if (props.imagePath !== "") {
+	if (props.imagePath === "") {
 		url = "https://source.unsplash.com/500x300/?" + props.name;
 	} else {
 		url = props.imagePath;
