@@ -8,8 +8,8 @@ export const RecipeTile = (props: any) => {
 	var token = tokenHelper();
 	var isLoggedIn = token.isLoggedIn();
 	let url: string;
-
-	if (props.imagePath === "") {
+	console.log(props);
+	if (props.imagePath === null) {
 		url = "https://source.unsplash.com/500x300/?lunch";
 	} else {
 		url = props.imagePath;

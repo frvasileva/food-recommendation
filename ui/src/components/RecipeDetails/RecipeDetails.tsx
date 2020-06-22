@@ -25,10 +25,12 @@ export const RecipeDetails = (props: any) => {
 	const randomRecipeList = data.RecipeRandomList;
 
 	let url: string;
-	if (recipe.imagePath === "") {
+	if (recipe.imagePath === null) {
 		url = "https://source.unsplash.com/500x300/?" + recipe.name;
 	} else {
 		url = recipe.imagePath;
+		url = url.replace("/upload", "/upload/w_1000,c_scale");
+		console.log(url);
 	}
 
 	var token = tokenHelper();
@@ -48,7 +50,8 @@ export const RecipeDetails = (props: any) => {
 									<UserCollectionSelector recipeId={recipe.id} />
 								) : null}
 
-								<img src={url} width="100%"></img>
+								<img src={url} className="img-fluid" width="100%"></img>
+
 								<div className="recipe-cooking-details">
 									<div className="description-item skill-level">
 										<i className="fas fa-hard-hat"></i>
