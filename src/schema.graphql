@@ -289,6 +289,16 @@ type Query {
 			"""
 		)
 
+	getNewestRecipes: [Recipe]
+		@cypher(
+			statement: """
+			MATCH (r:Recipe)
+			RETURN r
+			ORDER BY r.createdOn DESC
+			LIMIT 4
+			"""
+		)
+
 	getMostPopularIngredients: [Ingredient]
 		@cypher(
 			statement: """

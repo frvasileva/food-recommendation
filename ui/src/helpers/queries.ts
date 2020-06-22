@@ -28,6 +28,9 @@ const fragments: any = {
 		fragment CollectionTile on Collection {
 			id
 			name
+			createdOn {
+				formatted
+			}
 			recipes {
 				...RecipeTile
 			}
@@ -182,7 +185,7 @@ export const RECIPE_BY_ID_QUERY = gql`
 
 export const NEWEST_RECIPES_QUERY = gql`
 	query {
-		Recipe(first: 8, orderBy: createdOn_asc) {
+		Recipe(first: 8, orderBy: createdOn_desc) {
 			...RecipeTile
 		}
 	}
@@ -203,7 +206,15 @@ export const RECIPE_LIST_QUERY = gql`
 	${fragments.recipeTile}
 `;
 export const RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY = gql`
-	query($term: String, $ingredients: [String], $preparationTimeRange: [Int], $cookingTimeRange:[Int], $skillLevel:[String], $skip: Int, $limit: Int) {
+	query(
+		$term: String
+		$ingredients: [String]
+		$preparationTimeRange: [Int]
+		$cookingTimeRange: [Int]
+		$skillLevel: [String]
+		$skip: Int
+		$limit: Int
+	) {
 		recipeList: recipeFullTextSearch(
 			term: $term
 			ingredients: $ingredients
@@ -257,7 +268,7 @@ export const HOME_PAGE_DATA_QUERY = gql`
 				...RecipeTile
 			}
 		}
-		newestRecipes: Recipe(first: 6, orderBy: createdOn_desc) {
+		newestRecipes: getNewestRecipes {
 			...RecipeTile
 		}
 		recipeOfTheDay: getRecipeOfTheDay {
