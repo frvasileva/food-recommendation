@@ -83,8 +83,8 @@ export const LOGIN_USER_QUERY = gql`
 	}
 `;
 export const LOGIN_FACEBOOK_USER_QUERY = gql`
-	mutation($email: String, $fbUserId: String) {
-		loginFacebookUser(email: $email, fbUserId: $fbUserId)
+	mutation($input: FacebookLoginInput) {
+		loginFacebookUser(input: $input)
 	}
 `;
 
@@ -155,7 +155,7 @@ export const USER_COLLECTION_QUERY = gql`
 			id
 			email
 			friendlyUrl
-			collections(orderBy: createdOn_desc) {
+			collections {
 				...CollectionTile
 			}
 		}

@@ -22,19 +22,22 @@ export const UserCollectionSelector = (props: any) => {
 		},
 	});
 
-	var userCollections = loading ? [] : data.User[0].collections;
-	const [recipeToCollection, addRecipeToCollection] = useMutation(
-		ADD_RECIPE_TO_COLLECTION_QUERY
-	);
-
 	const [removeRecipeToCollection, removeRecipeFromCollection] = useMutation(
 		REMOVE_RECIPE_TO_COLLECTION_QUERY
+	);
+
+	const [recipeToCollection, addRecipeToCollection] = useMutation(
+		ADD_RECIPE_TO_COLLECTION_QUERY
 	);
 
 	var parameters = useParams() as any;
 	var dateFormat = dateFormatter();
 	var recipeId = props.recipeId || parameters.recipeId;
+	if (loading || !data) return <LoadingScreen />;
+	if (error) return <ErrorScreen error={error} />;
 
+	console.log("token", token.friendlyUrl());
+	console.log("data", data);
 	const addToCollection = (action: string, collectionId: string) => {
 		if (action == "add") {
 			recipeToCollection({
@@ -65,9 +68,7 @@ export const UserCollectionSelector = (props: any) => {
 		setFilterTerm(e.target.value);
 	};
 
-	if (loading) return <LoadingScreen />;
-	if (error) return <ErrorScreen error={error} />;
-
+	var userCollections = data.User[0].collections;
 	const filteredUserCollections = userCollections.filter(function (el: any) {
 		if (el.name.toLowerCase().includes(filterTerm)) {
 			return el;

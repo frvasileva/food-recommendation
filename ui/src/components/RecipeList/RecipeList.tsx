@@ -12,7 +12,6 @@ export const RecipeList = (props: any) => {
 	const LIMIT_QUERY_RESULT = 12;
 	const location = useLocation();
 	const searchParams = new URLSearchParams(location.search);
-	console.log("search Params", searchParams);
 
 	var searchTerm = searchParams.get("term") ?? "chocolate";
 	var searchedIngredients = searchParams.get("ingredients") ?? "";

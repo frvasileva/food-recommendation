@@ -68,7 +68,7 @@ type Collection {
 	id: ID!
 	name: String
 	friendlyUrl: String
-	createdOn: String
+	createdOn: DateTime
 	user: [User] @relation(name: "COLLECTION_CREATED", direction: "IN")
 	recipes: [Recipe] @relation(name: "RECIPE_ADDED_TO", direction: "IN")
 }
@@ -153,6 +153,17 @@ input RegisterUserInput {
 	defaultCollectionId: String!
 	fbUserId: String
 }
+
+input FacebookLoginInput {
+	id: String!
+	email: String!
+	name: String!
+	friendlyUrl: String!
+	password: String!
+	defaultCollectionId: String!
+	fbUserId: String
+}
+
 input CreateSessionInput {
 	userId: String!
 }
@@ -414,26 +425,37 @@ type Mutation {
 			"""
 		)
 
-	loginFacebookUser(email: String, fbUserId: String): String
+	loginFacebookUser(input: FacebookLoginInput): String
 		@cypher(
 			statement: """
-			MATCH (u:User)
-			WHERE u.fbUserId = $fbUserId and email=$email
-			return u
+			MERGE (c:Collection{id:$input.id, name:\"Want to cook\", friendlyUrl:\"want-to-cook\"})
+			ON CREATE SET c.createdOn = datetime()
+			WITH c
+
+			MERGE (u:User{id:$input.id, email:$input.email, name: $input.name, friendlyUrl:$input.friendlyUrl,
+					   password:$input.password, fbUserId:$input.fbUserId})
+			ON CREATE SET u.createdOn = datetime()
+			WITH u, c
+
+			CREATE (u)-[rel:COLLECTION_CREATED]->(c)
+			RETURN u.name
 			"""
 		)
 
 	registerUser(input: RegisterUserInput): String
 		@cypher(
 			statement: """
-			CREATE (c:Collection{id:$input.defaultCollectionId, name:\"Want to cook\", friendlyUrl:\"want-to-cook\", createdOn:$input.createdOn})
+			MERGE (c:Collection{id:$input.defaultCollectionId, name:\"Want to cook\", friendlyUrl:\"want-to-cook\"})
+			ON CREATE SET c.createdOn = datetime()
 			WITH c
-			CREATE (u:User
-			{id:$input.id, email:$input.email, name: $input.name, createdOn:$input.createdOn,
-			 friendlyUrl:$input.friendlyUrl, password:$input.password, fbUserId:$input.fbUserId})
+
+			MERGE (u:User{id:$input.id, email:$input.email, name: $input.name, createdOn:$input.createdOn, friendlyUrl:$input.friendlyUrl,
+			      password:$input.password, fbUserId:$input.fbUserId})
+			   ON CREATE SET u.createdOn = datetime()
 			WITH u, c
+
 			CREATE (u)-[rel:COLLECTION_CREATED]->(c)
-			return u.name
+			RETURN u.name
 			"""
 		)
 }

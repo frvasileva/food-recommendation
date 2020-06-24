@@ -57,7 +57,6 @@ const schema = makeAugmentedSchema({
 				resolveInfo: any
 			) => {
 				const result = await neo4jgraphql(object, params, ctx, resolveInfo);
-				console.log("server result", result);
 				const passwordIsCorrect =
 					params.password === result.properties.password;
 
@@ -78,14 +77,14 @@ const schema = makeAugmentedSchema({
 				ctx: any,
 				resolveInfo: any
 			) => {
-				const result = await neo4jgraphql(object, params, ctx, resolveInfo);
+				await neo4jgraphql(object, params, ctx, resolveInfo);
 
 				var token = jwt.sign(
 					{
 						exp: Math.floor(Date.now() / 1000) + 60 * 6000,
-						userId: result.properties.id,
-						email: result.properties.email,
-						friendlyUrl: result.properties.friendlyUrl,
+						userId: params.input.id,
+						email: params.input.email,
+						friendlyUrl: params.input.friendlyUrl,
 					},
 					process.env.JWT_SECRET
 				);

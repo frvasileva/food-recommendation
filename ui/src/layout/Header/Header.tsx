@@ -109,6 +109,19 @@ export const Header = (props: any) => {
 											>
 												Добави рецепта
 											</Link>
+											<Link
+												to="/admin/add-product"
+												className="dropdown-item profile-link"
+											>
+												Добави основен продукт
+											</Link>
+											<Link
+												to="/admin/add-add-predefined-search-category"
+												className="dropdown-item profile-link"
+											>
+												Добави предеф. кат.
+											</Link>
+
 											<hr />
 											<input
 												type="button"

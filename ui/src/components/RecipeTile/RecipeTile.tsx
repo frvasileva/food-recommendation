@@ -8,13 +8,26 @@ export const RecipeTile = (props: any) => {
 	var token = tokenHelper();
 	var isLoggedIn = token.isLoggedIn();
 	let url: string;
-	console.log(props);
+
 	if (props.imagePath === null) {
 		url = "https://source.unsplash.com/500x300/?lunch";
 	} else {
 		url = props.imagePath;
+		url = url.replace("/upload", "/upload/h_160,w_300,c_scale");
 	}
 
+	var levelLabel: String = "";
+	switch (props.skillLevel) {
+		case "Easy":
+			levelLabel = "Лесно";
+			break;
+		case "Medium":
+			levelLabel = "Средно";
+			break;
+		case "Hard":
+			levelLabel = "Трудно";
+			break;
+	}
 	return (
 		<div>
 			<div key={props.name}>
@@ -34,7 +47,8 @@ export const RecipeTile = (props: any) => {
 					<div className="card-body">
 						<div className="row">
 							<div className="col-4 recipe-item-details">
-								<div className="cooking-level">{props.skillLevel}</div>
+								<i className="fas fa-hard-hat"></i>
+								<div className="cooking-level">{levelLabel}</div>
 							</div>
 							<div className="col-4 recipe-item-details">
 								<div className="time-info">

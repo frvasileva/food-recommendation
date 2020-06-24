@@ -33,6 +33,19 @@ export const RecipeDetails = (props: any) => {
 		console.log(url);
 	}
 
+	var levelLabel: String = "";
+	switch (recipe.skillLevel) {
+		case "Easy":
+			levelLabel = "Лесно";
+			break;
+		case "Medium":
+			levelLabel = "Средно";
+			break;
+		case "Hard":
+			levelLabel = "Трудно";
+			break;
+	}
+
 	var token = tokenHelper();
 	var isLoggedIn = token.isLoggedIn();
 
@@ -55,7 +68,7 @@ export const RecipeDetails = (props: any) => {
 								<div className="recipe-cooking-details">
 									<div className="description-item skill-level">
 										<i className="fas fa-hard-hat"></i>
-										{recipe.skillLevel}
+										{levelLabel}
 									</div>
 									<div className="description-item time-effort">
 										<i className="far fa-clock"></i>
