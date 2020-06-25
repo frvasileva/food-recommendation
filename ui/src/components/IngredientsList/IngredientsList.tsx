@@ -1,5 +1,6 @@
 import React from "react";
 import "./IngredientsList.scss";
+import measurmentConverter from "../../helpers/measurmentConverter";
 
 export const IngredientsList = (props: any) => {
 	var ingredientsFromProps = props.ingredients.reduce((acc: any, item: any) => {
@@ -8,6 +9,8 @@ export const IngredientsList = (props: any) => {
 	}, {});
 
 	const [ingredients, setIngredients] = React.useState(ingredientsFromProps);
+
+	var measurmentConv = measurmentConverter();
 
 	function selectProduct(ingredient: any) {
 		ingredients[ingredient] = !ingredients[ingredient];
@@ -29,7 +32,9 @@ export const IngredientsList = (props: any) => {
 						</div>
 						<div className="col-4">
 							<span className="ingredient-quantity">{ingredient.quantity}</span>
-							<span className="measurmenet">{ingredient.quantityType}</span>
+							<span className="measurmenet">
+								{measurmentConv.convertEnumToText(ingredient.quantityType)}
+							</span>
 						</div>
 					</div>
 				</li>

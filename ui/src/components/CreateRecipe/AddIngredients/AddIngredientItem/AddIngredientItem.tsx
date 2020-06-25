@@ -18,7 +18,7 @@ export default function AddIngredientItem(props: AddIngredientItemProps) {
 		props.onChange({ name, value });
 	};
 
-	const [selectedOption, setSelectedOption] = useState();
+	const [selectedOption, setSelectedOption] = useState("number");
 
 	return (
 		<div>
@@ -61,8 +61,6 @@ export default function AddIngredientItem(props: AddIngredientItemProps) {
 							className="form-control"
 							value={selectedOption}
 							onChange={handleChange}
-
-							// onChange={(e) => setSelectedOption(e.target.value as any)}
 						>
 							<option value="number">Number</option>
 							<option value="teaspoon">Teaspoon</option>
