@@ -39,7 +39,7 @@ export const UploadPhoto = (props: any) => {
 		<div className="upload-photo-widget-wrapper">
 			<button
 				id="upload_widget"
-				className="cloudinary-button"
+				className="btn btn-info"
 				onClick={openWidget}
 			>
 				Add photo

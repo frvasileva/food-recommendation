@@ -33,7 +33,7 @@ export const AddIngredients = (props: any) => {
 					{
 						name: { value: "", error: "" },
 						quantity: { value: "", error: "" },
-						quantityType: { value: "kg", error: "" },
+						quantityType: { value: "", error: "" },
 					},
 				],
 			},
@@ -63,11 +63,6 @@ export const AddIngredients = (props: any) => {
 					onRemove={(e) => removeIngredient(index, e)}
 				/>
 			))}
-
-			<small id="recipeHelp" className="form-text text-muted">
-				Describe ingredeints you use here...
-			</small>
-			<hr />
 			<button onClick={addIngredient} className="btn btn-light">
 				<i className="far fa-plus-square"></i> Add Ingredient
 			</button>

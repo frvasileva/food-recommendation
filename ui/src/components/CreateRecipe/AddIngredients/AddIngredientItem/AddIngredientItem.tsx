@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AddIngredientItem.scss";
 
 export interface AddIngredientItemProps {
@@ -17,6 +17,8 @@ export default function AddIngredientItem(props: AddIngredientItemProps) {
 		const { name, value } = e.target;
 		props.onChange({ name, value });
 	};
+
+	const [selectedOption, setSelectedOption] = useState();
 
 	return (
 		<div>
@@ -52,32 +54,25 @@ export default function AddIngredientItem(props: AddIngredientItemProps) {
 					)}
 				</div>
 				<div className="col-md-2">
-					{/* <input
-						type="text"
-						className="form-control"
-						id="ingredients"
-						name="ingredients"
-						aria-describedby="recipeHelp"
-						placeholder="Ingredients"
-						value={fields.quantityType.value}
-						onChange={handleChange}
-					/> */}
-
 					<div className="form-group">
 						<select
 							id="quantityType"
 							name="quantityType"
 							className="form-control"
+							value={selectedOption}
+							onChange={handleChange}
+
+							// onChange={(e) => setSelectedOption(e.target.value as any)}
 						>
-							<option>Number</option>
-							<option>Teaspoon</option>
-							<option>Tablespoon</option>
-							<option>Cup</option>
-							<option>ml</option>
-							<option>kg</option>
-							<option>g</option>
-							<option>mm</option>
-							<option>cm</option>
+							<option value="number">Number</option>
+							<option value="teaspoon">Teaspoon</option>
+							<option value="tablespoon">Tablespoon</option>
+							<option value="cup">Cup</option>
+							<option value="ml">ml</option>
+							<option value="ml">ml</option>
+							<option value="g">g</option>
+							<option value="mm">mm</option>
+							<option value="cm">cm</option>
 						</select>
 					</div>
 					{fields.quantityType.error && (
@@ -85,7 +80,10 @@ export default function AddIngredientItem(props: AddIngredientItemProps) {
 					)}
 				</div>
 				<div className="col-md-2">
-					<button onClick={(e) => props.onRemove(e)} className="remove-btn align-middle">
+					<button
+						onClick={(e) => props.onRemove(e)}
+						className="remove-btn align-middle"
+					>
 						<i className="far fa-trash-alt"></i>
 					</button>
 				</div>
