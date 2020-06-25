@@ -13,7 +13,7 @@ export const RecipeTile = (props: any) => {
 		url = "https://source.unsplash.com/500x300/?lunch";
 	} else {
 		url = props.imagePath;
-		url = url.replace("/upload", "/upload/h_160,w_300,c_scale");
+		url = url.replace("/upload", "/upload/w_600,c_scale");
 	}
 
 	var levelLabel: String = "";
