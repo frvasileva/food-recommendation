@@ -9,6 +9,7 @@ import tokenHelper from "../../helpers/tokenHelper";
 import { CREATE_RECIPE_QUERY, RECIPE_LIST_QUERY } from "../../helpers/queries";
 import { AddIngredients } from "./AddIngredients/AddIngredients";
 import { UploadPhoto } from "../UploadPhoto/UploadPhoto";
+import { Editor } from "@tinymce/tinymce-react";
 
 export const CreateRecipe = (props: any) => {
 	const [fields, setFields] = React.useState({
@@ -54,6 +55,7 @@ export const CreateRecipe = (props: any) => {
 	};
 
 	const handleChange = (e: any) => {
+		console.log("handleChange", e);
 		const { name, value } = e.target;
 		let error = "";
 		switch (name) {
@@ -141,10 +143,12 @@ export const CreateRecipe = (props: any) => {
 
 	const onImageUpload = (imagePath) => {
 		console.log("imgPath", imagePath);
-		//		setFields(imagePath);
 		fields.imagePath.value = imagePath;
+	};
 
-		console.log(fields.imagePath);
+	const handleEditorChange = (value) => {
+		console.log("editor change", value);
+		fields.description.value = value;
 	};
 
 	return (
@@ -176,7 +180,7 @@ export const CreateRecipe = (props: any) => {
 
 						<div className="form-group">
 							<label htmlFor="description">Description</label>
-							<textarea
+							{/* <textarea
 								className="form-control"
 								id="description"
 								name="description"
@@ -184,7 +188,14 @@ export const CreateRecipe = (props: any) => {
 								placeholder="Put 2 eggs..."
 								onChange={handleChange}
 								rows={10}
-							></textarea>
+							></textarea> */}
+
+							<Editor
+								apiKey="Get your free API key at tiny.cloud and paste it here"
+								plugins="wordcount"
+								value={fields.description.value}
+								onEditorChange={handleEditorChange}
+							/>
 							{fields.description.error && (
 								<span className="text-error">{fields.description.error}</span>
 							)}

@@ -10,6 +10,7 @@ import LoadingScreen from "../../layout/Loading/Loading";
 import ErrorScreen from "../../layout/ErrorPage/Error";
 import EmailSubscription from "../../layout/EmailSubscription/EmailSubscription";
 import tokenHelper from "../../helpers/tokenHelper";
+import ReactHtmlParser from "react-html-parser";
 
 export const RecipeDetails = (props: any) => {
 	const { loading, error, data } = useQuery(RECIPE_BY_ID_QUERY, {
@@ -87,7 +88,7 @@ export const RecipeDetails = (props: any) => {
 										</div>
 										<div className="recipe-description">
 											<p>
-												<strong>{recipe.description}</strong>
+												<strong>{ReactHtmlParser(recipe.description)}</strong>
 												<br />
 												Съществуват много вариации на пасажа Lorem Ipsum, но
 												повечето от тях са променени по един или друг начин чрез
