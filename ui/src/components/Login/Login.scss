@@ -1,3 +1,6 @@
 .login-wrapper {
-
+	& .login-error-msg {
+		color: red;
+		margin-top: 15px;
+	}
 }

@@ -30,7 +30,6 @@ export const RecipeDetails = (props: any) => {
 	} else {
 		url = recipe.imagePath;
 		url = url.replace("/upload", "/upload/w_1000,c_scale");
-		console.log(url);
 	}
 
 	var levelLabel: String = "";
@@ -72,8 +71,8 @@ export const RecipeDetails = (props: any) => {
 									</div>
 									<div className="description-item time-effort">
 										<i className="far fa-clock"></i>
-										{(recipe.cookingTime / 60).toFixed(2)}
-										<span> min.</span>
+										{recipe.cookingTime}
+										<span> мин.</span>
 									</div>
 								</div>
 							</div>

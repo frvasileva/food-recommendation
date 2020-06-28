@@ -57,19 +57,23 @@ const schema = makeAugmentedSchema({
 				resolveInfo: any
 			) => {
 				const result = await neo4jgraphql(object, params, ctx, resolveInfo);
-				const passwordIsCorrect =
-					params.password === result.properties.password;
+				if (result === null) {
+					return "-1";
+				} else {
+					const passwordIsCorrect =
+						params.password === result.properties.password;
 
-				if (!passwordIsCorrect) throw new Error("Invalid credentials");
-				return jwt.sign(
-					{
-						exp: Math.floor(Date.now() / 1000) + 60 * 6000,
-						userId: result.properties.id,
-						email: result.properties.email,
-						friendlyUrl: result.properties.friendlyUrl,
-					},
-					process.env.JWT_SECRET
-				);
+					if (!passwordIsCorrect) throw new Error("Invalid credentials");
+					return jwt.sign(
+						{
+							exp: Math.floor(Date.now() / 1000) + 60 * 6000,
+							userId: result.properties.id,
+							email: result.properties.email,
+							friendlyUrl: result.properties.friendlyUrl,
+						},
+						process.env.JWT_SECRET
+					);
+				}
 			},
 			loginFacebookUser: async (
 				object: any,

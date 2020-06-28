@@ -17,8 +17,9 @@ export const Login = (props: any) => {
 
 	const [loginUser, createUserStatus] = useMutation(LOGIN_USER_QUERY);
 	const [setSession, createUserSession] = useMutation(SET_SESSION_QUERY);
+	const [isUserValid, setUserIsValid] = React.useState(true);
 
-	let history = useHistory();
+	var history = useHistory();
 	var token = tokenHelper();
 
 	const handleChange = (e: any) => {
@@ -37,16 +38,20 @@ export const Login = (props: any) => {
 				password: loginFields.password.value,
 			},
 		}).then((result) => {
-			localStorage.setItem("token", result.data.loginUser);
-			setSession({
-				variables: {
-					input: {
-						userId: token.explisitDecodedToken(result.data.loginUser),
+			if (result.data.loginUser === "-1") {
+				setUserIsValid(false);
+			} else {
+				localStorage.setItem("token", result.data.loginUser);
+				setSession({
+					variables: {
+						input: {
+							userId: token.explisitDecodedToken(result.data.loginUser),
+						},
 					},
-				},
-			}).then((res) => {
-				history.push("/recipes");
-			});
+				}).then((res) => {
+					history.push("/recipes");
+				});
+			}
 		});
 	};
 
@@ -92,6 +97,12 @@ export const Login = (props: any) => {
 						>
 							Вход
 						</button>
+						{console.log("isUserValid", isUserValid)}
+						{!isUserValid && (
+							<p className="login-error-msg">
+								Невалидни данни за вход или несъществуващ потребител.
+							</p>
+						)}
 						<hr></hr>
 						<FacebookLogin source="login" />
 						<br></br>
