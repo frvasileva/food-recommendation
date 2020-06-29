@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 
 import "./RecipeDetails.scss";
@@ -19,10 +19,15 @@ export const RecipeDetails = (props: any) => {
 		},
 	});
 
+	var recipe: any = null;
+	// useEffect(() => {
+	// 	if (recipe !== null) document.title = recipe.name;
+	// });
+
 	if (loading) return <LoadingScreen />;
 	if (error) return <ErrorScreen error={error} />;
 
-	const recipe = data.Recipe[0];
+	recipe = data.Recipe[0];
 	const randomRecipeList = data.RecipeRandomList;
 
 	let url: string;
@@ -48,7 +53,6 @@ export const RecipeDetails = (props: any) => {
 
 	var token = tokenHelper();
 	var isLoggedIn = token.isLoggedIn();
-
 	if (!recipe) return <p>Recipe was not found :(</p>;
 
 	return (
@@ -87,7 +91,7 @@ export const RecipeDetails = (props: any) => {
 											></IngredientsList>
 										</div>
 										<div className="recipe-description">
-											<p>
+											<div>
 												<strong>{ReactHtmlParser(recipe.description)}</strong>
 												<br />
 												Съществуват много вариации на пасажа Lorem Ipsum, но
@@ -104,7 +108,7 @@ export const RecipeDetails = (props: any) => {
 												Оттук следва, че генерираният Lorem Ipsum пасаж не
 												съдържа повторения, смущаващи, нецензурни и всякакви
 												неподходящи думи.
-											</p>
+											</div>
 											<h3>Начин на приготвяне:</h3>
 											<div className="recipe-steps-wrapper">
 												<p className="recipe-steps-wrapper">
