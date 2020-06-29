@@ -97,7 +97,6 @@ export const Login = (props: any) => {
 						>
 							Вход
 						</button>
-						{console.log("isUserValid", isUserValid)}
 						{!isUserValid && (
 							<p className="login-error-msg">
 								Невалидни данни за вход или несъществуващ потребител.

@@ -33,11 +33,10 @@ export const UserCollectionSelector = (props: any) => {
 	var parameters = useParams() as any;
 	var dateFormat = dateFormatter();
 	var recipeId = props.recipeId || parameters.recipeId;
+
 	if (loading || !data) return <LoadingScreen />;
 	if (error) return <ErrorScreen error={error} />;
 
-	console.log("token", token.friendlyUrl());
-	console.log("data", data);
 	const addToCollection = (action: string, collectionId: string) => {
 		if (action == "add") {
 			recipeToCollection({
@@ -81,10 +80,6 @@ export const UserCollectionSelector = (props: any) => {
 				<span>
 					<i className="fas fa-plus-circle"></i>
 				</span>
-				{/* <Link to="/add-collection" className="add-new-collection">
-					<i className="far fa-plus-square"></i>
-					New
-				</Link> */}
 			</div>
 			<div className="collection-list">
 				<ul>

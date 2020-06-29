@@ -16,6 +16,7 @@ export default function AddIngredientItem(props: AddIngredientItemProps) {
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
 		props.onChange({ name, value });
+		setSelectedOption(value);
 	};
 
 	const [selectedOption, setSelectedOption] = useState("number");
