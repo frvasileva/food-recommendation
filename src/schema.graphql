@@ -203,9 +203,9 @@ type Query {
 			WITH p1, p1Ingredient, p2, collect(id(ingredient2)) AS p2Ingredient
 
 			RETURN p2,
-						algo.similarity.jaccard(p1Ingredient, p2Ingredient) AS similarity
+						gds.alpha.similarity.jaccard(p1Ingredient, p2Ingredient) AS similarity
 			ORDER BY similarity DESC
-			LIMIT $limit
+			LIMIT 4
 			"""
 		)
 
@@ -223,7 +223,7 @@ type Query {
 			RETURN r
 			ORDER BY r.ratings desc
 			SKIP $skip
-			limit $limit
+			limit 12
 			"""
 		)
 
@@ -259,7 +259,7 @@ type Query {
 			RETURN node
 			ORDER BY score desc, node.ratings desc, node.preparationTime desc, node.cookingTime desc
 			SKIP $skip
-			LIMIT $limit
+			limit 12
 			"""
 		)
 
@@ -437,7 +437,7 @@ type Mutation {
 			ON CREATE SET u.createdOn = datetime()
 			WITH u, c
 
-			CREATE (u)-[rel:COLLECTION_CREATED]->(c)
+			MERGE (u)-[rel:COLLECTION_CREATED]->(c)
 			RETURN u.name
 			"""
 		)

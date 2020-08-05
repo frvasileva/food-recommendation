@@ -56,7 +56,7 @@ export const RecipeList = (props: any) => {
 		if (scroll.scrollTop + scroll.clientHeight >= scroll.scrollHeight) {
 			query.fetchMore({
 				variables: {
-					skip: query.data.recipeList.length,
+				 	skip: query.data.recipeList.length,
 				},
 				updateQuery: (prev: any, { fetchMoreResult, ...rest }) => {
 					if (!fetchMoreResult) return prev;

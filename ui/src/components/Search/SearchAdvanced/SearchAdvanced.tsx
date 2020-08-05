@@ -200,7 +200,7 @@ export const SearchAdvanced = (props: any) => {
 					</div>
 					<div className="row">
 						<div className="col-md-12">
-							<p>Difficulty:</p>
+							<p>Трудност:</p>
 							<ToggleButtonGroup
 								type="checkbox"
 								// defaultValue={["medium"]}
@@ -222,7 +222,7 @@ export const SearchAdvanced = (props: any) => {
 					</div>
 					<div className="row">
 						<div className="col-md">
-							<p>Special diet:</p>
+							<p>Специална диета:</p>
 							<ToggleButtonGroup
 								type="checkbox"
 								defaultValue={["30"]}
