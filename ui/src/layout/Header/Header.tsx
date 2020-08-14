@@ -116,7 +116,7 @@ export const Header = (props: any) => {
 												Добави основен продукт
 											</Link>
 											<Link
-												to="/admin/add-add-predefined-search-category"
+												to="/admin/add-predefined-search-category"
 												className="dropdown-item profile-link"
 											>
 												Добави предеф. кат.
