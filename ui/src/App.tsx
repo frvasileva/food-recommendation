@@ -22,6 +22,8 @@ import { CollectionList } from "./components/CollectionList/CollectionList";
 import { Collections } from "./components/Collections/Collections";
 import { PredefinedSearchCategories } from "./admin/PredefinedSearchCategories/PredefinedSearchCategories";
 import { SetMainProduct } from "./admin/MainProduct/SetMainProduct/SetMainProduct";
+import GuardedRoute from "./shared/guardedRoute";
+import tokenHelper from "./helpers/tokenHelper";
 
 const client = new ApolloClient({
 	uri: "/api",
@@ -37,47 +39,37 @@ const client = new ApolloClient({
 });
 
 const App = () => {
+
+	var token = tokenHelper();
+	var isAutheticated = token.isAuth();
+
+	console.log("isAutheticated ",isAutheticated);
+
 	return (
 		<BrowserRouter>
 			<ApolloProvider client={client}>
 				<Header />
 				<div className="layout-wrapper">
 					<Switch>
+					
 						<Route exact path="/" component={Home} />
 						<Route exact path="/recipes" component={RecipeList} />
 						<Route exact path="/collections" component={Collections} />
-						<Route
-							exact
-							path="/collection/:friendlyUrl"
-							component={CollectionList}
-						/>
+						<Route exact path="/collection/:friendlyUrl" component={CollectionList}/>
 						<Route exact path="/recipe/:recipeId" component={RecipeDetails} />
-						<Route exact path="/add-recipe" component={CreateRecipe} />
-						<Route exact path="/add-collection" component={CreateCollection} />
+						
 						<Route exact path="/register" component={Register} />
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/profile/:friendlyUrl" component={Profile} />
-						<Route
-							exact
-							path="/profile/edit/:friendlyUrl"
-							component={ProfileEdit}
-						/>
-
-						<Route
-							exact
-							path="/admin/add-recipe-of-the-day"
-							component={SetRecipeOfTheDay}
-						/>
-						<Route
-							exact
-							path="/admin/add-product"
-							component={SetMainProduct}
-						/>
-						<Route
-							exact
-							path="/admin/add-predefined-search-category"
-							component={PredefinedSearchCategories}
-						/>
+						
+						<GuardedRoute path="/add-recipe" component={CreateRecipe} auth={isAutheticated}/>
+						<GuardedRoute exact path="/add-collection" component={CreateCollection} auth={isAutheticated}/>
+						
+						<GuardedRoute path="/profile/edit/:friendlyUrl" component={ProfileEdit} auth={isAutheticated} />
+						<GuardedRoute path="/admin/add-product" component={SetMainProduct} auth={isAutheticated} />
+					    <GuardedRoute path="/admin/add-recipe-of-the-day" component={SetRecipeOfTheDay} auth={isAutheticated} />
+					    <GuardedRoute path="/admin/add-product" component={SetMainProduct} auth={isAutheticated} />
+				        <GuardedRoute path='/admin/add-predefined-search-category' component={PredefinedSearchCategories} auth={isAutheticated} />
 					</Switch>
 				</div>
 			</ApolloProvider>

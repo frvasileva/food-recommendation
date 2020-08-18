@@ -24,13 +24,16 @@ var tokenHelper = function () {
 	const isLoggedIn = () => {
 		return token !== "" && token !== null;
 	};
+	const isAuth = () => {
+		return token !== "" && token !== null;
+	};
 
 	const explisitDecodedToken = (token) => {
 		var decodedToken = jwt_decode(token);
 		return decodedToken.userId;
 	};
 
-	return { userId, friendlyUrl, email, isLoggedIn, explisitDecodedToken };
+	return { userId, friendlyUrl, email, isLoggedIn, isAuth, explisitDecodedToken };
 };
 
 export default tokenHelper;

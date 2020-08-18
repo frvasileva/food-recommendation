@@ -102,7 +102,8 @@ export const Header = (props: any) => {
 											>
 												Редактирай профил
 											</Link>
-
+											<div className="dropdown-divider"></div>
+											<div className="dropdown-item admin-label">Администрация:</div>
 											<Link
 												to="/add-recipe"
 												className="dropdown-item profile-link"
