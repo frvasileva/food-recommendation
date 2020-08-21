@@ -39,7 +39,7 @@ WITH value.page.article.id AS id,
        value.page.recipe.ingredients AS ingredients
 MATCH (r:Recipe {id:id})
 FOREACH (ingredient IN ingredients |
-  MERGE (i:Ingredient {name: ingredient, friendlyUrl: ingredient})
+  MERGE (i:Ingredient {name: ingredient, friendlyUrl: ingredient, quantityType:"kg", quantity:"1"})
   MERGE (r)-[:CONTAINS_INGREDIENT]->(i)
 );
 CALL apoc.load.json($jsonFile) YIELD value

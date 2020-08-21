@@ -111,6 +111,12 @@ export const Header = (props: any) => {
 												Добави рецепта
 											</Link>
 											<Link
+												to="/admin/add-recipe-of-the-day"
+												className="dropdown-item profile-link"
+											>
+												Добави рецепта на деня
+											</Link>
+											<Link
 												to="/admin/add-product"
 												className="dropdown-item profile-link"
 											>

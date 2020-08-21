@@ -40,13 +40,13 @@ type Ingredient {
 	name: String
 	friendlyUrl: String
 	quantity: String
-		@cypher(
-			statement: "MATCH (r:Recipe)-[rltn:CONTAINS_INGREDIENT]->(this) RETURN rltn.quantity"
-		)
+		# @cypher(
+		# 	statement: "MATCH (r:Recipe)-[rltn:CONTAINS_INGREDIENT]->(this) RETURN rltn.quantity"
+		# )
 	quantityType: String
-		@cypher(
-			statement: "MATCH (r:Recipe)-[rltn:CONTAINS_INGREDIENT]->(this) RETURN rltn.quantityType"
-		)
+		# @cypher(
+		# 	statement: "MATCH (r:Recipe)-[rltn:CONTAINS_INGREDIENT]->(this) RETURN rltn.quantityType"
+		# )
 	recipes: [Recipe] @relation(name: "CONTAINS_INGREDIENT", direction: "IN")
 }
 
@@ -223,7 +223,7 @@ type Query {
 			RETURN r
 			ORDER BY r.ratings desc
 			SKIP $skip
-			limit 12
+			limit $limit
 			"""
 		)
 
@@ -258,8 +258,6 @@ type Query {
 			WHERE node.skillLevel in $skillLevel
 			RETURN node
 			ORDER BY score desc, node.ratings desc, node.preparationTime desc, node.cookingTime desc
-			SKIP $skip
-			limit 12
 			"""
 		)
 
@@ -450,7 +448,7 @@ type Mutation {
 			WITH c
 
 			MERGE (u:User{id:$input.id, email:$input.email, name: $input.name, createdOn:$input.createdOn, friendlyUrl:$input.friendlyUrl,
-			      password:$input.password, fbUserId:$input.fbUserId})
+			      password:$input.password})
 			   ON CREATE SET u.createdOn = datetime()
 			WITH u, c
 

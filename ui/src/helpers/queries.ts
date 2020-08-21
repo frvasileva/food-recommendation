@@ -11,7 +11,7 @@ const fragments: any = {
 				name
 				quantity
 				quantityType
-			}
+			 }
 			description
 			skillLevel
 			cookingTime
@@ -223,6 +223,8 @@ export const RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY = gql`
 			skillLevel: $skillLevel
 			skip: $skip
 			limit: $limit
+			offset:$skip
+			first:$limit
 		) {
 			...RecipeTile
 		}
