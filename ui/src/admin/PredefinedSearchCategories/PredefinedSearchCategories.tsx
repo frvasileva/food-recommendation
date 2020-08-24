@@ -35,7 +35,7 @@ export const PredefinedSearchCategories = (props: any) => {
 						<input
 							type="text"
 							className="form-control"
-							placeholder="Enter category id"
+							placeholder="Enter category url"
 							value={friendlyUrl}
 							onChange={handleChange}
 							name="categoryId"
