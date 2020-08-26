@@ -87,6 +87,7 @@ type User {
 		@relation(name: "COLLECTION_CREATED", direction: "OUT")
 	sessions: [Session] @relation(name: "SESSION_STARTED", direction: "IN")
 	searchTerm: [SearchTerm] @relation(name: "TERM_SEARCHED", direction: "IN")
+	roles: [String]
 }
 
 type Session {
@@ -303,8 +304,7 @@ type Query {
 			statement: """
 			MATCH (r:Recipe)
 			RETURN r
-			ORDER BY r.createdOn DESC
-			LIMIT 4
+			ORDER BY r.createdOn DESC			
 			"""
 		)
 
@@ -313,7 +313,7 @@ type Query {
 			statement: """
 			MATCH (mainProduct:MainProduct)
 			RETURN mainProduct
-			LIMIT 30
+			
 			"""
 		)
 }

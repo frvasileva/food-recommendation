@@ -21,6 +21,11 @@ var tokenHelper = function () {
 		else throw "User not loggedin 2";
 	};
 
+	const roles = () => {
+		if (isLoggedIn()) return decodedToken.roles;
+		else return [];
+	};
+
 	const isLoggedIn = () => {
 		return token !== "" && token !== null;
 	};
@@ -33,7 +38,7 @@ var tokenHelper = function () {
 		return decodedToken.userId;
 	};
 
-	return { userId, friendlyUrl, email, isLoggedIn, isAuth, explisitDecodedToken };
+	return { userId, friendlyUrl, email, isLoggedIn, isAuth, explisitDecodedToken, roles };
 };
 
 export default tokenHelper;

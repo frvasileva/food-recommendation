@@ -7,6 +7,22 @@ const fragments: any = {
 			name
 			preparationTime
 			imagePath
+			skillLevel
+			cookingTime
+			ratings
+			cusine
+			friendlyUrl
+			createdOn {
+				formatted
+			}
+		}
+	`,
+	recipeTileDetailed: gql`
+		fragment RecipeTileDetailed on Recipe {
+			id
+			name
+			preparationTime
+			imagePath
 			ingredients {
 				name
 				quantity
@@ -165,7 +181,7 @@ export const USER_COLLECTION_QUERY = gql`
 `;
 export const TOP_INGREDIENTS_QUERY = gql`
 	query {
-		topIngredients: getMostPopularIngredients {
+		topIngredients: getMostPopularIngredients(first: 30) {
 			name
 		}
 	}
@@ -174,13 +190,13 @@ export const TOP_INGREDIENTS_QUERY = gql`
 export const RECIPE_BY_ID_QUERY = gql`
 	query($recipeId: ID, $limit: Int) {
 		Recipe: Recipe(id: $recipeId) {
-			...RecipeTile
+			...RecipeTileDetailed
 		}
 		RecipeRandomList: findSimiliarRecipe(recipeId: $recipeId, limit: $limit) {
-			...RecipeTile
+			...RecipeTileDetailed
 		}
 	}
-	${fragments.recipeTile}
+	${fragments.recipeTileDetailed}
 `;
 
 export const NEWEST_RECIPES_QUERY = gql`
@@ -266,11 +282,8 @@ export const HOME_PAGE_DATA_QUERY = gql`
 		popularCollections: getPopularCollections(first: 12) {
 			name
 			friendlyUrl
-			recipes(first: 3, orderBy: ratings_desc) {
-				...RecipeTile
-			}
 		}
-		newestRecipes: getNewestRecipes {
+		newestRecipes: getNewestRecipes(first: 4) {
 			...RecipeTile
 		}
 		recipeOfTheDay: getRecipeOfTheDay {

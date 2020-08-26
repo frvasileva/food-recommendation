@@ -42,8 +42,12 @@ const App = () => {
 
 	var token = tokenHelper();
 	var isAutheticated = token.isAuth();
+	var userRoles = token.roles();
+	var isAdmin = userRoles.indexOf("admin") > -1;
 
 	console.log("isAutheticated ",isAutheticated);
+	console.log("isAdmin ",isAdmin);
+	console.log("userRoles ",userRoles);
 
 	return (
 		<BrowserRouter>
@@ -62,14 +66,14 @@ const App = () => {
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/profile/:friendlyUrl" component={Profile} />
 						
-						<GuardedRoute path="/add-recipe" component={CreateRecipe} auth={isAutheticated}/>
+						<GuardedRoute path="/add-recipe" component={CreateRecipe} auth={isAutheticated && isAdmin}/>
 						<GuardedRoute exact path="/add-collection" component={CreateCollection} auth={isAutheticated}/>
 						
 						<GuardedRoute path="/profile/edit/:friendlyUrl" component={ProfileEdit} auth={isAutheticated} />
-						<GuardedRoute path="/admin/add-product" component={SetMainProduct} auth={isAutheticated} />
-					    <GuardedRoute path="/admin/add-recipe-of-the-day" component={SetRecipeOfTheDay} auth={isAutheticated} />
-					    <GuardedRoute path="/admin/add-product" component={SetMainProduct} auth={isAutheticated} />
-				        <GuardedRoute path='/admin/add-predefined-search-category' component={PredefinedSearchCategories} auth={isAutheticated} />
+						<GuardedRoute path="/admin/add-product" component={SetMainProduct} auth={isAutheticated && isAdmin} />
+					    <GuardedRoute path="/admin/add-recipe-of-the-day" component={SetRecipeOfTheDay} auth={isAutheticated && isAdmin} />
+					    <GuardedRoute path="/admin/add-product" component={SetMainProduct} auth={isAutheticated && isAdmin} />
+				        <GuardedRoute path='/admin/add-predefined-search-category' component={PredefinedSearchCategories} auth={isAutheticated && isAdmin} />
 					</Switch>
 				</div>
 			</ApolloProvider>

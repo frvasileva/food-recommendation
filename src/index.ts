@@ -44,6 +44,7 @@ const schema = makeAugmentedSchema({
 						userId: params.input.id,
 						email: params.input.email,
 						friendlyUrl: params.input.friendlyUrl,
+						roles: params.input.roles
 					},
 					process.env.JWT_SECRET
 				);
@@ -60,16 +61,17 @@ const schema = makeAugmentedSchema({
 				if (result === null) {
 					return "-1";
 				} else {
-					const passwordIsCorrect =
-						params.password === result.properties.password;
+					const passwordIsCorrect = params.password === result.properties.password;
 
 					if (!passwordIsCorrect) throw new Error("Invalid credentials");
+					console.log(result);
 					return jwt.sign(
 						{
 							exp: Math.floor(Date.now() / 1000) + 60 * 6000,
 							userId: result.properties.id,
 							email: result.properties.email,
 							friendlyUrl: result.properties.friendlyUrl,
+							roles: result.properties.roles
 						},
 						process.env.JWT_SECRET
 					);
@@ -89,10 +91,10 @@ const schema = makeAugmentedSchema({
 						userId: params.input.id,
 						email: params.input.email,
 						friendlyUrl: params.input.friendlyUrl,
+						roles: params.input.properties.roles
 					},
 					process.env.JWT_SECRET
 				);
-				console.log("token", token);
 				return token;
 			},
 		},

@@ -11,6 +11,11 @@ export const Header = (props: any) => {
 	var token = tokenHelper();
 	var isLoggedIn = token.isLoggedIn();
 
+
+	var userRoles = token.roles();
+	var isAdmin = userRoles.indexOf("admin") > -1;
+
+
 	const logout = () => {
 		localStorage.setItem("token", "");
 		history.push("/login");
@@ -102,33 +107,36 @@ export const Header = (props: any) => {
 											>
 												Редактирай профил
 											</Link>
-											<div className="dropdown-divider"></div>
-											<div className="dropdown-item admin-label">Администрация:</div>
-											<Link
-												to="/add-recipe"
-												className="dropdown-item profile-link"
-											>
-												Добави рецепта
-											</Link>
-											<Link
-												to="/admin/add-recipe-of-the-day"
-												className="dropdown-item profile-link"
-											>
-												Добави рецепта на деня
-											</Link>
-											<Link
-												to="/admin/add-product"
-												className="dropdown-item profile-link"
-											>
-												Добави основен продукт
-											</Link>
-											<Link
-												to="/admin/add-predefined-search-category"
-												className="dropdown-item profile-link"
-											>
-												Добави предеф. кат.
-											</Link>
-
+											{isAdmin ? (
+											<div>
+												<div className="dropdown-divider"></div>
+												<div className="dropdown-item admin-label">Администрация:</div>
+												<Link
+													to="/add-recipe"
+													className="dropdown-item profile-link"
+												>
+													Добави рецепта
+												</Link>
+												<Link
+													to="/admin/add-recipe-of-the-day"
+													className="dropdown-item profile-link"
+												>
+													Добави рецепта на деня
+												</Link>
+												<Link
+													to="/admin/add-product"
+													className="dropdown-item profile-link"
+												>
+													Добави основен продукт
+												</Link>
+												<Link
+													to="/admin/add-predefined-search-category"
+													className="dropdown-item profile-link"
+												>
+													Добави предеф. кат.
+												</Link>
+											</div>
+											): null}
 											<hr />
 											<input
 												type="button"
