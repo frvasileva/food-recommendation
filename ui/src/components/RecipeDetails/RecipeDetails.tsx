@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 
 import "./RecipeDetails.scss";
@@ -11,7 +11,6 @@ import ErrorScreen from "../../layout/ErrorPage/Error";
 import EmailSubscription from "../../layout/EmailSubscription/EmailSubscription";
 import tokenHelper from "../../helpers/tokenHelper";
 import ReactHtmlParser from "react-html-parser";
-var neo4j = require('neo4j-driver')
 
 export const RecipeDetails = (props: any) => {
 	const { loading, error, data } = useQuery(RECIPE_BY_ID_QUERY, {
@@ -69,7 +68,7 @@ export const RecipeDetails = (props: any) => {
 									<UserCollectionSelector recipeId={recipe.id} />
 								) : null}
 
-								<img src={url} className="img-fluid" width="100%"></img>
+								<img src={url} className="img-fluid" width="100%" alt={recipe.name}></img>
 
 								<div className="recipe-cooking-details">
 									<div className="description-item skill-level">

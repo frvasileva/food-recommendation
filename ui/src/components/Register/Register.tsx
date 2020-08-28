@@ -3,14 +3,13 @@ import { useMutation } from "@apollo/react-hooks";
 import dateFormatter from "../../helpers/dateFormatter";
 import { useHistory, Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import urlTransformer from "../../helpers/urlTransformer";
 import { REGISTER_USER_QUERY, SET_SESSION_QUERY } from "../../helpers/queries";
 import tokenHelper from "../../helpers/tokenHelper";
 import { FacebookLogin } from "../FacebookLogin/FacebookLogin";
 import "./Register.scss";
 import "../../layout/layout.scss";
 
-export const Register = (props: any) => {
+export const Register = () => {
 	const [userFields, setUserFields] = React.useState({
 		email: { value: "", error: "" },
 		name: { value: "", error: "" },
@@ -19,10 +18,9 @@ export const Register = (props: any) => {
 		friendlyUrl: { value: "", error: "" },
 	});
 
-	const [createUser, createUserStatus] = useMutation(REGISTER_USER_QUERY);
-	const [setSession, createUserSession] = useMutation(SET_SESSION_QUERY);
+	const [createUser] = useMutation(REGISTER_USER_QUERY);
+	const [setSession] = useMutation(SET_SESSION_QUERY);
 
-	var transf = urlTransformer();
 	var dateFormat = dateFormatter();
 	let history = useHistory();
 	var token = tokenHelper();
@@ -58,7 +56,7 @@ export const Register = (props: any) => {
 						userId: token.explisitDecodedToken(result.data.registerUser),
 					},
 				},
-			}).then((res) => {
+			}).then(() => {
 				history.push("/recipes");
 			});
 		});
@@ -87,7 +85,6 @@ export const Register = (props: any) => {
 							)}
 						</div>
 						<div className="form-group">
-							{/* <label htmlFor="name">Имейл</label> */}
 							<input
 								type="text"
 								className="form-control"
@@ -103,7 +100,6 @@ export const Register = (props: any) => {
 							)}
 						</div>
 						<div className="form-group">
-							{/* <label htmlFor="name">Парола</label> */}
 							<input
 								type="password"
 								className="form-control"

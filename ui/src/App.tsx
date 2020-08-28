@@ -45,30 +45,23 @@ const App = () => {
 	var userRoles = token.roles();
 	var isAdmin = userRoles.indexOf("admin") > -1;
 
-	console.log("isAutheticated ",isAutheticated);
-	console.log("isAdmin ",isAdmin);
-	console.log("userRoles ",userRoles);
-
 	return (
 		<BrowserRouter>
 			<ApolloProvider client={client}>
 				<Header />
 				<div className="layout-wrapper">
 					<Switch>
-					
-						<Route exact path="/" component={Home} />
+					    <Route exact path="/" component={Home} />
 						<Route exact path="/recipes" component={RecipeList} />
 						<Route exact path="/collections" component={Collections} />
 						<Route exact path="/collection/:friendlyUrl" component={CollectionList}/>
 						<Route exact path="/recipe/:recipeId" component={RecipeDetails} />
-						
 						<Route exact path="/register" component={Register} />
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/profile/:friendlyUrl" component={Profile} />
 						
 						<GuardedRoute path="/add-recipe" component={CreateRecipe} auth={isAutheticated && isAdmin}/>
-						<GuardedRoute exact path="/add-collection" component={CreateCollection} auth={isAutheticated}/>
-						
+						<GuardedRoute exact path="/add-collection" component={CreateCollection} auth={isAutheticated}/>						
 						<GuardedRoute path="/profile/edit/:friendlyUrl" component={ProfileEdit} auth={isAutheticated} />
 						<GuardedRoute path="/admin/add-product" component={SetMainProduct} auth={isAutheticated && isAdmin} />
 					    <GuardedRoute path="/admin/add-recipe-of-the-day" component={SetRecipeOfTheDay} auth={isAutheticated && isAdmin} />

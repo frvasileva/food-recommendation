@@ -8,15 +8,15 @@ import { FacebookLogin } from "../FacebookLogin/FacebookLogin";
 import "./Login.scss";
 import "../../layout/layout.scss";
 
-export const Login = (props: any) => {
+export const Login = () => {
 	const [loginFields, setLoginFields] = React.useState({
 		email: { value: "", error: "" },
 		password: { value: "", error: "" },
 		friendlyUrl: { value: "", error: "" },
 	});
 
-	const [loginUser, createUserStatus] = useMutation(LOGIN_USER_QUERY);
-	const [setSession, createUserSession] = useMutation(SET_SESSION_QUERY);
+	const [loginUser] = useMutation(LOGIN_USER_QUERY);
+	const [setSession] = useMutation(SET_SESSION_QUERY);
 	const [isUserValid, setUserIsValid] = React.useState(true);
 
 	var history = useHistory();
@@ -48,7 +48,7 @@ export const Login = (props: any) => {
 							userId: token.explisitDecodedToken(result.data.loginUser),
 						},
 					},
-				}).then((res) => {
+				}).then(() => {
 					history.push("/recipes");
 				});
 			}

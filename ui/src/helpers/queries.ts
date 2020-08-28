@@ -139,14 +139,6 @@ export const SET_RECIPE_OF_THE_DAY = gql`
 	}
 `;
 
-export const SET_MAIN_PRODUCT = gql`
-	mutation($ingredientId: String) {
-		setMainProduct(ingredientId: $ingredientId) {
-			name
-		}
-	}
-`;
-
 export const GET_RECIPE_OF_THE_DAY = gql`
 	query {
 		getRecipeOfTheDay {
@@ -325,14 +317,28 @@ export const GET_COLLECTIONS = gql`
 	${fragments.recipeTile}
 `;
 
-// export const RECIPE_BY_ID_QUERY = gql`
-// 	query($recipeId: ID) {
-// 		Recipe: Recipe(id: $recipeId) {
-// 			...RecipeTile
-// 		}
-// 		RecipeRandomList: findSimiliarRecipe(recipeId: $recipeId, limit: 3) {
-// 			...RecipeTile
-// 		}
-// 	}
-// 	${fragments.recipeTile}
-// `;
+export const SET_MAIN_PRODUCT = gql`
+	mutation($name: String) {
+		setMainProduct(name: $name) {
+			name
+		}
+	}
+`;
+
+export const REMOVE_MAIN_PRODUCT = gql`
+	mutation($ingredientId: String) {
+		deleteMainProduct(ingredientId: $ingredientId) {
+			friendlyUrl
+			name
+		}
+	}
+`;
+
+export const GET_MAIN_PRODUCTS = gql`
+	query mainProducts {
+		MainProduct{
+			name
+			friendlyUrl
+		}
+	}
+`;

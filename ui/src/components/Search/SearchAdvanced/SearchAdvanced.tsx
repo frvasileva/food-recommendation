@@ -64,25 +64,24 @@ export const SearchAdvanced = (props: any) => {
 	const handleShow = () => setShow(true);
 	const advancedFilterSubmitted = () => {
 		var param = "";
-		if (fIngredients.length != 0) {
+		if (fIngredients.length !== 0) {
 			let url = "&ingredients=" + fIngredients.join(",");
 			param = url;
 		}
-		if (fPreparationTime.length != 0) {
+		if (fPreparationTime.length !== 0) {
 			let url = "&prepTime=" + fPreparationTime.join(",");
 			param = param + url;
 		}
-		if (fCookingTime.length != 0) {
+		if (fCookingTime.length !== 0) {
 			let url = "&cookingTime=" + fCookingTime.join(",");
 			param = param + url;
 		}
 
-		if (fSkillLevel.length != 0) {
+		if (fSkillLevel.length !== 0) {
 			let url = "&skillLevel=" + fSkillLevel.join(",");
 			param = param + url;
 		}
 
-		console.log("param", param);
 		setShow(false);
 
 		props.advancedFilterSubmitted(param);

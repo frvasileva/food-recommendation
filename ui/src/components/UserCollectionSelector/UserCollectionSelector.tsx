@@ -22,11 +22,11 @@ export const UserCollectionSelector = (props: any) => {
 		},
 	});
 
-	const [removeRecipeToCollection, removeRecipeFromCollection] = useMutation(
+	const [removeRecipeToCollection] = useMutation(
 		REMOVE_RECIPE_TO_COLLECTION_QUERY
 	);
 
-	const [recipeToCollection, addRecipeToCollection] = useMutation(
+	const [recipeToCollection] = useMutation(
 		ADD_RECIPE_TO_COLLECTION_QUERY
 	);
 
@@ -38,7 +38,7 @@ export const UserCollectionSelector = (props: any) => {
 	if (error) return <ErrorScreen error={error} />;
 
 	const addToCollection = (action: string, collectionId: string) => {
-		if (action == "add") {
+		if (action === "add") {
 			recipeToCollection({
 				variables: {
 					input: {

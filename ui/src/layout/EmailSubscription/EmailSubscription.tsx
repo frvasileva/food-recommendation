@@ -1,6 +1,5 @@
 import React from "react";
 import "./EmailSubscription.scss";
-import { Form, Button } from "react-bootstrap";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
 
 export const EmailSubscription = (props: any) => {

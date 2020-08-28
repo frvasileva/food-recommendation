@@ -7,15 +7,15 @@ import {
 	LOGIN_FACEBOOK_USER_QUERY,
 } from "../../helpers/queries";
 import { v4 as uuidv4 } from "uuid";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import tokenHelper from "../../helpers/tokenHelper";
 
 export const FacebookLogin = (props: any) => {
-	const [loginFacebookUser, loginUserStatus] = useMutation(
+	const [loginFacebookUser] = useMutation(
 		LOGIN_FACEBOOK_USER_QUERY
 	);
 
-	const [setSession, createUserSession] = useMutation(SET_SESSION_QUERY);
+	const [setSession] = useMutation(SET_SESSION_QUERY);
 	let history = useHistory();
 	var token = tokenHelper();
 

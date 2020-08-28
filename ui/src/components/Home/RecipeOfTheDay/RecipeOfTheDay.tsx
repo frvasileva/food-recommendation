@@ -11,6 +11,7 @@ export const RecipeOfTheDay = (props: any) => {
 				<img
 					src={`https://source.unsplash.com/1200x600?${recipe.name}`}
 					className="recipe-img img-fluid"
+					alt={recipe.name}
 				></img>
 				<p className="recipe-link">{recipe.name}</p>
 			</Link>

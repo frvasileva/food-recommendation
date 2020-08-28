@@ -38,7 +38,8 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "no-unused-vars": "off"
   },
   "browserslist": {
     "production": [

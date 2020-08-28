@@ -17,25 +17,25 @@ export const RecipeList = (props: any) => {
 	var searchedIngredients = searchParams.get("ingredients") ?? "";
 	var searchIngredientsArray: string[] = [];
 
-	if (searchedIngredients != "") {
+	if (searchedIngredients !== "") {
 		searchIngredientsArray = searchedIngredients.split(",");
 	}
 
 	var sPrepTimeRange: number[] = [];
 	var fPrepTimeRange = searchParams.get("prepTime");
-	if (fPrepTimeRange != null) {
+	if (fPrepTimeRange !== null) {
 		sPrepTimeRange = fPrepTimeRange.split(",").map(Number) || [];
 	}
 
 	var sCookingTimeRange: number[] = [];
 	var fCookingTimeRange = searchParams.get("cookingTime");
-	if (fCookingTimeRange != null) {
+	if (fCookingTimeRange !== null) {
 		sCookingTimeRange = fCookingTimeRange.split(",").map(Number) || [];
 	}
 
 	var sSkillLevel: string[] = [];
 	var fSkillLevel = searchParams.get("skillLevel");
-	if (fSkillLevel != null) {
+	if (fSkillLevel !== null) {
 		sSkillLevel = fSkillLevel.split(",") || [];
 	}
 

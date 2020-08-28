@@ -1,5 +1,4 @@
 var urlTransformer = function () {
-	"use strict";
 
 	var cyrilicToEnglish = {
 		а: "a",
@@ -50,7 +49,7 @@ var urlTransformer = function () {
 
 		var result = wordArray.map(item => {
 			forbiddenUrlSymbols.map(fi => {
-				if (item == fi) {
+				if (item === fi) {
 					item = "";
 				}
 			});

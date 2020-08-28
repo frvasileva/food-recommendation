@@ -4,8 +4,8 @@ import { useMutation } from "@apollo/react-hooks";
 import { SET_RECIPE_OF_THE_DAY } from "../helpers/queries";
 import { useHistory } from "react-router-dom";
 
-export const SetRecipeOfTheDay = (props: any) => {
-	const [recipeOfTheDay, setRecipe] = useMutation(SET_RECIPE_OF_THE_DAY);
+export const SetRecipeOfTheDay = () => {
+	const [recipeOfTheDay] = useMutation(SET_RECIPE_OF_THE_DAY);
 	const [recipeId, setrecipeId] = React.useState("");
 	let history = useHistory();
 
@@ -20,7 +20,7 @@ export const SetRecipeOfTheDay = (props: any) => {
 			variables: {
 				recipeId: recipeId,
 			},
-		}).then((result) => {
+		}).then(() => {
 			history.push("/");
 		});
 	};

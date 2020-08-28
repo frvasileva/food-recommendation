@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { FacebookProvider, Status } from "react-facebook";
 
 import "./Header.scss";
 import tokenHelper from "../../helpers/tokenHelper";
@@ -11,10 +10,8 @@ export const Header = (props: any) => {
 	var token = tokenHelper();
 	var isLoggedIn = token.isLoggedIn();
 
-
 	var userRoles = token.roles();
 	var isAdmin = userRoles.indexOf("admin") > -1;
-
 
 	const logout = () => {
 		localStorage.setItem("token", "");

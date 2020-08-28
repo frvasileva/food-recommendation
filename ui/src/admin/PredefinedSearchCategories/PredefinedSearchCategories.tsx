@@ -3,8 +3,8 @@ import { useMutation } from "@apollo/react-hooks";
 import { SET_PREDEFINED_SEARCH_CATEGORY } from "../../helpers/queries";
 import { useHistory } from "react-router-dom";
 
-export const PredefinedSearchCategories = (props: any) => {
-	const [predefinedCategory, setRecipe] = useMutation(
+export const PredefinedSearchCategories = () => {
+	const [predefinedCategory] = useMutation(
 		SET_PREDEFINED_SEARCH_CATEGORY
 	);
 	const [friendlyUrl, setrecipeId] = React.useState("");
@@ -21,7 +21,7 @@ export const PredefinedSearchCategories = (props: any) => {
 			variables: {
 				friendlyUrl: friendlyUrl,
 			},
-		}).then((result) => {
+		}).then(() => {
 			history.push("/");
 		});
 	};

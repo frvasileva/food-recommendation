@@ -16,7 +16,7 @@ export const Search = (props: any) => {
 	const [term, setTerm] = React.useState(props.term || "");
 	const [isSearchValid, setisSearchValid] = React.useState(true);
 
-	const [setSearchedTerm, createSearchedTerm] = useMutation(SET_SEARCHED_TERM);
+	const [setSearchedTerm] = useMutation(SET_SEARCHED_TERM);
 	var token = tokenHelper();
 
 	const query = useQuery(GET_PREDEFINED_SEARCH_CATEGORY);
@@ -32,7 +32,7 @@ export const Search = (props: any) => {
 
 	const submitForm = (e: any) => {
 		e.preventDefault();
-		if (term != "") {
+		if (term !== "") {
 			setisSearchValid(true);
 			history.push(`/recipes?term=${term}`);
 

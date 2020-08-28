@@ -21,6 +21,7 @@ var measurmentConverter = function () {
 				return "мм";
 			case "cm":
 				return "см";
+			default: return "";
 		}
 	};
 
@@ -28,12 +29,3 @@ var measurmentConverter = function () {
 };
 
 export default measurmentConverter;
-
-// <option value="number">Number</option>
-// <option value="teaspoon">Teaspoon</option>
-// <option value="tablespoon">Tablespoon</option>
-// <option value="cup">Cup</option>
-// <option value="ml">ml</option>
-// <option value="g">g</option>
-// <option value="mm">mm</option>
-// <option value="cm">cm</option>

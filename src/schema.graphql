@@ -40,14 +40,18 @@ type Ingredient {
 	name: String
 	friendlyUrl: String
 	quantity: String
-		# @cypher(
-		# 	statement: "MATCH (r:Recipe)-[rltn:CONTAINS_INGREDIENT]->(this) RETURN rltn.quantity"
-		# )
+		@cypher(
+			statement: "MATCH (r:Recipe)-[rltn:CONTAINS_INGREDIENT]->(this) RETURN rltn.quantity"
+		)
 	quantityType: String
-		# @cypher(
-		# 	statement: "MATCH (r:Recipe)-[rltn:CONTAINS_INGREDIENT]->(this) RETURN rltn.quantityType"
-		# )
+		@cypher(
+			statement: "MATCH (r:Recipe)-[rltn:CONTAINS_INGREDIENT]->(this) RETURN rltn.quantityType"
+		)
 	recipes: [Recipe] @relation(name: "CONTAINS_INGREDIENT", direction: "IN")
+}
+type MainProduct {
+	friendlyUrl: String
+	name: String
 }
 
 type Keyword {
@@ -397,12 +401,21 @@ type Mutation {
 			RETURN n
 			"""
 		)
-	setMainProduct(ingredientId: String): Recipe
+	setMainProduct(name: String): Recipe
 		@cypher(
 			statement: """
-			MATCH (n:Ingredient { name: $ingredientId })
+			MATCH (n:Ingredient { name: $name })
 			SET n:MainProduct
 			RETURN n
+			"""
+		)
+		
+	deleteMainProduct(ingredientId: String): Ingredient
+		@cypher(
+			statement: """
+			match (m:MainProduct{friendlyUrl:$ingredientId})
+			REMOVE m:MainProduct
+			RETURN m
 			"""
 		)
 

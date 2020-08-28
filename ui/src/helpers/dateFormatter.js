@@ -1,5 +1,4 @@
 var dateFormatter = function() {
-	"use strict";
 
 	const shortDate_ddMMyyy = date => {
 		let current_datetime = new Date();

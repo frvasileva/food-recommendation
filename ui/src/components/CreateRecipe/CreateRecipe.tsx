@@ -11,7 +11,7 @@ import { AddIngredients } from "./AddIngredients/AddIngredients";
 import { UploadPhoto } from "../UploadPhoto/UploadPhoto";
 import { Editor } from "@tinymce/tinymce-react";
 
-export const CreateRecipe = (props: any) => {
+export const CreateRecipe = () => {
 	const [fields, setFields] = React.useState({
 		name: { value: "", error: "" },
 		description: { value: "", error: "" },
@@ -34,7 +34,7 @@ export const CreateRecipe = (props: any) => {
 	const [levelRbState, setlevelRbState] = React.useState("Easy");
 
 	const [isFormTouched, setFormIsTouched] = React.useState(false);
-	const [createRecipe, createRecipeStatus] = useMutation(CREATE_RECIPE_QUERY);
+	const [createRecipe] = useMutation(CREATE_RECIPE_QUERY);
 
 	let history = useHistory();
 	var transf = urlTransformer();
@@ -131,7 +131,7 @@ export const CreateRecipe = (props: any) => {
 						data: data,
 					});
 				},
-			}).then((result) => {
+			}).then(() => {
 				history.push("/recipes");
 			});
 		} else {

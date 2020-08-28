@@ -12,9 +12,9 @@ import {
 
 import "./CreateCollection.scss";
 
-export const CreateCollection = (props: any) => {
+export const CreateCollection = () => {
 	const [collectionName, setCollectionName] = React.useState("");
-	const [createCollection, createCollectionStatus] = useMutation(
+	const [createCollection] = useMutation(
 		CREATE_COLLECTION_QUERY
 	);
 
@@ -61,7 +61,7 @@ export const CreateCollection = (props: any) => {
 					data: data,
 				});
 			},
-		}).then((result) => {
+		}).then(() => {
 			history.push("/recipes");
 		});
 

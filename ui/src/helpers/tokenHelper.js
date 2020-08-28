@@ -1,7 +1,6 @@
 import jwt_decode from "jwt-decode";
 
 var tokenHelper = function () {
-	"use strict";
 
 	const token = localStorage.getItem("token");
 	var decodedToken = token ? jwt_decode(token) : {};
@@ -13,12 +12,12 @@ var tokenHelper = function () {
 
 	const friendlyUrl = () => {
 		if (isLoggedIn()) return decodedToken.friendlyUrl;
-		else throw "User not loggedin 1";
+		else throw new Error("User not loggedin 1");
 	};
 
 	const email = () => {
 		if (isLoggedIn()) return decodedToken.email;
-		else throw "User not loggedin 2";
+		else throw new Error("User not loggedin 1");
 	};
 
 	const roles = () => {
