@@ -89,7 +89,7 @@ export const Header = (props: any) => {
 											{/* {token.email()} */}
 										</button>
 										<div
-											className="dropdown-menu"
+											className="dropdown-menu dropdown-menu-right"
 											aria-labelledby="dropdownMenuButton"
 										>
 											<Link
