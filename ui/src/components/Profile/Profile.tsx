@@ -23,7 +23,7 @@ export const Profile = (props: any) => {
 				<div className="col-md-12">
 					<div className="row user-collections-wrapper">
 						{user.collections.map((collection: any) => (
-							<div key={collection.name} className="col-md-12 collection-item">
+							<div key={collection.name} className="col-md-12 collection-item-tile">
 								{collection.recipes.length > 0 ? (
 									<div className="">
 										<h3> {collection.name}</h3>
