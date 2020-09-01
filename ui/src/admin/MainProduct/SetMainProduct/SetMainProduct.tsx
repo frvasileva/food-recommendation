@@ -40,6 +40,8 @@ export const SetMainProduct = () => {
 					query: GET_MAIN_PRODUCTS,
 					data: data,
 				});
+
+				console.log(data);
 			},
 		}).then(() => {
 			setIngredientName("");
@@ -47,13 +49,25 @@ export const SetMainProduct = () => {
 	};
 
 	const removeProductAsMain = (name: any) => {
-		console.log("removeProductAsMain", name);
-
 		removeMainProductName({
-			variables:{
-				ingredientId: name
-			}
-		})
+			variables: {
+				ingredientId: name,
+			},
+			update: (cache, { data: { deleteMainProduct } }) => {
+				var data = cache.readQuery({
+					query: GET_MAIN_PRODUCTS,
+				}) as any;
+
+				data.MainProduct = data.MainProduct.filter(function (obj) {
+					return obj.name !== name;
+				});
+
+				cache.writeQuery({
+					query: GET_MAIN_PRODUCTS,
+					data: data,
+				});
+			},
+		});
 	};
 
 	return (
