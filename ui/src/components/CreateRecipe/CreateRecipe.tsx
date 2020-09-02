@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./CreateRecipe.scss";
 import { useMutation } from "@apollo/react-hooks";
 import urlTransformer from "../../helpers/urlTransformer";
@@ -29,11 +29,16 @@ export const CreateRecipe = () => {
 		cookingTime: { value: "", error: "" },
 		skillLevel: { value: "", error: "" },
 		imagePath: { value: "", error: "" },
+		suitableAge: { value: "", error: "" },
 	});
 
 	const [levelRbState, setlevelRbState] = React.useState("Easy");
+	const [selectedSuitableAgeOption, setselectedSuitableAgeOption] = useState(
+		"12+"
+	);
 
 	const [isFormTouched, setFormIsTouched] = React.useState(false);
+
 	const [createRecipe] = useMutation(CREATE_RECIPE_QUERY);
 
 	let history = useHistory();
@@ -43,7 +48,6 @@ export const CreateRecipe = () => {
 
 	const validateForm = () => {
 		let isValid = true;
-
 		let flds = Object.values(fields).map((item) => item.error);
 		let hasIvalidFields = flds.some((element) => {
 			return element !== "";
@@ -56,6 +60,7 @@ export const CreateRecipe = () => {
 
 	const handleChange = (e: any) => {
 		console.log("handleChange", e);
+		console.log("handleChange", e.target.value);
 		const { name, value } = e.target;
 		let error = "";
 		switch (name) {
@@ -75,6 +80,9 @@ export const CreateRecipe = () => {
 			case "cookingTime":
 				if (!Number.isInteger(parseInt(value))) error = "Use number";
 				if (!value) error = "Please enter cooking time!";
+				break;
+			case "suitableAge":
+				setselectedSuitableAgeOption(value);
 				break;
 		}
 
@@ -117,6 +125,7 @@ export const CreateRecipe = () => {
 						createdOn: dateFormat.longDate_ddMMyyyy_hhmmss(new Date()),
 						ratings: 0,
 						nutritionInfo: "",
+						suitableAge: selectedSuitableAgeOption,
 						imagePath: fields.imagePath.value,
 					},
 				},
@@ -142,12 +151,10 @@ export const CreateRecipe = () => {
 	};
 
 	const onImageUpload = (imagePath) => {
-		console.log("imgPath", imagePath);
 		fields.imagePath.value = imagePath;
 	};
 
 	const handleEditorChange = (value) => {
-		console.log("editor change", value);
 		fields.description.value = value;
 	};
 
@@ -180,15 +187,6 @@ export const CreateRecipe = () => {
 
 						<div className="form-group">
 							<label htmlFor="description">Description</label>
-							{/* <textarea
-								className="form-control"
-								id="description"
-								name="description"
-								value={fields.description.value}
-								placeholder="Put 2 eggs..."
-								onChange={handleChange}
-								rows={10}
-							></textarea> */}
 
 							<Editor
 								apiKey="Get your free API key at tiny.cloud and paste it here"
@@ -312,6 +310,34 @@ export const CreateRecipe = () => {
 							<label>Photo</label>
 							<br />
 							<UploadPhoto onImageUpload={onImageUpload} />
+						</div>
+
+						<div className="form-group">
+							<div className="row">
+								<div className="col-md-6">
+									<label htmlFor="suitableAge">Suitable age for:</label>
+									<div className="form-group">
+										<select
+											id="suitableAge"
+											name="suitableAge"
+											className="form-control"
+											value={fields.suitableAge.value}
+											onChange={handleChange}
+										>
+											<option value="-1">Select option</option>
+											<option value="4">4+ месеца</option>
+											<option value="5">5+ месеца</option>
+											<option value="6">6+ месеца</option>
+											<option value="7">7+ месеца</option>
+											<option value="8">8+ месеца</option>
+											<option value="9">9+ месеца</option>
+											<option value="10">10+ месеца</option>
+											<option value="11">11+ месеца</option>
+											<option value="12">12+ месеца</option>
+										</select>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div className="row">
 							<div className="col-md-6">

@@ -28,6 +28,7 @@ type Recipe {
 		@relation(name: "KEYWORD", direction: "OUT")
 
 	collections: [Collection] @relation(name: "RECIPE_ADDED_TO", direction: "OUT")
+	suitableAge: String
 }
 
 type recipeMapTuple {
@@ -131,6 +132,7 @@ input CreateRecipeInput {
 	ratings: Int
 	nutritionInfo: String
 	imagePath: String
+	suitableAge: String
 }
 
 input CreateCollectionInput {
@@ -308,7 +310,7 @@ type Query {
 			statement: """
 			MATCH (r:Recipe)
 			RETURN r
-			ORDER BY r.createdOn DESC			
+			ORDER BY r.createdOn DESC
 			"""
 		)
 
@@ -317,7 +319,6 @@ type Query {
 			statement: """
 			MATCH (mainProduct:MainProduct)
 			RETURN mainProduct
-			
 			"""
 		)
 }
@@ -328,7 +329,7 @@ type Mutation {
 			statement: """
 			CREATE (r:Recipe{id: $input.id, name: $input.name, description: $input.description, preparationTime: $input.preparationTime,
 											 skillLevel: $input.skillLevel, cookingTime: $input.cookingTime, friendlyUrl: $input.friendlyUrl,
-											 createdOn: datetime(), imagePath:$input.imagePath})
+											 createdOn: datetime(), imagePath:$input.imagePath,suitableAge: $input.suitableAge })
 			FOREACH (item in $input.ingredients |
 				MERGE (i:Ingredient{name:item.name})
 				CREATE (r)-[rel:CONTAINS_INGREDIENT{quantity: item.quantity, quantityType: item.quantityType}]->(i)
@@ -409,7 +410,7 @@ type Mutation {
 			RETURN n
 			"""
 		)
-		
+
 	deleteMainProduct(ingredientId: String): Ingredient
 		@cypher(
 			statement: """

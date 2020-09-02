@@ -20,10 +20,6 @@ export const Header = (props: any) => {
 
 	return (
 		<div>
-			{/* <FacebookProvider appId="259177898749113">
-				<Status>{({ loading, status }) => <div>{status}</div>}</Status>
-			</FacebookProvider> */}
-
 			<nav className="navbar fixed-top navbar-expand-lg navbar-light bg-custom navbar-fixed-top">
 				<div className="container">
 					{/* <a className="navbar-brand" href="#"> */}
@@ -105,35 +101,37 @@ export const Header = (props: any) => {
 												Редактирай профил
 											</Link>
 											{isAdmin ? (
-											<div>
-												<div className="dropdown-divider"></div>
-												<div className="dropdown-item admin-label">Администрация:</div>
-												<Link
-													to="/add-recipe"
-													className="dropdown-item profile-link"
-												>
-													Добави рецепта
-												</Link>
-												<Link
-													to="/admin/add-recipe-of-the-day"
-													className="dropdown-item profile-link"
-												>
-													Добави рецепта на деня
-												</Link>
-												<Link
-													to="/admin/add-product"
-													className="dropdown-item profile-link"
-												>
-													Добави основен продукт
-												</Link>
-												<Link
-													to="/admin/add-predefined-search-category"
-													className="dropdown-item profile-link"
-												>
-													Добави предеф. кат.
-												</Link>
-											</div>
-											): null}
+												<div>
+													<div className="dropdown-divider"></div>
+													<div className="dropdown-item admin-label">
+														Администрация:
+													</div>
+													<Link
+														to="/add-recipe"
+														className="dropdown-item profile-link"
+													>
+														Добави рецепта
+													</Link>
+													<Link
+														to="/admin/add-recipe-of-the-day"
+														className="dropdown-item profile-link"
+													>
+														Добави рецепта на деня
+													</Link>
+													<Link
+														to="/admin/add-product"
+														className="dropdown-item profile-link"
+													>
+														Добави основен продукт
+													</Link>
+													<Link
+														to="/admin/add-predefined-search-category"
+														className="dropdown-item profile-link"
+													>
+														Добави предеф. кат.
+													</Link>
+												</div>
+											) : null}
 											<hr />
 											<input
 												type="button"

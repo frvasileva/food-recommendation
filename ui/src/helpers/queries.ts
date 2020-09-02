@@ -5,16 +5,18 @@ const fragments: any = {
 		fragment RecipeTile on Recipe {
 			id
 			name
+			friendlyUrl
 			preparationTime
 			imagePath
 			skillLevel
 			cookingTime
 			ratings
 			cusine
-			friendlyUrl
+			suitableAge
 			createdOn {
 				formatted
 			}
+
 		}
 	`,
 	recipeTileDetailed: gql`
