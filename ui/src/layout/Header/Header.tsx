@@ -3,18 +3,20 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 import "./Header.scss";
-import tokenHelper from "../../helpers/tokenHelper";
+import { useMainContext } from "../../helpers/mainContext";
 
 export const Header = (props: any) => {
 	let history = useHistory();
-	var token = tokenHelper();
-	var isLoggedIn = token.isLoggedIn();
 
-	var userRoles = token.roles();
-	var isAdmin = userRoles.indexOf("admin") > -1;
+	const { context, setContext } = useMainContext();
+	const { isAdmin, isLoggedIn, friendlyUrl } = context
+
+	// @ts-ignore
+	window.setContext = setContext;
 
 	const logout = () => {
 		localStorage.setItem("token", "");
+		setContext({ isLoggedIn: false });
 		history.push("/login");
 	};
 
@@ -89,13 +91,13 @@ export const Header = (props: any) => {
 											aria-labelledby="dropdownMenuButton"
 										>
 											<Link
-												to={"/profile/" + token.friendlyUrl()}
+												to={"/profile/" + friendlyUrl}
 												className="dropdown-item profile-link"
 											>
 												Профил
 											</Link>
 											<Link
-												to={"/profile/edit/" + token.friendlyUrl()}
+												to={"/profile/edit/" + friendlyUrl}
 												className="dropdown-item profile-link"
 											>
 												Редактирай профил

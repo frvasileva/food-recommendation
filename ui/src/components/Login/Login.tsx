@@ -7,6 +7,7 @@ import tokenHelper from "../../helpers/tokenHelper";
 import { FacebookLogin } from "../FacebookLogin/FacebookLogin";
 import "./Login.scss";
 import "../../layout/layout.scss";
+import { useMainContext } from "../../helpers/mainContext";
 
 export const Login = () => {
 	const [loginFields, setLoginFields] = React.useState({
@@ -14,6 +15,8 @@ export const Login = () => {
 		password: { value: "", error: "" },
 		friendlyUrl: { value: "", error: "" },
 	});
+
+	const { setContext } = useMainContext()
 
 	const [loginUser] = useMutation(LOGIN_USER_QUERY);
 	const [setSession] = useMutation(SET_SESSION_QUERY);
@@ -42,6 +45,7 @@ export const Login = () => {
 				setUserIsValid(false);
 			} else {
 				localStorage.setItem("token", result.data.loginUser);
+				setContext({ isLoggedIn: true });
 				setSession({
 					variables: {
 						input: {

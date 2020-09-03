@@ -12,7 +12,7 @@ var tokenHelper = function () {
 
 	const friendlyUrl = () => {
 		if (isLoggedIn()) return decodedToken.friendlyUrl;
-		else throw new Error("User not loggedin 1");
+		else return "";
 	};
 
 	const email = () => {
