@@ -27,6 +27,24 @@ const schema = makeAugmentedSchema({
 		},
 	},
 	resolvers: {
+		Query: {
+			Recipe: async (
+				object: any,
+				params: any,
+				ctx: any,
+				resolveInfo: any
+			) => {
+				try {
+				console.log({ object, params, ctx, resolveInfo })
+				const result = await neo4jgraphql(object, params, ctx, resolveInfo);
+				console.log({ result })
+				return result;
+				} catch (error) {
+					console.log(error)
+					throw error
+				}
+			}
+		},
 		Mutation: {
 			// Hash the password, insert a user via cypher and return a JWT
 			registerUser: async (

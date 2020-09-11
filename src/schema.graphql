@@ -200,10 +200,10 @@ type Query {
 			statement: "MATCH (r:Recipe) WHERE r.preparationTime >= $preparationTime RETURN r"
 		)
 
-	findSimiliarRecipe(recipeId: ID, limit: Int): [Recipe]
+	findSimiliarRecipe(friendlyUrl: String, limit: Int): [Recipe]
 		@cypher(
 			statement: """
-			MATCH (p1:Recipe{id: $recipeId})-[r:CONTAINS_INGREDIENT]->(ingredient1:Ingredient)
+			MATCH (p1:Recipe{friendlyUrl: $friendlyUrl})-[r:CONTAINS_INGREDIENT]->(ingredient1:Ingredient)
 			WITH p1, collect(id(ingredient1)) AS p1Ingredient
 			MATCH (p2:Recipe)-[:CONTAINS_INGREDIENT]->(ingredient2:Ingredient)
 			WHERE (p1 <> p2)

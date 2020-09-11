@@ -182,11 +182,11 @@ export const TOP_INGREDIENTS_QUERY = gql`
 `;
 
 export const RECIPE_BY_ID_QUERY = gql`
-	query($recipeId: ID, $limit: Int) {
-		Recipe: Recipe(id: $recipeId) {
+	query($friendlyUrl: String, $limit: Int) {
+		Recipe: Recipe(friendlyUrl: $friendlyUrl) {
 			...RecipeTileDetailed
 		}
-		RecipeRandomList: findSimiliarRecipe(recipeId: $recipeId, limit: $limit) {
+		RecipeRandomList: findSimiliarRecipe(friendlyUrl: $friendlyUrl, limit: $limit) {
 			...RecipeTileDetailed
 		}
 	}

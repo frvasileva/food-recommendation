@@ -3,7 +3,6 @@ import tokenHelper from "./tokenHelper";
 
 const token = tokenHelper();
 const userRoles = token.roles();
-console.log(" token", token.friendlyUrl());
 const initialContext = {
 	isLoggedIn: token.isLoggedIn(),
 	isAdmin: userRoles.includes("admin"),

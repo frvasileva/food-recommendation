@@ -6,7 +6,10 @@ export const ErrorScreen = (props: any) => {
 			<div className="row">
 				<div className="col-md-12">
 					<div className="error-wrapper">
-						<div className="error-message">Error: {props.error}</div>
+						<div className="error-message">
+							<strong>{props.error.toString()}</strong>
+							<pre>{props.error.stack}</pre>
+						</div>
 					</div>
 				</div>
 			</div>

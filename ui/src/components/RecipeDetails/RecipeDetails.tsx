@@ -15,7 +15,7 @@ import ReactHtmlParser from "react-html-parser";
 export const RecipeDetails = (props: any) => {
 	const { loading, error, data } = useQuery(RECIPE_BY_ID_QUERY, {
 		variables: {
-			recipeId: props.match.params.recipeId,
+			friendlyUrl: props.match.params.friendlyUrl,
 			limit: 3
 		},
 	});
@@ -88,7 +88,7 @@ export const RecipeDetails = (props: any) => {
 									<div className="col-12">
 										<div className="ingredients-wrapper">
 											<IngredientsList
-												ingredients={recipe.ingredients}
+												ingredients={recipe.ingredients || []}
 											></IngredientsList>
 										</div>
 										<div className="recipe-description">

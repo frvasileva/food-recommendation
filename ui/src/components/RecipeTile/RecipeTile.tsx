@@ -39,7 +39,7 @@ export const RecipeTile = (props: any) => {
 						/>
 					) : null}
 					<div className="img-wrapper">
-						<Link to={`/recipe/${props.id}`}>
+						<Link to={`/recipe/${props.friendlyUrl}`}>
 							<img className="card-img-top" src={url} alt={props.name} />
 							<div className="recipe-link">{props.name}</div>
 						</Link>
