@@ -56,13 +56,14 @@ const schema = makeAugmentedSchema({
 				// params.input.password = bcrypt.hashSync(params.input.password, 10);
 
 				await neo4jgraphql(object, params, ctx, resolveInfo);
+
 				return jwt.sign(
 					{
 						exp: Math.floor(Date.now() / 1000) + 60 * 6000,
 						userId: params.input.id,
 						email: params.input.email,
 						friendlyUrl: params.input.friendlyUrl,
-						roles: params.input.roles
+						roles: ["user"]
 					},
 					process.env.JWT_SECRET
 				);

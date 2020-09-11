@@ -209,8 +209,7 @@ type Query {
 			WHERE (p1 <> p2)
 			WITH p1, p1Ingredient, p2, collect(id(ingredient2)) AS p2Ingredient
 
-			RETURN p2,
-						gds.alpha.similarity.jaccard(p1Ingredient, p2Ingredient) AS similarity
+			RETURN p2, gds.alpha.similarity.jaccard(p1Ingredient, p2Ingredient) AS similarity
 			ORDER BY similarity DESC
 			LIMIT 4
 			"""
@@ -462,7 +461,7 @@ type Mutation {
 			WITH c
 
 			MERGE (u:User{id:$input.id, email:$input.email, name: $input.name, createdOn:$input.createdOn, friendlyUrl:$input.friendlyUrl,
-			      password:$input.password})
+			      password:$input.password, roles:['user']})
 			   ON CREATE SET u.createdOn = datetime()
 			WITH u, c
 
