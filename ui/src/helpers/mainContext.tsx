@@ -7,6 +7,7 @@ const initialContext = {
 	isLoggedIn: token.isLoggedIn(),
 	isAdmin: userRoles.includes("admin"),
 	friendlyUrl: token.friendlyUrl() !== "" ? token.friendlyUrl() : "",
+	userRoles: token.roles(),
 };
 
 const mainContext = React.createContext({

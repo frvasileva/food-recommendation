@@ -9,14 +9,21 @@ export const Header = (props: any) => {
 	let history = useHistory();
 
 	const { context, setContext } = useMainContext();
-	const { isAdmin, isLoggedIn, friendlyUrl } = context
+	const { isAdmin, isLoggedIn, friendlyUrl, userRoles } = context;
 
 	// @ts-ignore
 	window.setContext = setContext;
 
 	const logout = () => {
-		localStorage.setItem("token", "");
-		setContext({ isLoggedIn: false });
+		localStorage.removeItem("token");
+		
+		setContext({
+			isLoggedIn: false,
+			isAdmin: false,
+			friendlyUrl: "",
+			userRoles: []
+		});
+		
 		history.push("/login");
 	};
 

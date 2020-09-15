@@ -16,7 +16,7 @@ export const Login = () => {
 		friendlyUrl: { value: "", error: "" },
 	});
 
-	const { setContext } = useMainContext()
+	const { setContext } = useMainContext();
 
 	const [loginUser] = useMutation(LOGIN_USER_QUERY);
 	const [setSession] = useMutation(SET_SESSION_QUERY);
@@ -45,7 +45,18 @@ export const Login = () => {
 				setUserIsValid(false);
 			} else {
 				localStorage.setItem("token", result.data.loginUser);
-				setContext({ isLoggedIn: true });
+
+				var newToken = tokenHelper();
+				const newContext = {
+					isLoggedIn: newToken.isLoggedIn(),
+					isAdmin: newToken.roles().includes("admin"),
+					friendlyUrl:
+					newToken.friendlyUrl() !== "" ? newToken.friendlyUrl() : "",
+					userRoles: newToken.roles(),
+				};
+
+				setContext(newContext);
+
 				setSession({
 					variables: {
 						input: {
