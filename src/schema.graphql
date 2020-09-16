@@ -48,7 +48,9 @@ type Ingredient {
 		@cypher(
 			statement: "MATCH (r:Recipe)-[rltn:CONTAINS_INGREDIENT]->(this) RETURN rltn.quantityType"
 		)
+	orderPosition: Int
 	recipes: [Recipe] @relation(name: "CONTAINS_INGREDIENT", direction: "IN")
+
 }
 type MainProduct {
 	friendlyUrl: String

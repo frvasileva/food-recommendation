@@ -175,8 +175,9 @@ export const USER_COLLECTION_QUERY = gql`
 `;
 export const TOP_INGREDIENTS_QUERY = gql`
 	query {
-		topIngredients: getMostPopularIngredients(first: 30) {
+		topIngredients: getMostPopularIngredients(first: 30, orderBy: orderPosition_desc) {
 			name
+			orderPosition
 		}
 	}
 `;
