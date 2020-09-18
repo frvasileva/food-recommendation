@@ -9,7 +9,7 @@ export const Header = (props: any) => {
 	let history = useHistory();
 
 	const { context, setContext } = useMainContext();
-	const { isAdmin, isLoggedIn, friendlyUrl, userRoles } = context;
+	const { isAdmin, isLoggedIn, friendlyUrl } = context;
 
 	// @ts-ignore
 	window.setContext = setContext;

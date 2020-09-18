@@ -12,6 +12,8 @@ import { useQuery } from "@apollo/react-hooks";
 import ErrorScreen from "../../../layout/ErrorPage/Error";
 import "./SearchAdvanced.scss";
 
+import { useLocation } from "react-router-dom";
+
 export const SearchAdvanced = (props: any) => {
 	const [show, setShow] = useState(false);
 	const [fIngredients, setSelectedIngredients] = useState([] as string[]);
@@ -20,6 +22,13 @@ export const SearchAdvanced = (props: any) => {
 	const [fSkillLevel, setSkillLevel] = useState([] as string[]);
 
 	const query = useQuery(TOP_INGREDIENTS_QUERY);
+
+	const location = useLocation();
+	const searchParams = new URLSearchParams(location.search);
+	var paramIngredients = searchParams.get("ingredients") ?? [];
+	var paramPrepTime = searchParams.get("prepTime") ?? [];
+	var paramCookingTime = searchParams.get("cookingTime") ?? [];
+	var paramSkillLevel = searchParams.get("skillLevel") ?? [];
 
 	if (query.loading) return null;
 	if (query.error) return <ErrorScreen error={query.error} />;
@@ -110,6 +119,11 @@ export const SearchAdvanced = (props: any) => {
 		{ label: "Без глутен", value: "gluten-free" },
 	];
 
+	const isItemChecked = (): boolean => {
+		return true;
+	};
+
+	const isChecked = true;
 	return (
 		<>
 			<Button variant="light" size="sm" onClick={handleShow}>
@@ -137,6 +151,7 @@ export const SearchAdvanced = (props: any) => {
 								{ingredients.map((item: any) => (
 									<ToggleButton
 										value={item.name}
+										checked={isChecked}
 										variant="outline-info"
 										className="custom-btn"
 										onClick={setSelIngredients}

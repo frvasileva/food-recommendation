@@ -12,20 +12,20 @@ type Recipe {
 	nutritionInfo: String
 	cusine: String
 	ingredients: [Ingredient]
-		@cypher(
-			statement: "MATCH (this)-[rltn:CONTAINS_INGREDIENT]->(i:Ingredient) RETURN i"
-		)
-		@relation(name: "CONTAINS_INGREDIENT", direction: "OUT")
+	@cypher(
+		statement: "MATCH (this)-[rltn:CONTAINS_INGREDIENT]->(i:Ingredient) RETURN i"
+	)
+	@relation(name: "CONTAINS_INGREDIENT", direction: "OUT")
 	dietType: [String]
-		@cypher(
-			statement: "MATCH (this)-[:DIET_TYPE]->(d:DietType) RETURN collect(d.name)"
-		)
-		@relation(name: "DIET_TYPE", direction: "OUT")
+	@cypher(
+		statement: "MATCH (this)-[:DIET_TYPE]->(d:DietType) RETURN collect(d.name)"
+	)
+	@relation(name: "DIET_TYPE", direction: "OUT")
 	keyword: [String]
-		@cypher(
-			statement: "MATCH (this)-[:KEYWORD]->(k:Keyword) RETURN collect(k.name)"
-		)
-		@relation(name: "KEYWORD", direction: "OUT")
+	@cypher(
+		statement: "MATCH (this)-[:KEYWORD]->(k:Keyword) RETURN collect(k.name)"
+	)
+	@relation(name: "KEYWORD", direction: "OUT")
 
 	collections: [Collection] @relation(name: "RECIPE_ADDED_TO", direction: "OUT")
 	suitableAge: String
@@ -41,16 +41,15 @@ type Ingredient {
 	name: String
 	friendlyUrl: String
 	quantity: String
-		@cypher(
-			statement: "MATCH (r:Recipe)-[rltn:CONTAINS_INGREDIENT]->(this) RETURN rltn.quantity"
-		)
+	@cypher(
+		statement: "MATCH (r:Recipe)-[rltn:CONTAINS_INGREDIENT]->(this) RETURN rltn.quantity"
+	)
 	quantityType: String
-		@cypher(
-			statement: "MATCH (r:Recipe)-[rltn:CONTAINS_INGREDIENT]->(this) RETURN rltn.quantityType"
-		)
+	@cypher(
+		statement: "MATCH (r:Recipe)-[rltn:CONTAINS_INGREDIENT]->(this) RETURN rltn.quantityType"
+	)
 	orderPosition: Int
 	recipes: [Recipe] @relation(name: "CONTAINS_INGREDIENT", direction: "IN")
-
 }
 type MainProduct {
 	friendlyUrl: String
@@ -91,7 +90,7 @@ type User {
 	isFacebookLoggedIn: Int
 	recipes: [Recipe] @relation(name: "ADDED_RECIPE", direction: "OUT")
 	collections: [Collection]
-		@relation(name: "COLLECTION_CREATED", direction: "OUT")
+	@relation(name: "COLLECTION_CREATED", direction: "OUT")
 	sessions: [Session] @relation(name: "SESSION_STARTED", direction: "IN")
 	searchTerm: [SearchTerm] @relation(name: "TERM_SEARCHED", direction: "IN")
 	roles: [String]
@@ -185,37 +184,37 @@ union SearchResult = Recipe | Ingredient
 
 type Query {
 	recipeByName(substring: String): [Recipe]
-		@cypher(
-			statement: "MATCH (r:Recipe) WHERE r.name CONTAINS $substring RETURN r"
-		)
+	@cypher(
+		statement: "MATCH (r:Recipe) WHERE r.name CONTAINS $substring RETURN r"
+	)
 
 	recipeBySkillLevel(level: String): [Recipe]
-		@cypher(statement: "MATCH (r:Recipe) WHERE r.skillLevel = $level RETURN r")
+	@cypher(statement: "MATCH (r:Recipe) WHERE r.skillLevel = $level RETURN r")
 
 	recipeByPrearationTime(preparationTime: Int): [Recipe]
-		@cypher(
-			statement: "MATCH (r:Recipe) WHERE r.preparationTime = $preparationTime RETURN r"
-		)
+	@cypher(
+		statement: "MATCH (r:Recipe) WHERE r.preparationTime = $preparationTime RETURN r"
+	)
 
 	recipeByPrearationTimeGraterThan(preparationTime: Int): [Recipe]
-		@cypher(
-			statement: "MATCH (r:Recipe) WHERE r.preparationTime >= $preparationTime RETURN r"
-		)
+	@cypher(
+		statement: "MATCH (r:Recipe) WHERE r.preparationTime >= $preparationTime RETURN r"
+	)
 
 	findSimiliarRecipe(friendlyUrl: String, limit: Int): [Recipe]
-		@cypher(
-			statement: """
-			MATCH (p1:Recipe{friendlyUrl: $friendlyUrl})-[r:CONTAINS_INGREDIENT]->(ingredient1:Ingredient)
-			WITH p1, collect(id(ingredient1)) AS p1Ingredient
-			MATCH (p2:Recipe)-[:CONTAINS_INGREDIENT]->(ingredient2:Ingredient)
-			WHERE (p1 <> p2)
-			WITH p1, p1Ingredient, p2, collect(id(ingredient2)) AS p2Ingredient
+	@cypher(
+		statement: """
+		MATCH (p1:Recipe{friendlyUrl: $friendlyUrl})-[r:CONTAINS_INGREDIENT]->(ingredient1:Ingredient)
+		WITH p1, collect(id(ingredient1)) AS p1Ingredient
+		MATCH (p2:Recipe)-[:CONTAINS_INGREDIENT]->(ingredient2:Ingredient)
+		WHERE (p1 <> p2)
+		WITH p1, p1Ingredient, p2, collect(id(ingredient2)) AS p2Ingredient
 
-			RETURN p2, gds.alpha.similarity.jaccard(p1Ingredient, p2Ingredient) AS similarity
-			ORDER BY similarity DESC
-			LIMIT 4
-			"""
-		)
+		RETURN p2, gds.alpha.similarity.jaccard(p1Ingredient, p2Ingredient) AS similarity
+		ORDER BY similarity DESC
+		LIMIT 4
+		"""
+	)
 
 	recipeList(
 		ingredients: [String]
@@ -223,26 +222,26 @@ type Query {
 		skip: Int
 		limit: Int
 	): [Recipe]
-		@cypher(
-			statement: """
-			MATCH (r:Recipe)
-			WHERE all(i in $ingredients WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
-			AND none(i in $allergens WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
-			RETURN r
-			ORDER BY r.ratings desc
-			SKIP $skip
-			limit $limit
-			"""
-		)
+	@cypher(
+		statement: """
+		MATCH (r:Recipe)
+		WHERE all(i in $ingredients WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
+		AND none(i in $allergens WHERE exists((r)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
+		RETURN r
+		ORDER BY r.ratings desc
+		SKIP $skip
+		limit $limit
+		"""
+	)
 
 	collectionsByUser(userId: String): [Collection]
-		@cypher(
-			statement: """
-			MATCH (c:Collection)<-[r:COLLECTION_CREATED]-(u:User{id: $userId})
-				return c
-				order by c.createdOn desc
-			"""
-		)
+	@cypher(
+		statement: """
+		MATCH (c:Collection)<-[r:COLLECTION_CREATED]-(u:User{id: $userId})
+			return c
+			order by c.createdOn desc
+		"""
+	)
 
 	recipeFullTextSearch(
 		term: String
@@ -253,222 +252,245 @@ type Query {
 		skip: Int
 		limit: Int
 	): [Recipe]
-		@cypher(
-			statement: """
-			CALL db.index.fulltext.queryNodes('RecipeTitleAndDescription', $term) YIELD node, score
-			WITH node, score
-			WHERE all(i in $ingredients WHERE exists((node)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
-			OPTIONAL MATCH (node)
-			WHERE node.preparationTime in $preparationTimeRange
-			OPTIONAL MATCH (node)
-			WHERE node.cookingTime in $cookingTimeRange
-			OPTIONAL MATCH (node)
-			WHERE node.skillLevel in $skillLevel
-			RETURN node
-			ORDER BY score desc, node.ratings desc, node.preparationTime desc, node.cookingTime desc
-			"""
-		)
+	@cypher(
+		statement: """
+		CALL db.index.fulltext.queryNodes('RecipeTitleAndDescription', $term) YIELD node, score
+		WITH node, score
+		WHERE all(i in $ingredients WHERE exists((node)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
+		OPTIONAL MATCH (node)
+		WHERE node.preparationTime in $preparationTimeRange
+		OPTIONAL MATCH (node)
+		WHERE node.cookingTime in $cookingTimeRange
+		OPTIONAL MATCH (node)
+		WHERE node.skillLevel in $skillLevel
+		RETURN node
+		ORDER BY score desc, node.ratings desc, node.preparationTime desc, node.cookingTime desc
+		"""
+	)
 
 	recipeAndProductFullTextSearch(searchTerm: String): [SearchResult]
-		@cypher(
-			statement: """
-			CALL db.index.fulltext.queryNodes('titleAndIngredients', 'Banana pancakes')
-			YIELD node, score
-			RETURN node
-			ORDER BY score DESC
-			LIMIT 10
-			"""
-		)
+	@cypher(
+		statement: """
+		CALL db.index.fulltext.queryNodes('titleAndIngredients', 'Banana pancakes')
+		YIELD node, score
+		RETURN node
+		ORDER BY score DESC
+		LIMIT 10
+		"""
+	)
+
+	recipesByProductsAndMoreFilters(
+		ingredients: [String]
+		preparationTimeRange: [Int]
+		cookingTimeRange: [Int]
+		skillLevel: [String]
+		skip: Int
+		limit: Int
+	): [Recipe]
+	@cypher(
+		statement: """
+		MATCH (node:Recipe)
+		WITH node
+		WHERE any(i in $ingredients WHERE exists((node)-[:CONTAINS_INGREDIENT]->(:Ingredient {name: i})))
+		OPTIONAL MATCH (node)
+		WHERE node.preparationTime in $preparationTimeRange
+		OPTIONAL MATCH (node)
+		WHERE node.cookingTime in $cookingTimeRange
+		OPTIONAL MATCH (node)
+		WHERE node.skillLevel in $skillLevel
+		RETURN node
+		"""
+	)
 
 	getRecipeOfTheDay: Recipe
-		@cypher(
-			statement: """
-			MATCH (n:RecipeOfTheDay)
-			RETURN n as Recipe
-			LIMIT 1
-			"""
-		)
+	@cypher(
+		statement: """
+		MATCH (n:RecipeOfTheDay)
+		RETURN n as Recipe
+		LIMIT 1
+		"""
+	)
 
 	getPredefinedSearchCategories: [Collection]
-		@cypher(
-			statement: """
-			MATCH (n:PredefinedSearchCategory)
-			RETURN n
-			"""
-		)
+	@cypher(
+		statement: """
+		MATCH (n:PredefinedSearchCategory)
+		RETURN n
+		"""
+	)
 
 	getPopularCollections: [Collection]
-		@cypher(
-			statement: """
-			MATCH (collection:Collection)<-[r:RECIPE_ADDED_TO]-(recipes:Recipe)
-			RETURN collection, count(r)  as cnt
-			order by cnt desc
-			"""
-		)
+	@cypher(
+		statement: """
+		MATCH (collection:Collection)<-[r:RECIPE_ADDED_TO]-(recipes:Recipe)
+		RETURN collection, count(r)  as cnt
+		order by cnt desc
+		"""
+	)
 
 	getNewestRecipes: [Recipe]
-		@cypher(
-			statement: """
-			MATCH (r:Recipe)
-			RETURN r
-			ORDER BY r.createdOn DESC
-			"""
-		)
+	@cypher(
+		statement: """
+		MATCH (r:Recipe)
+		RETURN r
+		ORDER BY r.createdOn DESC
+		"""
+	)
 
 	getMostPopularIngredients: [Ingredient]
-		@cypher(
-			statement: """
-			MATCH (mainProduct:MainProduct)
-			RETURN mainProduct
-			"""
-		)
+	@cypher(
+		statement: """
+		MATCH (mainProduct:MainProduct)
+		RETURN mainProduct
+		"""
+	)
 }
 
 type Mutation {
 	createRecipe(input: CreateRecipeInput): Recipe
-		@cypher(
-			statement: """
-			CREATE (r:Recipe{id: $input.id, name: $input.name, description: $input.description, preparationTime: $input.preparationTime,
-											 skillLevel: $input.skillLevel, cookingTime: $input.cookingTime, friendlyUrl: $input.friendlyUrl,
-											 createdOn: datetime(), imagePath:$input.imagePath,suitableAge: $input.suitableAge })
-			FOREACH (item in $input.ingredients |
-				MERGE (i:Ingredient{name:item.name})
-				CREATE (r)-[rel:CONTAINS_INGREDIENT{quantity: item.quantity, quantityType: item.quantityType}]->(i)
-			)
-			WITH r
-			MATCH (u:User{id:$input.userId})
-			CREATE (u)-[rel:ADDED_RECIPE{createdOn: $input.createdOn}]->(r)
-			RETURN r
-			"""
+	@cypher(
+		statement: """
+		CREATE (r:Recipe{id: $input.id, name: $input.name, description: $input.description, preparationTime: $input.preparationTime,
+										 skillLevel: $input.skillLevel, cookingTime: $input.cookingTime, friendlyUrl: $input.friendlyUrl,
+										 createdOn: datetime(), imagePath:$input.imagePath,suitableAge: $input.suitableAge })
+		FOREACH (item in $input.ingredients |
+			MERGE (i:Ingredient{name:item.name})
+			CREATE (r)-[rel:CONTAINS_INGREDIENT{quantity: item.quantity, quantityType: item.quantityType}]->(i)
 		)
+		WITH r
+		MATCH (u:User{id:$input.userId})
+		CREATE (u)-[rel:ADDED_RECIPE{createdOn: $input.createdOn}]->(r)
+		RETURN r
+		"""
+	)
 
 	createCollection(input: CreateCollectionInput): Collection
-		@cypher(
-			statement: """
-				CREATE (c:Collection{name:$input.name, friendlyUrl:$input.friendlyUrl, userId: $input.userId, id: $input.id, createdOn: datetime()})
-			WITH c
-			MATCH (u:User{id:$input.userId})
-			MERGE (u)-[rel:COLLECTION_CREATED{createdOn:datetime()}]->(c)
-			RETURN  c
-			"""
-		)
+	@cypher(
+		statement: """
+			CREATE (c:Collection{name:$input.name, friendlyUrl:$input.friendlyUrl, userId: $input.userId, id: $input.id, createdOn: datetime()})
+		WITH c
+		MATCH (u:User{id:$input.userId})
+		MERGE (u)-[rel:COLLECTION_CREATED{createdOn:datetime()}]->(c)
+		RETURN  c
+		"""
+	)
 
 	createUserSession(input: CreateSessionInput): String
-		@cypher(
-			statement: """
-			CREATE (s:Session{createdOn:datetime()})
-			WITH s
-			MATCH (u:User{id:$input.userId})
-			CREATE (u)-[rel:SESSION_STARTED]->(s)
-			RETURN u.id
-			"""
-		)
+	@cypher(
+		statement: """
+		CREATE (s:Session{createdOn:datetime()})
+		WITH s
+		MATCH (u:User{id:$input.userId})
+		CREATE (u)-[rel:SESSION_STARTED]->(s)
+		RETURN u.id
+		"""
+	)
 
 	createSearchTerm(input: SetSearchInputInput): SearchTerm
-		@cypher(
-			statement: """
-			CREATE (s:SearchedTerm{createdOn:datetime(), term: $input.term})
-			WITH s
-			MATCH (u:User{id:$input.userId})
-			CREATE (u)-[rel:TERM_SEARCHED]->(s)
-			RETURN s
-			"""
-		)
+	@cypher(
+		statement: """
+		CREATE (s:SearchedTerm{createdOn:datetime(), term: $input.term})
+		WITH s
+		MATCH (u:User{id:$input.userId})
+		CREATE (u)-[rel:TERM_SEARCHED]->(s)
+		RETURN s
+		"""
+	)
 
 	addRecipeToACollection(input: AddRecipeToCollection): Collection
-		@cypher(
-			statement: """
-			MATCH (r:Recipe{id:$input.recipeId})
-			WITH r
-			MATCH (c:Collection{id:$input.collectionId})
-			CREATE (r)-[rel:RECIPE_ADDED_TO{userId:$input.userId, createdOn:$input.createdOn}]->(c)
-			return c
-			"""
-		)
+	@cypher(
+		statement: """
+		MATCH (r:Recipe{id:$input.recipeId})
+		WITH r
+		MATCH (c:Collection{id:$input.collectionId})
+		CREATE (r)-[rel:RECIPE_ADDED_TO{userId:$input.userId, createdOn:$input.createdOn}]->(c)
+		return c
+		"""
+	)
 
 	removeRecipeFromCollection(input: AddRecipeToCollection): Collection
-		@cypher(
-			statement: """
-			MATCH (r:Recipe{id:$input.recipeId})-[rel:RECIPE_ADDED_TO]->(c:Collection{id:$input.collectionId})
-			DELETE rel
-			RETURN c
-			"""
-		)
+	@cypher(
+		statement: """
+		MATCH (r:Recipe{id:$input.recipeId})-[rel:RECIPE_ADDED_TO]->(c:Collection{id:$input.collectionId})
+		DELETE rel
+		RETURN c
+		"""
+	)
 
 	setRecipeOfTheDay(recipeId: String): Recipe
-		@cypher(
-			statement: """
-			MATCH (n { id: $recipeId })
-			SET n:RecipeOfTheDay
-			RETURN n
-			"""
-		)
+	@cypher(
+		statement: """
+		MATCH (n { id: $recipeId })
+		SET n:RecipeOfTheDay
+		RETURN n
+		"""
+	)
 	setMainProduct(name: String): Recipe
-		@cypher(
-			statement: """
-			MATCH (n:Ingredient { name: $name })
-			SET n:MainProduct
-			RETURN n
-			"""
-		)
+	@cypher(
+		statement: """
+		MATCH (n:Ingredient { name: $name })
+		SET n:MainProduct
+		RETURN n
+		"""
+	)
 
 	deleteMainProduct(ingredientId: String): Ingredient
-		@cypher(
-			statement: """
-			match (m:MainProduct{friendlyUrl:$ingredientId})
-			REMOVE m:MainProduct
-			RETURN m
-			"""
-		)
+	@cypher(
+		statement: """
+		match (m:MainProduct{friendlyUrl:$ingredientId})
+		REMOVE m:MainProduct
+		RETURN m
+		"""
+	)
 
 	setPredefinedSearchCategory(friendlyUrl: String): Collection
-		@cypher(
-			statement: """
-			MATCH (n { friendlyUrl: $friendlyUrl })
-			SET n:PredefinedSearchCategory
-			RETURN n
-			"""
-		)
+	@cypher(
+		statement: """
+		MATCH (n { friendlyUrl: $friendlyUrl })
+		SET n:PredefinedSearchCategory
+		RETURN n
+		"""
+	)
 
 	loginUser(email: String, password: String): String
-		@cypher(
-			statement: """
-			MATCH (u:User{email:$email, password: $password})
-			return u
-			"""
-		)
+	@cypher(
+		statement: """
+		MATCH (u:User{email:$email, password: $password})
+		return u
+		"""
+	)
 
 	loginFacebookUser(input: FacebookLoginInput): String
-		@cypher(
-			statement: """
-			MERGE (c:Collection{id:$input.id, name:\"Want to cook\", friendlyUrl:\"want-to-cook\"})
-			ON CREATE SET c.createdOn = datetime()
-			WITH c
+	@cypher(
+		statement: """
+		MERGE (c:Collection{id:$input.id, name:\"Want to cook\", friendlyUrl:\"want-to-cook\"})
+		ON CREATE SET c.createdOn = datetime()
+		WITH c
 
-			MERGE (u:User{id:$input.id, email:$input.email, name: $input.name, friendlyUrl:$input.friendlyUrl,
-					   password:$input.password, fbUserId:$input.fbUserId})
-			ON CREATE SET u.createdOn = datetime()
-			WITH u, c
+		MERGE (u:User{id:$input.id, email:$input.email, name: $input.name, friendlyUrl:$input.friendlyUrl,
+				   password:$input.password, fbUserId:$input.fbUserId})
+		ON CREATE SET u.createdOn = datetime()
+		WITH u, c
 
-			MERGE (u)-[rel:COLLECTION_CREATED]->(c)
-			RETURN u.name
-			"""
-		)
+		MERGE (u)-[rel:COLLECTION_CREATED]->(c)
+		RETURN u.name
+		"""
+	)
 
 	registerUser(input: RegisterUserInput): String
-		@cypher(
-			statement: """
-			MERGE (c:Collection{id:$input.defaultCollectionId, name:\"Want to cook\", friendlyUrl:\"want-to-cook\"})
-			ON CREATE SET c.createdOn = datetime()
-			WITH c
+	@cypher(
+		statement: """
+		MERGE (c:Collection{id:$input.defaultCollectionId, name:\"Want to cook\", friendlyUrl:\"want-to-cook\"})
+		ON CREATE SET c.createdOn = datetime()
+		WITH c
 
-			MERGE (u:User{id:$input.id, email:$input.email, name: $input.name, createdOn:$input.createdOn, friendlyUrl:$input.friendlyUrl,
-			      password:$input.password, roles:['user']})
-			   ON CREATE SET u.createdOn = datetime()
-			WITH u, c
+		MERGE (u:User{id:$input.id, email:$input.email, name: $input.name, createdOn:$input.createdOn, friendlyUrl:$input.friendlyUrl,
+		      password:$input.password, roles:['user']})
+		   ON CREATE SET u.createdOn = datetime()
+		WITH u, c
 
-			CREATE (u)-[rel:COLLECTION_CREATED]->(c)
-			RETURN u.name
-			"""
-		)
+		CREATE (u)-[rel:COLLECTION_CREATED]->(c)
+		RETURN u.name
+		"""
+	)
 }

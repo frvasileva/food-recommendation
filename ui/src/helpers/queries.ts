@@ -16,7 +16,6 @@ const fragments: any = {
 			createdOn {
 				formatted
 			}
-
 		}
 	`,
 	recipeTileDetailed: gql`
@@ -228,6 +227,30 @@ export const RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY = gql`
 	) {
 		recipeList: recipeFullTextSearch(
 			term: $term
+			ingredients: $ingredients
+			preparationTimeRange: $preparationTimeRange
+			cookingTimeRange: $cookingTimeRange
+			skillLevel: $skillLevel
+			skip: $skip
+			limit: $limit
+			offset:$skip
+			first:$limit
+		) {
+			...RecipeTile
+		}
+	}
+	${fragments.recipeTile}
+`;
+export const RECIPE_BY_INGREDIENTS_QUERY = gql`
+	query(
+		$ingredients: [String]
+		$preparationTimeRange: [Int]
+		$cookingTimeRange: [Int]
+		$skillLevel: [String]
+		$skip: Int
+		$limit: Int
+	) {
+		recipeList: recipesByProductsAndMoreFilters(
 			ingredients: $ingredients
 			preparationTimeRange: $preparationTimeRange
 			cookingTimeRange: $cookingTimeRange

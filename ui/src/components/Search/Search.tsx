@@ -15,6 +15,7 @@ export const Search = (props: any) => {
 	const history = useHistory();
 	const [term, setTerm] = React.useState(props.term || "");
 	const [isSearchValid, setisSearchValid] = React.useState(true);
+	const [isSearchDone, setSearchIsDone] = React.useState(false);
 
 	const [setSearchedTerm] = useMutation(SET_SEARCHED_TERM);
 	var token = tokenHelper();
@@ -34,6 +35,7 @@ export const Search = (props: any) => {
 		e.preventDefault();
 		if (term !== "") {
 			setisSearchValid(true);
+			setSearchIsDone(true);
 			history.push(`/recipes?term=${term}`);
 
 			setSearchedTerm({
@@ -46,6 +48,7 @@ export const Search = (props: any) => {
 			});
 		} else {
 			setisSearchValid(false);
+			setSearchIsDone(false);
 		}
 	};
 
@@ -53,8 +56,10 @@ export const Search = (props: any) => {
 		if (term !== "") {
 			history.push(`/recipes?term=${term}` + args);
 		} else {
-			history.push(`/recipes`);
+			history.push(`/recipes?` + args);
 		}
+
+		setSearchIsDone(true);
 	};
 
 	return (
