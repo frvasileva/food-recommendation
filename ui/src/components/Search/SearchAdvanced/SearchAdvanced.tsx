@@ -15,21 +15,24 @@ import "./SearchAdvanced.scss";
 import { useLocation } from "react-router-dom";
 
 export const SearchAdvanced = (props: any) => {
-	const [show, setShow] = useState(false);
-	const [fIngredients, setSelectedIngredients] = useState([] as string[]);
-	const [fPreparationTime, setPreparationTime] = useState([] as string[]);
-	const [fCookingTime, setCookingTime] = useState([] as string[]);
-	const [fSkillLevel, setSkillLevel] = useState([] as string[]);
-
-	const query = useQuery(TOP_INGREDIENTS_QUERY);
-
 	const location = useLocation();
 	const searchParams = new URLSearchParams(location.search);
-	var paramIngredients = searchParams.get("ingredients") ?? [];
-	var paramPrepTime = searchParams.get("prepTime") ?? [];
-	var paramCookingTime = searchParams.get("cookingTime") ?? [];
-	var paramSkillLevel = searchParams.get("skillLevel") ?? [];
+	var paramIngredients =
+		searchParams.get("ingredients")?.split(",") ?? ([] as String[]);
+	var paramPrepTime =
+		searchParams.get("prepTime")?.split(",") ?? ([] as String[]);
+	var paramCookingTime =
+		searchParams.get("cookingTime")?.split(",") ?? ([] as String[]);
+	var paramSkillLevel =
+		searchParams.get("skillLevel")?.split(",") ?? ([] as String[]);
 
+	const [show, setShow] = useState(false);
+	const [fIngredients, setSelectedIngredients] = useState(paramIngredients);
+	const [fPreparationTime, setPreparationTime] = useState(paramPrepTime);
+	const [fCookingTime, setCookingTime] = useState(paramCookingTime);
+	const [fSkillLevel, setSkillLevel] = useState(paramSkillLevel);
+
+	const query = useQuery(TOP_INGREDIENTS_QUERY);
 	if (query.loading) return null;
 	if (query.error) return <ErrorScreen error={query.error} />;
 
@@ -119,11 +122,6 @@ export const SearchAdvanced = (props: any) => {
 		{ label: "Без глутен", value: "gluten-free" },
 	];
 
-	const isItemChecked = (): boolean => {
-		return true;
-	};
-
-	const isChecked = true;
 	return (
 		<>
 			<Button variant="light" size="sm" onClick={handleShow}>
@@ -145,13 +143,12 @@ export const SearchAdvanced = (props: any) => {
 							<p>Основни продукти:</p>
 							<ToggleButtonGroup
 								type="checkbox"
-								// defaultValue={["lemon", "orange"]}
+								defaultValue={fIngredients}
 								className="custom-toggle-btn"
 							>
 								{ingredients.map((item: any) => (
 									<ToggleButton
 										value={item.name}
-										checked={isChecked}
 										variant="outline-info"
 										className="custom-btn"
 										onClick={setSelIngredients}
@@ -171,7 +168,7 @@ export const SearchAdvanced = (props: any) => {
 								<div className="col-md">
 									<ToggleButtonGroup
 										type="checkbox"
-										// defaultValue={["30"]}
+										defaultValue={fPreparationTime}
 										className="custom-toggle-btn"
 									>
 										{preparationTime.map((item: any) => (
@@ -194,7 +191,7 @@ export const SearchAdvanced = (props: any) => {
 								<p>Време за готвене:</p>
 								<ToggleButtonGroup
 									type="checkbox"
-									// defaultValue={["30"]}
+									defaultValue={fCookingTime}
 									className="custom-toggle-btn"
 								>
 									{cookingTime.map((item: any) => (
@@ -217,7 +214,7 @@ export const SearchAdvanced = (props: any) => {
 							<p>Трудност:</p>
 							<ToggleButtonGroup
 								type="checkbox"
-								// defaultValue={["medium"]}
+								defaultValue={fSkillLevel}
 								className="custom-toggle-btn"
 							>
 								{skillLevel.map((item: any) => (
@@ -239,7 +236,7 @@ export const SearchAdvanced = (props: any) => {
 							<p>Специална диета:</p>
 							<ToggleButtonGroup
 								type="checkbox"
-								defaultValue={["30"]}
+								//defaultValue={fSkillLevel}
 								className="custom-toggle-btn"
 							>
 								{specialDiet.map((item: any) => (
