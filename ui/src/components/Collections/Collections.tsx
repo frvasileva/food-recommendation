@@ -22,14 +22,17 @@ export const Collections = (props: any) => {
 			<div className="container">
 				<div className="row">
 					{collections.map((collection: any) => (
-						<div key={collection.name} className="col-md-3 col-sm-6 collection-item-wrapper">
+						<div
+							key={collection.name}
+							className="col-md-3 col-sm-6 collection-item-wrapper"
+						>
 							<h2>
 								<Link to={`/collection/${collection.friendlyUrl}`}>
 									{collection.name}
 								</Link>
 							</h2>
 							{collection.recipes.map((recipe: any) => (
-								<Link to={`/recipe/${recipe.id}`}>
+								<Link to={`/recipe/${recipe.friendlyUrl}`}>
 									<span className="recipe-link">{recipe.name}</span>
 								</Link>
 							))}
