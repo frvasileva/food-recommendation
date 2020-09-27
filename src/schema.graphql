@@ -176,7 +176,7 @@ input CreateSessionInput {
 	userId: String!
 }
 input SetSearchInputInput {
-	userId: String!
+	userId: String
 	term: String!
 }
 
@@ -389,11 +389,11 @@ type Mutation {
 	createSearchTerm(input: SetSearchInputInput): SearchTerm
 	@cypher(
 		statement: """
-		CREATE (s:SearchedTerm{createdOn:datetime(), term: $input.term})
-		WITH s
-		MATCH (u:User{id:$input.userId})
-		CREATE (u)-[rel:TERM_SEARCHED]->(s)
-		RETURN s
+		CREATE (term:SearchedTerm{createdOn:datetime(), term: $input.term})
+		WITH term
+		MATCH (user:User{id:$input.userId})
+		MERGE (user)-[rel:TERM_SEARCHED]->(term)
+		RETURN term
 		"""
 	)
 
