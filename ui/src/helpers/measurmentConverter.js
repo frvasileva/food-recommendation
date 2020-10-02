@@ -1,5 +1,6 @@
 var measurmentConverter = function () {
 	const convertEnumToText = (value) => {
+	
 		if (value === null || value === undefined || value === "") {
 			return "";
 		}

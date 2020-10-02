@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 
 import "./RecipeDetails.scss";
@@ -16,14 +16,14 @@ export const RecipeDetails = (props: any) => {
 	const { loading, error, data } = useQuery(RECIPE_BY_ID_QUERY, {
 		variables: {
 			friendlyUrl: props.match.params.friendlyUrl,
-			limit: 3
+			limit: 3,
 		},
 	});
 
 	var recipe: any = null;
-	// useEffect(() => {
-	// 	if (recipe !== null) document.title = recipe.name;
-	// });
+	useEffect(() => {
+		if (recipe !== null) document.title = recipe.name;
+	});
 
 	if (loading) return <LoadingScreen />;
 	if (error) return <ErrorScreen error={error} />;
@@ -32,12 +32,8 @@ export const RecipeDetails = (props: any) => {
 	const randomRecipeList = data.RecipeRandomList;
 
 	let url: string;
-	if (recipe.imagePath === null) {
-		url = "https://source.unsplash.com/500x300/?" + recipe.name;
-	} else {
-		url = recipe.imagePath;
-		url = url.replace("/upload", "/upload/w_1000,c_scale");
-	}
+	url = recipe.imagePath;
+	url = url.replace("/upload", "/upload/w_600,c_mfit");
 
 	var levelLabel: String = "";
 	switch (recipe.skillLevel) {
@@ -60,7 +56,7 @@ export const RecipeDetails = (props: any) => {
 		<div>
 			<div className="container">
 				<div className="row">
-					<div className="col-md-12">
+					<div className="col-md-8">
 						<div className="recipe-details recipe-wrapper">
 							<h1 className="recipe-title">{recipe.name}</h1>
 							<div className="img-wrapper">
@@ -68,7 +64,12 @@ export const RecipeDetails = (props: any) => {
 									<UserCollectionSelector recipeId={recipe.id} />
 								) : null}
 
-								<img src={url} className="img-fluid" width="100%" alt={recipe.name}></img>
+								<img
+									src={url}
+									className="img-fluid"
+									width="100%"
+									alt={recipe.name}
+								></img>
 
 								<div className="recipe-cooking-details">
 									<div className="description-item skill-level">

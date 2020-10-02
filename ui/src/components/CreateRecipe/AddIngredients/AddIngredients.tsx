@@ -33,7 +33,7 @@ export const AddIngredients = (props: any) => {
 					{
 						name: { value: "", error: "" },
 						quantity: { value: "", error: "" },
-						quantityType: { value: "", error: "" },
+						quantityType: { value: "number", error: "" },
 					},
 				],
 			},

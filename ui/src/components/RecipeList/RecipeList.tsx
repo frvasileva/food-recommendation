@@ -17,7 +17,6 @@ export const RecipeList = () => {
 	const searchParams = new URLSearchParams(location.search);
 
 	var searchTerm = searchParams.get("term") ?? "";
-	console.log(searchTerm);
 	var isSearchByTerm = searchTerm !== "";
 	console.log("isSearchByTerm", isSearchByTerm);
 
@@ -46,7 +45,7 @@ export const RecipeList = () => {
 		sSkillLevel = fSkillLevel.split(",") || [];
 	}
 
-	const query = useQuery(RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY, {
+	const query_by_term = useQuery(RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY, {
 		variables: {
 			term: searchTerm,
 			ingredients: searchIngredientsArray,
@@ -58,7 +57,7 @@ export const RecipeList = () => {
 		},
 		skip: !isSearchByTerm,
 	});
-	const query2 = useQuery(RECIPE_BY_INGREDIENTS_QUERY, {
+	const query_by_filter = useQuery(RECIPE_BY_INGREDIENTS_QUERY, {
 		variables: {
 			ingredients: searchIngredientsArray,
 			preparationTimeRange: sPrepTimeRange,
@@ -70,45 +69,60 @@ export const RecipeList = () => {
 		skip: isSearchByTerm,
 	});
 
-	// const scrollElement = (e: any) => {
-	// 	var scroll = document.documentElement;
-	// 	if (scroll.scrollTop + scroll.clientHeight >= scroll.scrollHeight) {
-	// 		query.fetchMore({
-	// 			variables: {
-	// 				skip: query.data.recipeList.length,
-	// 			},
-	// 			updateQuery: (prev: any, { fetchMoreResult, ...rest }) => {
-	// 				if (!fetchMoreResult) return prev;
-	// 				query.variables.skip = query.variables.skip + 10;
-	// 				return {
-	// 					recipeList: [...prev.recipeList, ...fetchMoreResult.recipeList],
-	// 				};
-	// 			},
-	// 		});
-	// 	}
-	// };
+	const scrollElement = (e: any) => {
+		var scroll = document.documentElement;
+		if (scroll.scrollTop + scroll.clientHeight >= scroll.scrollHeight) {
+			if (isSearchByTerm) {
+				query_by_term.fetchMore({
+					variables: {
+						skip: query_by_term.data.recipeList.length,
+					},
+					updateQuery: (prev: any, { fetchMoreResult, ...rest }) => {
+						if (!fetchMoreResult) return prev;
+						query_by_term.variables.skip = query_by_term.variables.skip + 10;
+						return {
+							recipeList: [...prev.recipeList, ...fetchMoreResult.recipeList],
+						};
+					},
+				});
+			} else {
+				query_by_filter.fetchMore({
+					variables: {
+						skip: query_by_filter.data.recipeList.length,
+					},
+					updateQuery: (prev: any, { fetchMoreResult, ...rest }) => {
+						if (!fetchMoreResult) return prev;
+						query_by_filter.variables.skip =
+							query_by_filter.variables.skip + 10;
+						return {
+							recipeList: [...prev.recipeList, ...fetchMoreResult.recipeList],
+						};
+					},
+				});
+			}
+		}
+	};
 
-	// React.useEffect(() => {
-	// 	window.addEventListener("scroll", scrollElement);
-	// 	return () => {
-	// 		window.removeEventListener("scroll", scrollElement);
-	// 	};
-	// });
+	React.useEffect(() => {
+		window.addEventListener("scroll", scrollElement);
+		return () => {
+			window.removeEventListener("scroll", scrollElement);
+		};
+	});
 
-	if (query.loading || query2.loading) return <LoadingScreen />;
-	if (query.error || query2.error) return <ErrorScreen error={query.error} />;
+	if (query_by_term.loading || query_by_filter.loading)
+		return <LoadingScreen />;
+	if (query_by_term.error || query_by_filter.error)
+		return <ErrorScreen error={query_by_term.error} />;
 
-	console.log("111", query.data);
-	console.log("222", query2.data);
+	console.log("query_by_term", query_by_term.data);
+	console.log("query_by_filter", query_by_filter.data);
 
 	var recipes = [];
-	var queryListLenght = 0;
-	if (query.data !== undefined) {
-		recipes = query.data.recipeList;
-		queryListLenght = query.data.recipeList.length;
-	} else if (query2.data !== undefined) {
-		recipes = query2.data.recipeList;
-		queryListLenght = query2.data.recipeList.length;
+	if (isSearchByTerm) {
+		recipes = query_by_term.data.recipeList;
+	} else {
+		recipes = query_by_filter.data.recipeList;
 	}
 
 	console.log(recipes);
@@ -127,7 +141,10 @@ export const RecipeList = () => {
 			<div className="container search-result-wrapper">
 				<div className="row recipe-wrapper">
 					{recipes.map((recipe: any) => (
-						<div key={recipe.name} className="col-md-4 col-sm-6">
+						<div
+							key={recipe.name}
+							className="col-lg-3 col-md-4 col-sm-6 col-12"
+						>
 							<RecipeTile {...recipe}></RecipeTile>
 						</div>
 					))}

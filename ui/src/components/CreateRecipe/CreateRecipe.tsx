@@ -20,7 +20,7 @@ export const CreateRecipe = () => {
 				{
 					name: { value: "", error: "" },
 					quantity: { value: "", error: "" },
-					quantityType: { value: "kg", error: "" },
+					quantityType: { value: "number", error: "" },
 				},
 			],
 			error: "",
@@ -59,8 +59,6 @@ export const CreateRecipe = () => {
 	};
 
 	const handleChange = (e: any) => {
-		console.log("handleChange", e);
-		console.log("handleChange", e.target.value);
 		const { name, value } = e.target;
 		let error = "";
 		switch (name) {
@@ -103,7 +101,6 @@ export const CreateRecipe = () => {
 		var currentUserId = token.userId();
 
 		if (validateForm()) {
-			console.log("fields", fields);
 			createRecipe({
 				variables: {
 					input: {

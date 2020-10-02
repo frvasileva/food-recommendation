@@ -7,14 +7,16 @@ import tokenHelper from "../../helpers/tokenHelper";
 export const RecipeTile = (props: any) => {
 	var token = tokenHelper();
 	var isLoggedIn = token.isLoggedIn();
-	let url: string;
 
-	if (props.imagePath === null) {
-		url = "https://source.unsplash.com/500x300/?" + props.name;
-	} else {
-		url = props.imagePath;
-		url = url.replace("/upload", "/upload/w_600,c_scale");
-	}
+	let url_pure: string;
+	let url: string;
+	let url_small: string;
+	let url_medium: string;
+
+	url_pure = props.imagePath;
+	url = url_pure.replace("/upload", "/upload/w_600,c_scale");
+	url_small = url_pure.replace("/upload", "/upload/w_500,c_scale");
+	url_medium = url_pure.replace("/upload", "/upload/h_200,c_scale");
 
 	var levelLabel: String = "";
 	switch (props.skillLevel) {
@@ -40,7 +42,13 @@ export const RecipeTile = (props: any) => {
 					) : null}
 					<div className="img-wrapper">
 						<Link to={`/recipe/${props.friendlyUrl}`}>
-							<img className="card-img-top" src={url} alt={props.name} />
+							<picture>
+								<source media="(min-width:650px)" srcSet={url_medium} />
+								<source media="(max-width:560px)" srcSet={url_small} />
+								<img src={url} alt={props.name} />
+							</picture>
+
+							{/* <img className="card-img-top" src={url} alt={props.name} /> */}
 							<div className="recipe-link">{props.name}</div>
 						</Link>
 					</div>
