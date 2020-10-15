@@ -56,7 +56,7 @@ export const RecipeDetails = (props: any) => {
 		<div>
 			<div className="container">
 				<div className="row">
-					<div className="col-md-8">
+					<div className="col-md-9">
 						<div className="recipe-details recipe-wrapper">
 							<h1 className="recipe-title">{recipe.name}</h1>
 							<div className="img-wrapper">
@@ -165,7 +165,7 @@ export const RecipeDetails = (props: any) => {
 					</div>
 					<div className="row">
 						{randomRecipeList.map((recipe: any) => (
-							<div key={recipe.name} className="col-md-4 col-sm-6">
+							<div key={recipe.name} className="col-md-3 col-sm-6">
 								<RecipeTile {...recipe}></RecipeTile>
 							</div>
 						))}

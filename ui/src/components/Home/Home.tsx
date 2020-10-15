@@ -70,7 +70,7 @@ export const Home = (props: any) => {
 				</div>
 				<div className="row recipe-wrapper">
 					{newestRecipes.map((recipe: any) => (
-						<div key={recipe.name} className="col-md-4 col-sm-6">
+						<div key={recipe.name} className="col-md-3 col-sm-6">
 							<RecipeTile {...recipe}></RecipeTile>
 						</div>
 					))}

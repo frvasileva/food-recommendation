@@ -215,6 +215,8 @@ export const RECIPE_LIST_QUERY = gql`
 	}
 	${fragments.recipeTile}
 `;
+
+// VAR 1
 export const RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY = gql`
 	query(
 		$term: String
@@ -241,6 +243,8 @@ export const RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY = gql`
 	}
 	${fragments.recipeTile}
 `;
+
+// VAR 2
 export const RECIPE_BY_INGREDIENTS_QUERY = gql`
 	query(
 		$ingredients: [String]
@@ -331,7 +335,7 @@ export const GET_COLLECTION_DETAILS = gql`
 
 export const GET_COLLECTIONS = gql`
 	query collections {
-		collections: Collection(first: 32) {
+		collections: Collection(first: 32, filter:{recipes_none:{name:""}}){
 			name
 			friendlyUrl
 			recipes(first: 3, orderBy: ratings_desc) {
