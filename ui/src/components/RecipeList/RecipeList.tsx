@@ -3,10 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import "./RecipeList.scss";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
 import { Search } from "../Search/Search";
-import {
-	RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY,
-	RECIPE_BY_INGREDIENTS_QUERY,
-} from "../../helpers/queries";
+import { RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY } from "../../helpers/queries";
 import LoadingScreen from "../../layout/Loading/Loading";
 import ErrorScreen from "../../layout/ErrorPage/Error";
 import { useLocation } from "react-router-dom";
@@ -16,9 +13,7 @@ export const RecipeList = () => {
 	const location = useLocation();
 	const searchParams = new URLSearchParams(location.search);
 
-	var searchTerm = searchParams.get("term") ?? "";
-	var isSearchByTerm = searchTerm !== "";
-	console.log("isSearchByTerm", isSearchByTerm);
+	var searchTerm = searchParams.get("term") ?? "картоф";
 
 	var searchedIngredients = searchParams.get("ingredients") ?? "";
 	var searchIngredientsArray: string[] = [];
@@ -45,7 +40,7 @@ export const RecipeList = () => {
 		sSkillLevel = fSkillLevel.split(",") || [];
 	}
 
-	const query_by_term = useQuery(RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY, {
+	const query = useQuery(RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY, {
 		variables: {
 			term: searchTerm,
 			ingredients: searchIngredientsArray,
@@ -55,51 +50,23 @@ export const RecipeList = () => {
 			skip: 0,
 			limit: LIMIT_QUERY_RESULT,
 		},
-		skip: !isSearchByTerm,
-	});
-	const query_by_filter = useQuery(RECIPE_BY_INGREDIENTS_QUERY, {
-		variables: {
-			ingredients: searchIngredientsArray,
-			preparationTimeRange: sPrepTimeRange,
-			cookingTimeRange: sCookingTimeRange,
-			skillLevel: sSkillLevel,
-			skip: 0,
-			limit: LIMIT_QUERY_RESULT,
-		},
-		skip: isSearchByTerm,
 	});
 
 	const scrollElement = (e: any) => {
 		var scroll = document.documentElement;
 		if (scroll.scrollTop + scroll.clientHeight >= scroll.scrollHeight) {
-			if (isSearchByTerm) {
-				query_by_term.fetchMore({
-					variables: {
-						skip: query_by_term.data.recipeList.length,
-					},
-					updateQuery: (prev: any, { fetchMoreResult, ...rest }) => {
-						if (!fetchMoreResult) return prev;
-						query_by_term.variables.skip = query_by_term.variables.skip + 10;
-						return {
-							recipeList: [...prev.recipeList, ...fetchMoreResult.recipeList],
-						};
-					},
-				});
-			} else {
-				query_by_filter.fetchMore({
-					variables: {
-						skip: query_by_filter.data.recipeList.length,
-					},
-					updateQuery: (prev: any, { fetchMoreResult, ...rest }) => {
-						if (!fetchMoreResult) return prev;
-						query_by_filter.variables.skip =
-							query_by_filter.variables.skip + 10;
-						return {
-							recipeList: [...prev.recipeList, ...fetchMoreResult.recipeList],
-						};
-					},
-				});
-			}
+			query.fetchMore({
+				variables: {
+					skip: query.data.recipeList.length,
+				},
+				updateQuery: (prev: any, { fetchMoreResult, ...rest }) => {
+					if (!fetchMoreResult) return prev;
+					query.variables.skip = query.variables.skip + 10;
+					return {
+						recipeList: [...prev.recipeList, ...fetchMoreResult.recipeList],
+					};
+				},
+			});
 		}
 	};
 
@@ -110,21 +77,11 @@ export const RecipeList = () => {
 		};
 	});
 
-	if (query_by_term.loading || query_by_filter.loading)
-		return <LoadingScreen />;
-	if (query_by_term.error || query_by_filter.error)
-		return <ErrorScreen error={query_by_term.error} />;
+	if (query.loading) return <LoadingScreen />;
+	if (query.error) return <ErrorScreen error={query.error} />;
 
-	console.log("query_by_term", query_by_term.data);
-	console.log("query_by_filter", query_by_filter.data);
 
-	var recipes = [];
-	if (isSearchByTerm) {
-		recipes = query_by_term.data.recipeList;
-	} else {
-		recipes = query_by_filter.data.recipeList;
-	}
-
+	var recipes = query.data.recipeList;
 	console.log(recipes);
 
 	return (
