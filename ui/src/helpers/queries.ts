@@ -315,6 +315,15 @@ export const HOME_PAGE_DATA_QUERY = gql`
 
 	${fragments.recipeTile}
 `;
+export const GET_NEWEST_RECIPES = gql`
+	query {
+		newestRecipes: getNewestRecipes(first: 16) {
+			...RecipeTile
+		}
+	}
+
+	${fragments.recipeTile}
+`;
 
 export const GET_COLLECTION_DETAILS = gql`
 	query collectionDetails($friendlyUrl: String, $skip: Int) {

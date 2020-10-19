@@ -3,7 +3,10 @@ import { useQuery } from "@apollo/react-hooks";
 import "./RecipeList.scss";
 import { RecipeTile } from "../RecipeTile/RecipeTile";
 import { Search } from "../Search/Search";
-import { RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY } from "../../helpers/queries";
+import {
+	GET_NEWEST_RECIPES,
+	RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY,
+} from "../../helpers/queries";
 import LoadingScreen from "../../layout/Loading/Loading";
 import ErrorScreen from "../../layout/ErrorPage/Error";
 import { useLocation } from "react-router-dom";
@@ -13,7 +16,8 @@ export const RecipeList = () => {
 	const location = useLocation();
 	const searchParams = new URLSearchParams(location.search);
 
-	var searchTerm = searchParams.get("term") ?? "картоф";
+	var searchTerm = searchParams.get("term") ?? "";
+	var isSearchByTerm = searchTerm === "";
 
 	var searchedIngredients = searchParams.get("ingredients") ?? "";
 	var searchIngredientsArray: string[] = [];
@@ -50,6 +54,11 @@ export const RecipeList = () => {
 			skip: 0,
 			limit: LIMIT_QUERY_RESULT,
 		},
+		skip: isSearchByTerm,
+	});
+
+	const newestRecipes = useQuery(GET_NEWEST_RECIPES, {
+		skip: !isSearchByTerm,
 	});
 
 	const scrollElement = (e: any) => {
@@ -77,12 +86,13 @@ export const RecipeList = () => {
 		};
 	});
 
-	if (query.loading) return <LoadingScreen />;
-	if (query.error) return <ErrorScreen error={query.error} />;
+	if (query.loading || newestRecipes.loading) return <LoadingScreen />;
+	if (query.error || newestRecipes.error)
+		return <ErrorScreen error={query.error} />;
 
-
-	var recipes = query.data.recipeList;
-	console.log(recipes);
+	var recipes = !isSearchByTerm
+		? query.data.recipeList
+		: newestRecipes.data.newestRecipes;
 
 	return (
 		<div>
@@ -96,6 +106,16 @@ export const RecipeList = () => {
 				</div>
 			</div>
 			<div className="container search-result-wrapper">
+				<div className="row">
+					<div className="col-md">
+						{isSearchByTerm && <h2>Най-нови рецепти:</h2>}
+						{!isSearchByTerm && (
+							<h2>
+								Резултати за <strong>{searchTerm}</strong>:
+							</h2>
+						)}
+					</div>
+				</div>
 				<div className="row recipe-wrapper">
 					{recipes.map((recipe: any) => (
 						<div
