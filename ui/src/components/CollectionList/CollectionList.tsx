@@ -65,12 +65,12 @@ export const CollectionList = (props: any) => {
 			<div className="container">
 				<div className="row">
 					<div className="col-md">
-						<h1>{collectionName} collection</h1>
+						<h1>Колекция {collectionName}</h1>
 					</div>
 				</div>
 				<div className="row">
 					{collectionRecipes.map((recipe: any) => (
-						<div key={recipe.name} className="col-md-4">
+						<div key={recipe.name} className="col-md-3">
 							<RecipeTile {...recipe}></RecipeTile>
 						</div>
 					))}

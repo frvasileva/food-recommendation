@@ -2,19 +2,12 @@
 	margin: 15px auto;
 	position: relative;
 	border-radius: 3px;
-
-	// .collection-wrapper {
-	// 	display: none;
-	// }
+	border: 1px solid #bdb7b7;
 
 	&:hover {
 		box-shadow: 1px 2px 7px #bdbdbd;
 		transition: 0.2s;
 	}
-
-	// &:hover .collection-wrapper {
-	// 	display: block;
-	// }
 
 	& .recipe-item-details {
 		text-align: center;
@@ -31,14 +24,12 @@
 		}
 	}
 
-	.recipe-item-details:nth-child(2n) {
+	.recipe-item-details:nth-child(2n+1) {
 		border-right: 1px solid #afac9b;
-		border-left: 1px solid #afac9b;
 	}
 
 	.card-body {
 		padding: 10px 6px;
-		background-color: #efecec;
 	}
 
 	.recipe-link {

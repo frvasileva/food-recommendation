@@ -54,11 +54,11 @@ export const RecipeTile = (props: any) => {
 					</div>
 					<div className="card-body">
 						<div className="row">
-							<div className="col-4 recipe-item-details">
+							{/* <div className="col-4 recipe-item-details">
 								<i className="fas fa-hard-hat"></i>
 								<div className="cooking-level">{levelLabel}</div>
-							</div>
-							<div className="col-4 recipe-item-details">
+							</div> */}
+							<div className="col-6 recipe-item-details">
 								<div className="time-info">
 									<i className="far fa-clock"></i>
 									{props.preparationTime}
@@ -67,7 +67,7 @@ export const RecipeTile = (props: any) => {
 									<span className="label-info">приготвяне</span>
 								</div>
 							</div>
-							<div className="col-4 recipe-item-details">
+							<div className="col-6 recipe-item-details">
 								<div className="time-info">
 									<i className="fas fa-hard-hat"></i>
 
