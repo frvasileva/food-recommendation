@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./CreateRecipe.scss";
 import { useMutation } from "@apollo/react-hooks";
 import urlTransformer from "../../helpers/urlTransformer";
@@ -154,6 +154,10 @@ export const CreateRecipe = () => {
 	const handleEditorChange = (value) => {
 		fields.description.value = value;
 	};
+
+	useEffect(() => {
+		document.title = "Добави рецепта";
+	});
 
 	return (
 		<div className="container create-recipe-wrapper">

@@ -38,19 +38,12 @@ export const RecipeList = () => {
 		sCookingTimeRange = fCookingTimeRange.split(",").map(Number) || [];
 	}
 
-	var sSkillLevel: string[] = [];
-	var fSkillLevel = searchParams.get("skillLevel");
-	if (fSkillLevel !== null) {
-		sSkillLevel = fSkillLevel.split(",") || [];
-	}
-
 	const query = useQuery(RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY, {
 		variables: {
 			term: searchTerm,
 			ingredients: searchIngredientsArray,
 			preparationTimeRange: sPrepTimeRange,
 			cookingTimeRange: sCookingTimeRange,
-			skillLevel: sSkillLevel,
 			skip: 0,
 			limit: LIMIT_QUERY_RESULT,
 		},

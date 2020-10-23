@@ -223,7 +223,6 @@ export const RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY = gql`
 		$ingredients: [String]
 		$preparationTimeRange: [Int]
 		$cookingTimeRange: [Int]
-		$skillLevel: [String]
 		$skip: Int
 		$limit: Int
 	) {
@@ -232,7 +231,6 @@ export const RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY = gql`
 			ingredients: $ingredients
 			preparationTimeRange: $preparationTimeRange
 			cookingTimeRange: $cookingTimeRange
-			skillLevel: $skillLevel
 			skip: $skip
 			limit: $limit
 			offset:$skip

@@ -23,15 +23,10 @@ export const SearchAdvanced = (props: any) => {
 		searchParams.get("prepTime")?.split(",") ?? ([] as String[]);
 	var paramCookingTime =
 		searchParams.get("cookingTime")?.split(",") ?? ([] as String[]);
-	var paramSkillLevel =
-		searchParams.get("skillLevel")?.split(",") ?? ([] as String[]);
-
 	const [show, setShow] = useState(false);
 	const [fIngredients, setSelectedIngredients] = useState(paramIngredients);
 	const [fPreparationTime, setPreparationTime] = useState(paramPrepTime);
 	const [fCookingTime, setCookingTime] = useState(paramCookingTime);
-	const [fSkillLevel, setSkillLevel] = useState(paramSkillLevel);
-
 	const query = useQuery(TOP_INGREDIENTS_QUERY);
 	if (query.loading) return null;
 	if (query.error) return <ErrorScreen error={query.error} />;
@@ -62,15 +57,6 @@ export const SearchAdvanced = (props: any) => {
 			setCookingTime([...fCookingTime, e.target.value]);
 		}
 	};
-	const setLevel = (e: any) => {
-		console.log("setLevel");
-		if (e.target.type !== "checkbox") return;
-		if (fSkillLevel.includes(e.target.value)) {
-			setSkillLevel(fSkillLevel.filter((i) => i !== e.target.value));
-		} else {
-			setSkillLevel([...fSkillLevel, e.target.value]);
-		}
-	};
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -89,11 +75,6 @@ export const SearchAdvanced = (props: any) => {
 			param = param + url;
 		}
 
-		if (fSkillLevel.length !== 0) {
-			let url = "&skillLevel=" + fSkillLevel.join(",");
-			param = param + url;
-		}
-
 		setShow(false);
 
 		props.advancedFilterSubmitted(param);
@@ -108,11 +89,6 @@ export const SearchAdvanced = (props: any) => {
 		{ label: "15 мин", value: "15" },
 		{ label: "30 мин", value: "30" },
 		{ label: "60 мин", value: "60" },
-	];
-	const skillLevel = [
-		{ label: "Лесно", value: "Easy" },
-		{ label: "Средно", value: "Medium" },
-		{ label: "Трудно", value: "Hard" },
 	];
 	const specialDiet = [
 		{ label: "Безмлечна", value: "diary-free" },
@@ -207,28 +183,6 @@ export const SearchAdvanced = (props: any) => {
 									))}
 								</ToggleButtonGroup>
 							</div>
-						</div>
-					</div>
-					<div className="row">
-						<div className="col-md-12">
-							<p>Трудност:</p>
-							<ToggleButtonGroup
-								type="checkbox"
-								defaultValue={fSkillLevel}
-								className="custom-toggle-btn"
-							>
-								{skillLevel.map((item: any) => (
-									<ToggleButton
-										value={item.value}
-										variant="outline-info"
-										className="custom-btn"
-										onClick={setLevel}
-										key={item.value}
-									>
-										{item.label}
-									</ToggleButton>
-								))}
-							</ToggleButtonGroup>
 						</div>
 					</div>
 					<div className="row">

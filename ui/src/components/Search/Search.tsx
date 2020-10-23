@@ -10,10 +10,16 @@ import { useHistory, Link } from "react-router-dom";
 import { SearchAdvanced } from "./SearchAdvanced/SearchAdvanced";
 import LoadingScreen from "../../layout/Loading/Loading";
 import ErrorScreen from "../../layout/ErrorPage/Error";
+import { useLocation } from "react-router-dom";
 
 export const Search = (props: any) => {
 	const history = useHistory();
-	const [term, setTerm] = React.useState(props.term || "");
+	const location = useLocation();
+
+	const searchParams = new URLSearchParams(location.search);
+	var searchTerm = searchParams.get("term") ?? "";
+
+	const [term, setTerm] = React.useState(props.term || searchTerm);
 	const [isSearchValid, setisSearchValid] = React.useState(true);
 	const [isSearchDone, setSearchIsDone] = React.useState(false);
 
@@ -53,6 +59,7 @@ export const Search = (props: any) => {
 	};
 
 	const advancedFilterSubmitted = (args) => {
+		console.log("args ", args);
 		if (term !== "") {
 			history.push(`/recipes?term=${term}` + args);
 		} else {

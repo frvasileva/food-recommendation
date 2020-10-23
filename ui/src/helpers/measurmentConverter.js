@@ -18,6 +18,8 @@ var measurmentConverter = function () {
 				return "мл.";
 			case "g":
 				return "гр.";
+			case "kg":
+				return "кг.";
 			case "mm":
 				return "мм";
 			case "cm":

@@ -63,13 +63,12 @@ export default function AddIngredientItem(props: AddIngredientItemProps) {
 							value={selectedOption}
 							onChange={handleChange}
 						>
+							<option value="g">g</option>
 							<option value="number">Number</option>
+							<option value="kg">kg</option>
 							<option value="teaspoon">Teaspoon</option>
 							<option value="tablespoon">Tablespoon</option>
 							<option value="cup">Cup</option>
-							<option value="ml">ml</option>
-							<option value="ml">ml</option>
-							<option value="g">g</option>
 							<option value="mm">mm</option>
 							<option value="cm">cm</option>
 						</select>

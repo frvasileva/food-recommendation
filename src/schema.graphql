@@ -249,7 +249,6 @@ type Query {
 		ingredients: [String]
 		preparationTimeRange: [Int]
 		cookingTimeRange: [Int]
-		skillLevel: [String]
 		skip: Int
 		limit: Int
 	): [Recipe]
@@ -262,9 +261,7 @@ type Query {
 			WHERE node.preparationTime in $preparationTimeRange
 			OPTIONAL MATCH (node)
 			WHERE node.cookingTime in $cookingTimeRange
-			OPTIONAL MATCH (node)
-			WHERE node.skillLevel in $skillLevel
-			RETURN node
+		    RETURN node
 			ORDER BY score desc, node.ratings desc, node.preparationTime desc, node.cookingTime desc
 			"""
 		)
