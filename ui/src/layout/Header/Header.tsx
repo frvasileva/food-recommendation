@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 
 import "./Header.scss";
 import { useMainContext } from "../../helpers/mainContext";
+import { NotificationItem } from "../../components/Notifications/NotificationItem";
+import { NotificationList } from "../../components/Notifications/NotificationList";
 
 export const Header = (props: any) => {
 	let history = useHistory();
@@ -80,6 +82,31 @@ export const Header = (props: any) => {
 						) : (
 							<ul className="nav justify-content-end">
 								<li>
+								
+								<div className="dropdown notifications-dropdown">
+										<button
+											className="btn dropdown-toggle"
+											type="button"
+											id="dropdownMenuButton"
+											data-toggle="dropdown"
+											aria-haspopup="true"
+											aria-expanded="false"
+										>
+											{/* <div className="user-avatar"></div> */}
+											<i className="far fa-bell"></i>
+
+											{/* {token.email()} */}
+										</button>
+										<div
+											className="dropdown-menu dropdown-menu-right"
+											aria-labelledby="dropdownMenuButton"
+										>
+
+								<NotificationList/>
+									</div>
+								</div>
+								</li>
+								<li>
 									<div className="dropdown">
 										<button
 											className="btn dropdown-toggle"
@@ -151,6 +178,7 @@ export const Header = (props: any) => {
 										</div>
 									</div>
 								</li>
+								
 							</ul>
 						)}
 					</div>

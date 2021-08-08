@@ -9,12 +9,12 @@ export const RecipeTile = (props: any) => {
 	var isLoggedIn = token.isLoggedIn();
 
 	let url_pure: string;
-	let url: string;
-	let url_small: string;
-	let url_medium: string;
+	let url: string ="";
+	let url_small: string ="";
+	let url_medium: string="";
 
-	url_pure = props.imagePath;
-	url = url_pure.replace("/upload", "/upload/w_600,c_scale");
+	url_pure = `https://source.unsplash.com/200x200?${props.name}`;
+	url =`https://source.unsplash.com/200x200?${props.name}`;
 	url_small = url_pure.replace("/upload", "/upload/w_500,c_scale");
 	url_medium = url_pure.replace("/upload", "/upload/h_200,c_scale");
 

@@ -1,0 +1,12 @@
+@import "../../layout/variables.scss";
+
+.notification-list-wrapper{
+    width: 300px;
+
+    .notification-item{
+        padding: 10px 15px;
+        border-bottom: 1px solid $main-color;
+        font-size: 13px;
+        margin: 0 10px;
+    }
+}

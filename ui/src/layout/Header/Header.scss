@@ -1,3 +1,5 @@
+@import "../variables.scss";
+
 .logo {
 	font-size: 28px;
 }
@@ -15,7 +17,8 @@
 }
 
 .bg-custom {
-	background-color: gold;
+	background-color: $main-color;
+	color: white;
 
 	.dropdown-menu {
 		border-radius: 0;
@@ -45,4 +48,8 @@
 .admin-label:hover{
 	background-color: #c1c1c1;
 	cursor: auto;
+}
+
+.notifications-dropdown{
+	// width: 300px;
 }

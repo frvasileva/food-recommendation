@@ -32,8 +32,9 @@ export const RecipeDetails = (props: any) => {
 	const randomRecipeList = data.RecipeRandomList;
 
 	let url: string;
-	url = recipe.imagePath;
-	url = url.replace("/upload", "/upload/w_600,c_mfit");
+	// url = recipe.imagePath;
+	url = `https://source.unsplash.com/500x300?pasta}`;
+	//url = url.replace("/upload", "/upload/w_600,c_mfit");
 
 	var levelLabel: String = "";
 	switch (recipe.skillLevel) {
