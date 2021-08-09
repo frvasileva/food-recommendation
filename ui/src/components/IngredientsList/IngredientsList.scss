@@ -1,6 +1,8 @@
+@import "../../layout/variables.scss";
+
 .ingredients-list {
 	padding: 10px 15px;
-	background-color: #ffd701;
+	background-color: #FFFD77;
 	width: auto;
 	border-radius: 5px;
 }
@@ -15,15 +17,17 @@
 	text-transform: capitalize;
 
 	&:hover {
-		background-color: #f8f9fa;
+		background-color: #fff7e9;
 		cursor: pointer;
 	}
 
 	&.selected {
-		background-color: #fff1d6;
-
-		& .fa-check-square {
-			color: #5ea23c;
+		background-color: #fff7e9;
+		color: $main-color;
+ 		transition: 0.2s;
+		
+		 & .fa-check-square {
+			// color: $main-color;
 			font-size: 16px;
 		}
 	}

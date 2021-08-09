@@ -1,17 +1,17 @@
+@import "../../layout/variables.scss";
 $top-margin: 40px;
+
 .recipe-details {
 	margin-top: $top-margin;
 
 	article {
 		margin: 30px auto;
 		font-family: "Roboto Slab", serif;
-
-		
 	}
 
 	.recipe-title {
 		font-size: 36px;
-		font-family: 'Roboto Slab', serif;
+		font-family: "Roboto Slab", serif;
 		font-weight: 600;
 	}
 
@@ -27,10 +27,13 @@ $top-margin: 40px;
 		.recipe-cooking-details {
 			position: absolute;
 			bottom: 0;
-			background-color: #d23535;
+			background-color: $cinnabar;
 			right: 0;
 			padding: 5px;
 			color: #fff1d6;
+			width: 140px;
+			text-align: center;
+			font-family: "Roboto Slab", serif;
 		}
 
 		.description-item {
@@ -70,7 +73,7 @@ $top-margin: 40px;
 		width: 30px;
 		height: 30px;
 		border-radius: 20px;
-		background-color: #d23535;
+		background-color: $cinnabar;
 		color: white;
 		margin-right: 10px;
 		padding-top: 4px;

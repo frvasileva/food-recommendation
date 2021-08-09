@@ -59,10 +59,20 @@ export const RecipeDetails = (props: any) => {
 				<div className="row">
 					<div className="col-md-9">
 						<div className="recipe-details recipe-wrapper">
+							<div>
+								<nav aria-label="breadcrumb">
+									<ol className="breadcrumb">
+										<li className="breadcrumb-item"><a href="#">Home</a></li>
+										<li className="breadcrumb-item"><a href="#">Library</a></li>
+										<li className="breadcrumb-item active" aria-current="page">Data</li>
+									</ol>
+								</nav>
+							</div>
 							<h1 className="recipe-title">{recipe.name}</h1>
+
 							<div className="img-wrapper">
 								{isLoggedIn ? (
-									<UserCollectionSelector recipeId={recipe.id} />
+									<UserCollectionSelector recipeId={recipe.id} className="recipe-details-selector" />
 								) : null}
 
 								<img

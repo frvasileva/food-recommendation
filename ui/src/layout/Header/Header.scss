@@ -25,6 +25,10 @@
 	}
 }
 
+.navbar-light .navbar-brand{
+	color: $main-color;
+}
+
 .navbar-light .navbar-nav .nav-link {
 	font-family: "Roboto Slab", serif;
 	font-weight: 800;

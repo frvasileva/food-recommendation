@@ -1,5 +1,12 @@
 @import "../../layout/variables.scss";
 
+.recipe-details .collection-wrapper .header {
+	position: absolute;
+	right: 0;
+	font-size: 50px;
+	color: $highlight-yellow;
+}
+
 .collection-wrapper {
 	z-index: 10;
 	position: relative;
@@ -40,8 +47,11 @@
 		position: absolute;
 		right: 0;
 		font-size: 30px;
-		color: white;
+		color: $highlight-yellow;
 	}
+	
+
+
 
 	.collection-item:hover {
 		background-color: #fff7d6;
@@ -61,7 +71,7 @@
 		font-size: 18px;
 	}
 	.add-collection-btn {
-		background-color: $chinese-red;
+		background-color: $cinnabar;
 		color: white;
 		text-decoration: none;
 		font-size: 12px;
