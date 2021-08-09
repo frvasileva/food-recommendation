@@ -1,6 +1,8 @@
+@import "../../layout/variables.scss";
+
 .email-subscription-wrapper {
 	padding: 60px 0;
-	background-color: #06A561;
+	background-color: $main-color;
 
 	& input {
 		width: 300px;
@@ -12,8 +14,9 @@
 
 	& button {
 		padding: 8px;
-		background-color: black;
-		border: 0px;
+		background-color: #3c3b3b;
+		border-color: #3c3b3b;
+		text-transform: uppercase;		border: 0px;
 		color: white;
 		border-radius: 3px;
 		width: 150px;

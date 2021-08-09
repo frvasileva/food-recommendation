@@ -33,7 +33,7 @@ export const RecipeDetails = (props: any) => {
 
 	let url: string;
 	// url = recipe.imagePath;
-	url = `https://source.unsplash.com/600x400?pasta}`;
+	url = `https://source.unsplash.com/600x300?pasta}`;
 	//url = url.replace("/upload", "/upload/w_600,c_mfit");
 
 	var levelLabel: String = "";
@@ -109,7 +109,7 @@ export const RecipeDetails = (props: any) => {
 												изречения, за да генерират истински Lorem Ipsum пасажи.
 												Оттук следва, че генерираният Lorem Ipsum пасаж не
 												съдържа повторения, смущаващи, нецензурни и всякакви
-												неподходящи думи.
+												неподходящи думи.<br /><br />
 											</div>
 											<h3>Начин на приготвяне:</h3>
 											<div className="recipe-steps-wrapper">

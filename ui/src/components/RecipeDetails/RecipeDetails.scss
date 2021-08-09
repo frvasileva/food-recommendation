@@ -5,11 +5,19 @@ $top-margin: 40px;
 	article {
 		margin: 30px auto;
 		font-family: "Roboto Slab", serif;
+
+		
+	}
+
+	.recipe-title {
+		font-size: 36px;
+		font-family: 'Roboto Slab', serif;
+		font-weight: 600;
 	}
 
 	.img-wrapper {
 		position: relative;
-		margin-top: 50px;
+		margin-top: 20px;
 
 		.collection-wrapper {
 			display: inline;
@@ -62,13 +70,12 @@ $top-margin: 40px;
 		width: 30px;
 		height: 30px;
 		border-radius: 20px;
-		background-color: #3cb6ca;
+		background-color: #d23535;
 		color: white;
 		margin-right: 10px;
 		padding-top: 4px;
 		text-align: center;
 		font-weight: bold;
-		float: left;
 	}
 
 	h3 {

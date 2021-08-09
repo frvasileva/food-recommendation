@@ -18,7 +18,8 @@
 
 .bg-custom {
 	border-bottom: 1px solid #ececec;
-
+    background-color: white;
+	
 	.dropdown-menu {
 		border-radius: 0;
 	}
@@ -29,7 +30,7 @@
 	font-weight: 800;
 	border-bottom: 1px solid transparent;
 	text-transform: uppercase;
-	color: black;recipe-img
+	color: black;
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
