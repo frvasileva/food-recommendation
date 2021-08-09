@@ -101,9 +101,9 @@ export const RecipeList = () => {
 			<div className="container search-result-wrapper">
 				<div className="row">
 					<div className="col-md">
-						{isSearchByTerm && <h2>Най-нови рецепти:</h2>}
+						{isSearchByTerm && <h2 className="section-title">Най-нови рецепти:</h2>}
 						{!isSearchByTerm && (
-							<h2>
+							<h2 className="section-title">
 								Резултати за <strong>{searchTerm}</strong>:
 							</h2>
 						)}

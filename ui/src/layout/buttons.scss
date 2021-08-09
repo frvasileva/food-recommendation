@@ -1,0 +1,11 @@
+@import "./variables";
+
+.btn-main{
+    background-color: $main-color;
+    border-color: $main-color;
+    font-family: "Roboto Slab", serif;
+
+    &:hover{
+        background-color: $main-dark-color;
+    }
+}

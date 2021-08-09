@@ -33,7 +33,7 @@ export const RecipeDetails = (props: any) => {
 
 	let url: string;
 	// url = recipe.imagePath;
-	url = `https://source.unsplash.com/500x300?pasta}`;
+	url = `https://source.unsplash.com/600x400?pasta}`;
 	//url = url.replace("/upload", "/upload/w_600,c_mfit");
 
 	var levelLabel: String = "";

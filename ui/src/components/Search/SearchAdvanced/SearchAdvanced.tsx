@@ -211,7 +211,7 @@ export const SearchAdvanced = (props: any) => {
 					<Button variant="outline-secondary" onClick={handleClose}>
 						Затвори
 					</Button>
-					<Button variant="dark" onClick={advancedFilterSubmitted}>
+					<Button variant="dark" className="btn-main" onClick={advancedFilterSubmitted}>
 						Запази
 					</Button>
 				</Modal.Footer>

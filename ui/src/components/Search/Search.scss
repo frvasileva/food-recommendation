@@ -1,7 +1,9 @@
+@import "./../../layout/variables.scss";
+@import "./../../layout/buttons.scss";
+
+
 .search-component-wrapper {
-	background-color: #ffd70130;
-	padding: 50px 0 40px !important;
-	margin-top: -20px;
+	margin-top: 60px;
 }
 
 .search-input {
@@ -18,14 +20,14 @@
 }
 
 .search-button {
-	background-color: black;
+	background-color: $main-color;
 	padding: 10px;
 	border: 0px;
 	width: 100%;
 	color: white;
 	text-transform: uppercase;
 	font-weight: bold;
-	font-family: "Noto Sans JP", sans-serif;
+    font-family: "Roboto Slab", serif;
 	border-radius: 3px;
 }
 
