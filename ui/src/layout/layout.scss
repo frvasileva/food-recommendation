@@ -59,5 +59,18 @@ body {
 .section-title {
 	font-size: 24px;
 	font-family: "Roboto Slab", serif;
-font-weight: 600;
+	font-weight: 600;
+}
+
+.breadcrumb {
+	background-color: transparent;
+	padding: 0;
+
+	& a {
+		color: black;
+	}
+
+	.breadcrumb-item + .breadcrumb-item {
+		padding-left: 5px;
+	}
 }
