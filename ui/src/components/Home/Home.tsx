@@ -8,6 +8,7 @@ import { RecipeTile } from "../RecipeTile/RecipeTile";
 import { RecipeOfTheDay } from "./RecipeOfTheDay/RecipeOfTheDay";
 import { Link } from "react-router-dom";
 import { Search } from "../Search/Search";
+import { PreselectedCategories } from "./PreselectedCategories/PreselectedCategories";
 
 export const Home = (props: any) => {
 	const homepageData = useQuery(HOME_PAGE_DATA_QUERY);
@@ -27,6 +28,8 @@ export const Home = (props: any) => {
 
 	return (
 		<div className="container-wrapper home-wrapper">
+
+			<PreselectedCategories />
 			<div className="container">
 				<div className="row">
 					<div className="col-md">
