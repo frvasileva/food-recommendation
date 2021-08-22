@@ -1,7 +1,6 @@
 @import "./../../layout/variables.scss";
 @import "./../../layout/buttons.scss";
 
-
 .search-component-wrapper {
 	margin-top: 60px;
 }
@@ -27,7 +26,7 @@
 	color: white;
 	text-transform: uppercase;
 	font-weight: bold;
-    font-family: "Roboto Slab", serif;
+	font-family: "Roboto Slab", serif;
 	border-radius: 3px;
 }
 
@@ -68,9 +67,24 @@
 		}
 	}
 }
+.header-form {
+	.search-input {
+		width: 280px;
+	}
+	.search-button {
+		width: 45px;
+		margin-left: -46px;
+		z-index: 2;
+
+		.fas,
+		.far {
+			padding: 0;
+		}
+	}
+}
 
 @media only screen and (max-width: 920px) {
-	.search-button{
+	.search-button {
 		margin: 20px auto 10px auto;
 	}
 }

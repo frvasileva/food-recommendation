@@ -6,6 +6,7 @@ import "./Header.scss";
 import { useMainContext } from "../../helpers/mainContext";
 import { NotificationItem } from "../../components/Notifications/NotificationItem";
 import { NotificationList } from "../../components/Notifications/NotificationList";
+import { Search } from "../../components/Search/Search";
 
 export const Header = (props: any) => {
 	let history = useHistory();
@@ -18,14 +19,14 @@ export const Header = (props: any) => {
 
 	const logout = () => {
 		localStorage.removeItem("token");
-		
+
 		setContext({
 			isLoggedIn: false,
 			isAdmin: false,
 			friendlyUrl: "",
 			userRoles: []
 		});
-		
+
 		history.push("/login");
 	};
 
@@ -65,7 +66,11 @@ export const Header = (props: any) => {
 									Колекции
 								</Link>
 							</li>
+
+
 						</ul>
+
+
 						{!isLoggedIn ? (
 							<ul className="nav navbar-nav navbar-right">
 								<li className="nav-item">
@@ -81,9 +86,10 @@ export const Header = (props: any) => {
 							</ul>
 						) : (
 							<ul className="nav justify-content-end">
+								<li><Search isHeader="true" /></li>
 								<li>
-								
-								<div className="dropdown notifications-dropdown">
+
+									<div className="dropdown notifications-dropdown">
 										<button
 											className="btn dropdown-toggle"
 											type="button"
@@ -102,9 +108,9 @@ export const Header = (props: any) => {
 											aria-labelledby="dropdownMenuButton"
 										>
 
-								<NotificationList/>
+											<NotificationList />
+										</div>
 									</div>
-								</div>
 								</li>
 								<li>
 									<div className="dropdown">
@@ -178,7 +184,7 @@ export const Header = (props: any) => {
 										</div>
 									</div>
 								</li>
-								
+
 							</ul>
 						)}
 					</div>

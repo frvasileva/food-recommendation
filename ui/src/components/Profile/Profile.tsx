@@ -20,6 +20,10 @@ export const Profile = (props: any) => {
 	return (
 		<div className="container profile-wrapper">
 			<div className="row">
+				<div className="col-md-6">Profile picture</div>
+				<div className="col-md-6">Profile info</div>
+			</div>
+			<div className="row">
 				<div className="col-md-12">
 					<div className="row user-collections-wrapper">
 						{user.collections.map((collection: any) => (

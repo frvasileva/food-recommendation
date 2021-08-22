@@ -16,6 +16,8 @@ export const Search = (props: any) => {
 	const history = useHistory();
 	const location = useLocation();
 
+	var isHeader = props.isHeader;
+
 	const searchParams = new URLSearchParams(location.search);
 	var searchTerm = searchParams.get("term") ?? "";
 
@@ -69,8 +71,8 @@ export const Search = (props: any) => {
 		setSearchIsDone(true);
 	};
 
-	return (
-		<form onSubmit={submitForm} className="search-form">
+	return (<>
+		{!isHeader && <form onSubmit={submitForm} className="search-form">
 			<div className="row">
 				<div className="col-md-9">
 					<input
@@ -106,5 +108,22 @@ export const Search = (props: any) => {
 				</div>
 			</div>
 		</form>
+		}
+		{isHeader && <form className="form-inline header-form my-2 my-lg-0" onSubmit={submitForm}>
+			<input
+				value={term}
+				onChange={updateTerm}
+				className="search-input"
+				placeholder="Какво да сготвя?"
+				type="search"
+				aria-label="Search"
+			/>
+
+			<button type="submit" className="search-button">
+				<i className="fas fa-search"></i>
+			</button>
+		</form>}
+	</>
+
 	);
 };
