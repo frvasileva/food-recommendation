@@ -6,11 +6,13 @@ import {
 } from "../../helpers/queries";
 import tokenHelper from "../../helpers/tokenHelper";
 import "./Search.scss";
+
 import { useHistory, Link } from "react-router-dom";
 import { SearchAdvanced } from "./SearchAdvanced/SearchAdvanced";
 import LoadingScreen from "../../layout/Loading/Loading";
 import ErrorScreen from "../../layout/ErrorPage/Error";
 import { useLocation } from "react-router-dom";
+import { SearchSuggestions } from "./SearchSuggestions/SearchSuggestions";
 
 export const Search = (props: any) => {
 	const history = useHistory();
@@ -122,6 +124,9 @@ export const Search = (props: any) => {
 			<button type="submit" className="search-button">
 				<i className="fas fa-search"></i>
 			</button>
+			<div className="search-suggestion-wrapper">
+				<SearchSuggestions />
+			</div>
 		</form>}
 	</>
 
