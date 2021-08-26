@@ -9,7 +9,7 @@
 	width: 100%;
 	padding: 10px;
 	border: 1px solid #c1c1c1;
-	font-family: "Noto Sans JP", sans-serif;
+	font-family: "Roboto Slab", serif;
 	border-radius: 3px;
 
 	&:focus,
@@ -97,6 +97,20 @@
 
 .header-form:hover .search-suggestion-wrapper {
 	display: block;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	width: 430px;
+	position: absolute;
+	top: 50px;
+	z-index: 3;
+	background-color: white;
+	border: 1px solid #c1c1c1;
+	padding: 10px;
+	border-radius: 5px;
+	font-family: "Roboto Slab", serif;
 }
 
 @media only screen and (max-width: 920px) {

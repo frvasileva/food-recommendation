@@ -13,6 +13,7 @@ import LoadingScreen from "../../layout/Loading/Loading";
 import ErrorScreen from "../../layout/ErrorPage/Error";
 import { useLocation } from "react-router-dom";
 import { SearchSuggestions } from "./SearchSuggestions/SearchSuggestions";
+import { SearchHistory } from "./SearchHistory/SearchHistory";
 
 export const Search = (props: any) => {
 	const history = useHistory();
@@ -125,6 +126,7 @@ export const Search = (props: any) => {
 				<i className="fas fa-search"></i>
 			</button>
 			<div className="search-suggestion-wrapper">
+				<SearchHistory />
 				<SearchSuggestions />
 			</div>
 		</form>}

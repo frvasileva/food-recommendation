@@ -19,10 +19,18 @@ export const Profile = (props: any) => {
 
 	return (
 		<div className="container profile-wrapper">
-			<div className="row">
-				<div className="col-md-6">Profile picture</div>
-				<div className="col-md-6">Profile info</div>
+			<div className="row profile-tile">
+				<div className="col-md-4">
+					<div>
+						<img className="profile-picture" src="https://scontent.fsof8-1.fna.fbcdn.net/v/t1.6435-9/119881848_10157862619423095_7051783640879694637_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=gGdUibt--LgAX91Ggte&_nc_ht=scontent.fsof8-1.fna&oh=0f9e4ba19c670a720a42ba4f9b3faa6f&oe=6149104A" />
+					</div>
+				</div>
+				<div className="col-md-8"><h1>Fanka Bacheva</h1>
+					<h2>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  </h2>
+					<button className="follow-button">Follow</button>
+				</div>
 			</div>
+			<hr />
 			<div className="row">
 				<div className="col-md-12">
 					<div className="row user-collections-wrapper">
