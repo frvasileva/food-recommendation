@@ -57,6 +57,8 @@ export const Search = (props: any) => {
 					},
 				},
 			});
+			setTerm("");
+
 		} else {
 			setisSearchValid(false);
 			setSearchIsDone(false);
@@ -64,7 +66,6 @@ export const Search = (props: any) => {
 	};
 
 	const advancedFilterSubmitted = (args) => {
-		console.log("args ", args);
 		if (term !== "") {
 			history.push(`/recipes?term=${term}` + args);
 		} else {

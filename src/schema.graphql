@@ -29,6 +29,16 @@ type Recipe {
 
 	collections: [Collection] @relation(name: "RECIPE_ADDED_TO", direction: "OUT")
 	suitableAge: String
+	mainCategory: Category @relation(name:"RECIPE_MAIN_CATEGORY", direction: "OUT")
+}
+
+type Category{
+	id: ID!
+	name: String
+	friendlyUrl: String
+	orderPosition: Int
+	createdOn: DateTime
+	recipes: [Recipe] @relation(name: "RECIPE_MAIN_CATEGORY", direction: "IN")
 }
 
 type recipeMapTuple {
@@ -342,6 +352,16 @@ type Query {
 			RETURN mainProduct
 			"""
 		)
+
+	getUserSearchHistory(userId: String):[SearchTerm]
+		@cypher(
+			statement:"""
+			MATCH (u:User {id: $userId})-[rel:TERM_SEARCHED]-(term:SearchedTerm)
+			return distinct term	
+			order by term.createdOn desc
+			limit 5	
+			"""
+		)
 }
 
 type Mutation {
@@ -387,10 +407,11 @@ type Mutation {
 	createSearchTerm(input: SetSearchInputInput): SearchTerm
 		@cypher(
 			statement: """
-			CREATE (term:SearchedTerm{createdOn:datetime(), term: $input.term})
+			MERGE (term:SearchedTerm{ term: $input.term})
+			ON CREATE SET term.createdOn = datetime()
 			WITH term
 			MATCH (user:User{id:$input.userId})
-			MERGE (user)-[rel:TERM_SEARCHED]->(term)
+			CREATE (user)-[rel:TERM_SEARCHED {createdOn: datetime()}]->(term)
 			RETURN term
 			"""
 		)

@@ -28,7 +28,7 @@ const fragments: any = {
 				name
 				quantity
 				quantityType
-			 }
+			}
 			description
 			skillLevel
 			cookingTime
@@ -56,7 +56,7 @@ const fragments: any = {
 };
 
 export const CREATE_RECIPE_QUERY = gql`
-	mutation($input: CreateRecipeInput) {
+	mutation ($input: CreateRecipeInput) {
 		createRecipe(input: $input) {
 			...RecipeTile
 		}
@@ -65,7 +65,7 @@ export const CREATE_RECIPE_QUERY = gql`
 `;
 
 export const CREATE_COLLECTION_QUERY = gql`
-	mutation($input: CreateCollectionInput) {
+	mutation ($input: CreateCollectionInput) {
 		createCollection(input: $input) {
 			...CollectionTile
 		}
@@ -75,7 +75,7 @@ export const CREATE_COLLECTION_QUERY = gql`
 `;
 
 export const ADD_RECIPE_TO_COLLECTION_QUERY = gql`
-	mutation($input: AddRecipeToCollection) {
+	mutation ($input: AddRecipeToCollection) {
 		addRecipeToACollection(input: $input) {
 			...CollectionTile
 		}
@@ -85,7 +85,7 @@ export const ADD_RECIPE_TO_COLLECTION_QUERY = gql`
 `;
 
 export const REMOVE_RECIPE_TO_COLLECTION_QUERY = gql`
-	mutation($input: AddRecipeToCollection) {
+	mutation ($input: AddRecipeToCollection) {
 		removeRecipeFromCollection(input: $input) {
 			...CollectionTile
 		}
@@ -95,23 +95,23 @@ export const REMOVE_RECIPE_TO_COLLECTION_QUERY = gql`
 `;
 
 export const LOGIN_USER_QUERY = gql`
-	mutation($email: String, $password: String) {
+	mutation ($email: String, $password: String) {
 		loginUser(email: $email, password: $password)
 	}
 `;
 export const LOGIN_FACEBOOK_USER_QUERY = gql`
-	mutation($input: FacebookLoginInput) {
+	mutation ($input: FacebookLoginInput) {
 		loginFacebookUser(input: $input)
 	}
 `;
 
 export const SET_SESSION_QUERY = gql`
-	mutation($input: CreateSessionInput) {
+	mutation ($input: CreateSessionInput) {
 		createUserSession(input: $input)
 	}
 `;
 export const SET_SEARCHED_TERM = gql`
-	mutation($input: SetSearchInputInput) {
+	mutation ($input: SetSearchInputInput) {
 		createSearchTerm(input: $input) {
 			term
 		}
@@ -119,7 +119,7 @@ export const SET_SEARCHED_TERM = gql`
 `;
 
 export const SET_PREDEFINED_SEARCH_CATEGORY = gql`
-	mutation($friendlyUrl: String) {
+	mutation ($friendlyUrl: String) {
 		setPredefinedSearchCategory(friendlyUrl: $friendlyUrl) {
 			name
 		}
@@ -127,13 +127,13 @@ export const SET_PREDEFINED_SEARCH_CATEGORY = gql`
 `;
 
 export const REGISTER_USER_QUERY = gql`
-	mutation($input: RegisterUserInput) {
+	mutation ($input: RegisterUserInput) {
 		registerUser(input: $input)
 	}
 `;
 
 export const SET_RECIPE_OF_THE_DAY = gql`
-	mutation($recipeId: String) {
+	mutation ($recipeId: String) {
 		setRecipeOfTheDay(recipeId: $recipeId) {
 			name
 		}
@@ -159,7 +159,7 @@ export const GET_PREDEFINED_SEARCH_CATEGORY = gql`
 `;
 
 export const USER_COLLECTION_QUERY = gql`
-	query($friendlyUrl: String) {
+	query ($friendlyUrl: String) {
 		User(friendlyUrl: $friendlyUrl) {
 			id
 			email
@@ -172,21 +172,38 @@ export const USER_COLLECTION_QUERY = gql`
 	${fragments.collectionTile}
 	${fragments.recipeTile}
 `;
+
 export const TOP_INGREDIENTS_QUERY = gql`
 	query {
-		topIngredients: getMostPopularIngredients(first: 30, orderBy: orderPosition_desc) {
+		topIngredients: getMostPopularIngredients(
+			first: 30
+			orderBy: orderPosition_desc
+		) {
 			name
 			orderPosition
 		}
 	}
 `;
+export const USER_SEARCH_HISTORY = gql`
+	query ($userId: String) {
+		searchHistory: getUserSearchHistory(userId: $userId) {
+			term
+			createdOn {
+				formatted
+			}
+		}
+	}
+`;
 
 export const RECIPE_BY_ID_QUERY = gql`
-	query($friendlyUrl: String, $limit: Int) {
+	query ($friendlyUrl: String, $limit: Int) {
 		Recipe: Recipe(friendlyUrl: $friendlyUrl) {
 			...RecipeTileDetailed
 		}
-		RecipeRandomList: findSimiliarRecipe(friendlyUrl: $friendlyUrl, limit: $limit) {
+		RecipeRandomList: findSimiliarRecipe(
+			friendlyUrl: $friendlyUrl
+			limit: $limit
+		) {
 			...RecipeTileDetailed
 		}
 	}
@@ -203,7 +220,12 @@ export const NEWEST_RECIPES_QUERY = gql`
 `;
 
 export const RECIPE_LIST_QUERY = gql`
-	query($skip: Int, $limit: Int, $ingredients: [String], $allergens: [String]) {
+	query (
+		$skip: Int
+		$limit: Int
+		$ingredients: [String]
+		$allergens: [String]
+	) {
 		recipeList(
 			skip: $skip
 			limit: $limit
@@ -218,7 +240,7 @@ export const RECIPE_LIST_QUERY = gql`
 
 // VAR 1
 export const RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY = gql`
-	query(
+	query (
 		$term: String
 		$ingredients: [String]
 		$preparationTimeRange: [Int]
@@ -233,8 +255,8 @@ export const RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY = gql`
 			cookingTimeRange: $cookingTimeRange
 			skip: $skip
 			limit: $limit
-			offset:$skip
-			first:$limit
+			offset: $skip
+			first: $limit
 		) {
 			...RecipeTile
 		}
@@ -244,7 +266,7 @@ export const RECIPE_FULL_TEXT_SEARCH_BY_NAME_QUERY = gql`
 
 // VAR 2
 export const RECIPE_BY_INGREDIENTS_QUERY = gql`
-	query(
+	query (
 		$ingredients: [String]
 		$preparationTimeRange: [Int]
 		$cookingTimeRange: [Int]
@@ -259,8 +281,8 @@ export const RECIPE_BY_INGREDIENTS_QUERY = gql`
 			skillLevel: $skillLevel
 			skip: $skip
 			limit: $limit
-			offset:$skip
-			first:$limit
+			offset: $skip
+			first: $limit
 		) {
 			...RecipeTile
 		}
@@ -269,7 +291,7 @@ export const RECIPE_BY_INGREDIENTS_QUERY = gql`
 `;
 
 export const RECIPE_INGREDIENTS_FULLTEXT_QUERY = gql`
-	query($searchTerm: String) {
+	query ($searchTerm: String) {
 		recipeAndProductFullTextSearch(searchTerm: $searchTerm) {
 			__typename
 			... on Recipe {
@@ -342,7 +364,7 @@ export const GET_COLLECTION_DETAILS = gql`
 
 export const GET_COLLECTIONS = gql`
 	query collections {
-		collections: Collection(first: 32, filter:{recipes_none:{name:""}}){
+		collections: Collection(first: 32, filter: { recipes_none: { name: "" } }) {
 			name
 			friendlyUrl
 			recipes(first: 3, orderBy: ratings_desc) {
@@ -355,7 +377,7 @@ export const GET_COLLECTIONS = gql`
 `;
 
 export const SET_MAIN_PRODUCT = gql`
-	mutation($name: String) {
+	mutation ($name: String) {
 		setMainProduct(name: $name) {
 			name
 		}
@@ -363,7 +385,7 @@ export const SET_MAIN_PRODUCT = gql`
 `;
 
 export const REMOVE_MAIN_PRODUCT = gql`
-	mutation($ingredientId: String) {
+	mutation ($ingredientId: String) {
 		deleteMainProduct(ingredientId: $ingredientId) {
 			friendlyUrl
 			name
@@ -373,7 +395,7 @@ export const REMOVE_MAIN_PRODUCT = gql`
 
 export const GET_MAIN_PRODUCTS = gql`
 	query mainProducts {
-		MainProduct{
+		MainProduct {
 			name
 			friendlyUrl
 		}
