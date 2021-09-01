@@ -1,7 +1,7 @@
-import { useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import React from "react";
 import { Link } from "react-router-dom";
-import { USER_SEARCH_HISTORY } from "../../../helpers/queries";
+import { DELETE_SEARCH_HISTORY_TERM, USER_SEARCH_HISTORY } from "../../../helpers/queries";
 import tokenHelper from "../../../helpers/tokenHelper";
 import "./SearchHistory.scss";
 
@@ -16,6 +16,16 @@ export const SearchHistory = (props: any) => {
         },
     });
 
+    const [removeRecipeToCollection] = useMutation(DELETE_SEARCH_HISTORY_TERM);
+
+    const removeItem = function (relationId) {
+        removeRecipeToCollection({
+            variables: {
+                relationId: relationId,
+            },
+        });
+    }
+
     return (<>
         <ul className="search-history-list">
             <p className="header">History:</p>
@@ -24,7 +34,7 @@ export const SearchHistory = (props: any) => {
                     <Link to={"/recipes?term=" + item.term}>
                         {item.term}
                     </Link>
-                    <button className="close-btn"><i className="fa fa-times"></i></button></li>
+                    <button className="close-btn" onClick={() => removeItem(item.relationId)}><i className="fa fa-times"></i></button></li>
             )}
 
         </ul>

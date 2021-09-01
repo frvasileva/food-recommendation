@@ -191,6 +191,7 @@ export const USER_SEARCH_HISTORY = gql`
 			createdOn {
 				formatted
 			}
+			relationId
 		}
 	}
 `;
@@ -389,6 +390,14 @@ export const REMOVE_MAIN_PRODUCT = gql`
 		deleteMainProduct(ingredientId: $ingredientId) {
 			friendlyUrl
 			name
+		}
+	}
+`;
+
+export const DELETE_SEARCH_HISTORY_TERM = gql`
+	mutation ($relationId: ID) {
+		deleteSearchHistoryTerm(relationId: $relationId) {
+			term
 		}
 	}
 `;

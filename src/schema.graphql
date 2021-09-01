@@ -115,6 +115,9 @@ type SearchTerm {
 	user: User! @relation(name: "TERM_SEARCHED", direction: "OUT")
 	createdOn: DateTime
 	term: String!
+	relationId: ID @cypher(
+			statement: "MATCH (user:User)-[rel:TERM_SEARCHED]->(this) RETURN ID(rel)"
+		)
 }
 
 enum Role {
@@ -357,7 +360,7 @@ type Query {
 		@cypher(
 			statement:"""
 			MATCH (u:User {id: $userId})-[rel:TERM_SEARCHED]-(term:SearchedTerm)
-			return distinct term	
+			return distinct term
 			order by term.createdOn desc
 			limit 5	
 			"""
@@ -444,6 +447,7 @@ type Mutation {
 			RETURN n
 			"""
 		)
+
 	setMainProduct(name: String): Recipe
 		@cypher(
 			statement: """
@@ -456,9 +460,18 @@ type Mutation {
 	deleteMainProduct(ingredientId: String): Ingredient
 		@cypher(
 			statement: """
-			match (m:MainProduct{friendlyUrl:$ingredientId})
+			MATCH (m:MainProduct{friendlyUrl:$ingredientId})
 			REMOVE m:MainProduct
 			RETURN m
+			"""
+		)
+
+	deleteSearchHistoryTerm(relationId: ID): SearchTerm
+		@cypher(
+			statement: """
+			MATCH (u:User)-[r:TERM_SEARCHED]->(term:SearchedTerm) WHERE id(r)= $relationId
+			DELETE r
+			RETURN term
 			"""
 		)
 
@@ -475,7 +488,7 @@ type Mutation {
 		@cypher(
 			statement: """
 			MATCH (u:User{email:$email, password: $password})
-			return u
+			RETURN u
 			"""
 		)
 
