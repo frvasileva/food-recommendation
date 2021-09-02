@@ -66,13 +66,12 @@ export const Header = (props: any) => {
 									Колекции
 								</Link>
 							</li>
-
-
 						</ul>
 
 
 						{!isLoggedIn ? (
 							<ul className="nav navbar-nav navbar-right">
+								<li><Search isHeader="true" /></li>
 								<li className="nav-item">
 									<Link to="/Login" className="nav-link">
 										вход

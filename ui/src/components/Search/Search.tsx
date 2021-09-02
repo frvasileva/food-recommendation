@@ -14,10 +14,15 @@ import ErrorScreen from "../../layout/ErrorPage/Error";
 import { useLocation } from "react-router-dom";
 import { SearchSuggestions } from "./SearchSuggestions/SearchSuggestions";
 import { SearchHistory } from "./SearchHistory/SearchHistory";
+import { v4 as uuidv4 } from "uuid";
+import { useMainContext } from "../../helpers/mainContext";
 
 export const Search = (props: any) => {
 	const history = useHistory();
 	const location = useLocation();
+
+	const { context, setContext } = useMainContext();
+	const { isLoggedIn } = context;
 
 	var isHeader = props.isHeader;
 
@@ -54,6 +59,7 @@ export const Search = (props: any) => {
 					input: {
 						userId: token.userId(),
 						term: term,
+						relId: uuidv4()
 					},
 				},
 			});
@@ -127,7 +133,8 @@ export const Search = (props: any) => {
 				<i className="fas fa-search"></i>
 			</button>
 			<div className="search-suggestion-wrapper">
-				<SearchHistory />
+
+				{isLoggedIn && <SearchHistory />}
 				<SearchSuggestions />
 			</div>
 		</form>}

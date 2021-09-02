@@ -116,7 +116,7 @@ type SearchTerm {
 	createdOn: DateTime
 	term: String!
 	relationId: ID @cypher(
-			statement: "MATCH (user:User)-[rel:TERM_SEARCHED]->(this) RETURN ID(rel)"
+			statement: "MATCH (user:User)-[rel:TERM_SEARCHED]->(this) RETURN rel.id"
 		)
 }
 
@@ -190,6 +190,7 @@ input CreateSessionInput {
 }
 input SetSearchInputInput {
 	userId: String
+	relId: String
 	term: String!
 }
 
@@ -414,7 +415,7 @@ type Mutation {
 			ON CREATE SET term.createdOn = datetime()
 			WITH term
 			MATCH (user:User{id:$input.userId})
-			CREATE (user)-[rel:TERM_SEARCHED {createdOn: datetime()}]->(term)
+			CREATE (user)-[rel:TERM_SEARCHED {createdOn: datetime(), id: $input.relId}]->(term)
 			RETURN term
 			"""
 		)
@@ -469,7 +470,7 @@ type Mutation {
 	deleteSearchHistoryTerm(relationId: ID): SearchTerm
 		@cypher(
 			statement: """
-			MATCH (u:User)-[r:TERM_SEARCHED]->(term:SearchedTerm) WHERE id(r)= $relationId
+			MATCH (u:User)-[r:TERM_SEARCHED{id:$relationId}]->(term:SearchedTerm) 
 			DELETE r
 			RETURN term
 			"""
