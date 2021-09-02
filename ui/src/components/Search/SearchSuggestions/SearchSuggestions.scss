@@ -7,16 +7,16 @@
 
 	.search-history-list {
 		margin: 0;
-		padding: 0px 0 10px 0;
+		padding: 10px;
 		list-style: none;
 		width: 100%;
 
-        li{
-            background-color:#f3f3f3;
-            margin: 3px;
-            padding: 3px 15px;
-            border-radius: 5px;
-        }
+		li {
+			background-color: #f3f3f3;
+			margin: 3px;
+			padding: 3px 15px;
+			border-radius: 5px;
+		}
 	}
 
 	.search-suggestions-list {

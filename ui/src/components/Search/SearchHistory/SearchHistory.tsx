@@ -10,7 +10,7 @@ import "./SearchHistory.scss";
 export const SearchHistory = (props: any) => {
     var token = tokenHelper();
     var currentUserId = token.userId();
-console.log("currentUserId", currentUserId);
+    console.log("currentUserId", currentUserId);
     const query = useQuery(USER_SEARCH_HISTORY, {
         variables: {
             userId: currentUserId
@@ -40,7 +40,8 @@ console.log("currentUserId", currentUserId);
     if (query.error) return <ErrorScreen error={query.error} />;
 
     return (<>
-        <ul className="search-history-list">
+
+        {searchedItems.length !== 0 && <ul className="search-history-list">
             <p className="header">History:</p>
             {searchedItems.map((item: any) =>
                 <li key={item.term}>
@@ -50,6 +51,6 @@ console.log("currentUserId", currentUserId);
                     <button className="close-btn" onClick={() => removeItem(item.relationId)}><i className="fa fa-times"></i></button></li>
             )}
 
-        </ul>
+        </ul>}
     </>);
 }
