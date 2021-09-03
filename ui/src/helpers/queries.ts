@@ -99,6 +99,15 @@ export const LOGIN_USER_QUERY = gql`
 		loginUser(email: $email, password: $password)
 	}
 `;
+
+export const UPDATE_USER_PROFILE = gql`
+	mutation ($userProfile: UserProfileUpdateInput) {
+		updateUserProfile(userProfile: $userProfile){
+			name
+			description
+		}
+	}
+`;
 export const LOGIN_FACEBOOK_USER_QUERY = gql`
 	mutation ($input: FacebookLoginInput) {
 		loginFacebookUser(input: $input)
@@ -154,6 +163,18 @@ export const GET_PREDEFINED_SEARCH_CATEGORY = gql`
 		getPredefinedSearchCategories {
 			name
 			friendlyUrl
+		}
+	}
+`;
+
+export const GET_USER_PROFILE = gql`
+	query ($friendlyUrl: String) {
+		User(friendlyUrl: $friendlyUrl) {
+			id
+			name
+			description
+			friendlyUrl
+			lastUpdatedOn
 		}
 	}
 `;

@@ -11,11 +11,11 @@ import { Profile } from "../components/Profile/Profile";
 import GuardedRoute from "../shared/guardedRoute";
 import { CreateRecipe } from "../components/CreateRecipe/CreateRecipe";
 import { CreateCollection } from "../components/CreateCollection/CreateCollection";
-import { ProfileEdit } from "../components/ProfileEdit/ProfileEdit";
 import { SetMainProduct } from "../admin/MainProduct/SetMainProduct/SetMainProduct";
 import { SetRecipeOfTheDay } from "../admin/RecipeOfTheDay";
 import { PredefinedSearchCategories } from "../admin/PredefinedSearchCategories/PredefinedSearchCategories";
 import tokenHelper from "../helpers/tokenHelper";
+import { ProfileEdit } from "../components/Profile/ProfileEdit";
 
 export const Routing = () => {
 	var token = tokenHelper();
@@ -46,7 +46,7 @@ export const Routing = () => {
 				auth={isAutheticated}
 			/>
 			<GuardedRoute
-				path="/profile/edit/:friendlyUrl"
+				path="/profile-edit/:friendlyUrl"
 				component={ProfileEdit}
 				auth={isAutheticated}
 			/>

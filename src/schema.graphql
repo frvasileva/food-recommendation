@@ -92,7 +92,9 @@ type Collection {
 type User {
 	id: ID!
 	name: String
+	description: String
 	createdOn: String!
+	lastUpdatedOn: String
 	avatarPath: String
 	friendlyUrl: String!
 	email: String!
@@ -130,6 +132,14 @@ input IngredientType {
 	name: String!
 	quantity: String!
 	quantityType: String!
+}
+
+input UserProfileUpdateInput{
+	id: ID!
+	name: String
+	description: String
+	lastUpdatedOn: String!
+	avatarPath: String
 }
 
 input CreateRecipeInput {
@@ -489,6 +499,19 @@ type Mutation {
 		@cypher(
 			statement: """
 			MATCH (u:User{email:$email, password: $password})
+			RETURN u
+			"""
+		)
+	updateUserProfile(userProfile: UserProfileUpdateInput): User
+		@cypher(
+			statement: """
+			MATCH (u:User{id:$userProfile.id})
+			SET u += { 
+					  id:$userProfile.id,
+					  name: $userProfile.name, 
+					  description: $userProfile.description, 
+					  lastUpdatedOn: $userProfile.lastUpdatedOn,
+					  avatarPath: $userProfile.avatarPath} 
 			RETURN u
 			"""
 		)
