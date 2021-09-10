@@ -102,7 +102,7 @@ export const LOGIN_USER_QUERY = gql`
 
 export const UPDATE_USER_PROFILE = gql`
 	mutation ($userProfile: UserProfileUpdateInput) {
-		updateUserProfile(userProfile: $userProfile){
+		updateUserProfile(userProfile: $userProfile) {
 			name
 			description
 		}
@@ -169,7 +169,7 @@ export const GET_PREDEFINED_SEARCH_CATEGORY = gql`
 
 export const GET_USER_PROFILE = gql`
 	query ($friendlyUrl: String) {
-		User(friendlyUrl: $friendlyUrl) {
+		getUserProfile: User(friendlyUrl: $friendlyUrl) {
 			id
 			name
 			description
@@ -183,6 +183,8 @@ export const USER_COLLECTION_QUERY = gql`
 	query ($friendlyUrl: String) {
 		User(friendlyUrl: $friendlyUrl) {
 			id
+			name
+			description
 			email
 			friendlyUrl
 			collections {

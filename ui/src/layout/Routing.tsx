@@ -46,7 +46,7 @@ export const Routing = () => {
 				auth={isAutheticated}
 			/>
 			<GuardedRoute
-				path="/profile-edit/:friendlyUrl"
+				path="/profile/edit/:friendlyUrl"
 				component={ProfileEdit}
 				auth={isAutheticated}
 			/>
