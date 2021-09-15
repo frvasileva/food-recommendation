@@ -26,7 +26,11 @@ export const ProfileEdit = (props: any) => {
         avatarPath: ""
     });
 
-    const [updateUserProfile] = useMutation(UPDATE_USER_PROFILE, { refetchQueries: ["getUserProfile"] });
+    const [updateUserProfile] = useMutation(UPDATE_USER_PROFILE, {
+        refetchQueries: [{query: GET_USER_PROFILE, variables: {
+            friendlyUrl: props.match.params.friendlyUrl,
+        }}]
+    });
 
     if (loading) return <LoadingScreen />;
     if (error) return <ErrorScreen error={error} />;
