@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 import {
 	SET_SEARCHED_TERM,
 	GET_PREDEFINED_SEARCH_CATEGORY,
+	USER_SEARCH_HISTORY,
 } from "../../helpers/queries";
 import tokenHelper from "../../helpers/tokenHelper";
 import "./Search.scss";
@@ -60,7 +61,24 @@ export const Search = (props: any) => {
 						userId: token.userId(),
 						term: term,
 						relId: uuidv4()
-					},
+					}
+				},
+
+				update: (cache, { data }) => {
+
+					const existingItems = cache.readQuery({
+						query: USER_SEARCH_HISTORY,
+						variables: { userId: token.userId() },
+					}) as any;
+
+					existingItems.searchHistory.unshift(data.createSearchTerm);
+
+
+					cache.writeQuery({
+						query: USER_SEARCH_HISTORY,
+						variables: { userId: token.userId() },
+						data: existingItems,
+					});
 				},
 			});
 			setTerm("");

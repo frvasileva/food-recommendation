@@ -123,6 +123,10 @@ export const SET_SEARCHED_TERM = gql`
 	mutation ($input: SetSearchInputInput) {
 		createSearchTerm(input: $input) {
 			term
+			createdOn {
+				formatted
+			}
+			relationId
 		}
 	}
 `;
@@ -192,6 +196,7 @@ export const USER_COLLECTION_QUERY = gql`
 			}
 		}
 	}
+	
 	${fragments.collectionTile}
 	${fragments.recipeTile}
 `;

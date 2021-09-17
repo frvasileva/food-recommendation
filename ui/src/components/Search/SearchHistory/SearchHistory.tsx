@@ -10,7 +10,7 @@ import "./SearchHistory.scss";
 export const SearchHistory = (props: any) => {
     var token = tokenHelper();
     var currentUserId = token.userId();
-    console.log("currentUserId", currentUserId);
+
     const query = useQuery(USER_SEARCH_HISTORY, {
         variables: {
             userId: currentUserId
