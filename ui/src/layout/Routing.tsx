@@ -5,7 +5,7 @@ import { RecipeList } from "../components/RecipeList/RecipeList";
 import { Collections } from "../components/Collections/Collections";
 import { CollectionList } from "../components/CollectionList/CollectionList";
 import { RecipeDetails } from "../components/RecipeDetails/RecipeDetails";
-import { Register } from "../components/Register/Register";
+import { RegisterForm } from "../components/Register/RegisterForm";
 import { Login } from "../components/Login/Login";
 import { Profile } from "../components/Profile/Profile";
 import GuardedRoute from "../shared/guardedRoute";
@@ -16,6 +16,7 @@ import { SetRecipeOfTheDay } from "../admin/RecipeOfTheDay";
 import { PredefinedSearchCategories } from "../admin/PredefinedSearchCategories/PredefinedSearchCategories";
 import tokenHelper from "../helpers/tokenHelper";
 import { ProfileEdit } from "../components/Profile/ProfileEdit";
+import { UserPreferences_Cusine } from "../components/Register/UserPreferencesCusine";
 
 export const Routing = () => {
 	var token = tokenHelper();
@@ -30,7 +31,8 @@ export const Routing = () => {
 			<Route exact path="/collections" component={Collections} />
 			<Route exact path="/collection/:friendlyUrl" component={CollectionList} />
 			<Route exact path="/recipe/:friendlyUrl" component={RecipeDetails} />
-			<Route exact path="/register" component={Register} />
+			<Route exact path="/register" component={RegisterForm} />
+			<Route exact path="/register/user-preferences/:friendlyUrl" component={UserPreferences_Cusine} />
 			<Route exact path="/login" component={Login} />
 			<Route exact path="/profile/:friendlyUrl" component={Profile} />
 

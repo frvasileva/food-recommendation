@@ -1,0 +1,36 @@
+.cusine-item {
+	text-align: center;
+	cursor: pointer;
+
+	img {
+		border-radius: 50%;
+		border: 1px solid #c1c1c1;
+		border-width: 2px;
+		margin-bottom: 10px;
+	}
+
+	.description {
+		font-family: "Roboto Slab", serif;
+		font-weight: 600;
+	}
+
+	.image-wrapper {
+		position: relative;
+	}
+
+	.checkbox-wrapper {
+		position: absolute;
+		bottom: 10px;
+		right: 20px;
+		font-size: 35px;
+		color: gray;
+	}
+
+	&.selected .checkbox-wrapper {
+		color: green;
+	}
+
+	&.selected img {
+		border-color: green;
+	}
+}

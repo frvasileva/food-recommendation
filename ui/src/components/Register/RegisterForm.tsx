@@ -8,8 +8,9 @@ import tokenHelper from "../../helpers/tokenHelper";
 import { FacebookLogin } from "../FacebookLogin/FacebookLogin";
 import "./Register.scss";
 import "../../layout/layout.scss";
+import { userInfo } from "os";
 
-export const Register = () => {
+export const RegisterForm = () => {
 	const [userFields, setUserFields] = React.useState({
 		email: { value: "", error: "" },
 		name: { value: "", error: "" },
@@ -57,7 +58,8 @@ export const Register = () => {
 					},
 				},
 			}).then(() => {
-				history.push("/recipes");
+				console.log("result.data.registerUser", token.friendlyUrl())
+				history.push("/register/user-preferences/" + token.friendlyUrl());
 			});
 		});
 	};
@@ -69,7 +71,6 @@ export const Register = () => {
 					<h1>Регистрация</h1>
 					<form onSubmit={submitForm} className="form">
 						<div className="form-group">
-							{/* <label htmlFor="name">Име</label> */}
 							<input
 								type="text"
 								className="form-control"
@@ -123,9 +124,9 @@ export const Register = () => {
 					<FacebookLogin source="register" />
 
 					<br></br>
-						<Link to="/login" className="secondary-link">
-							Вход
-						</Link>
+					<Link to="/login" className="secondary-link">
+						Вход
+					</Link>
 				</div>
 			</div>
 		</div>
