@@ -17,6 +17,7 @@ import { PredefinedSearchCategories } from "../admin/PredefinedSearchCategories/
 import tokenHelper from "../helpers/tokenHelper";
 import { ProfileEdit } from "../components/Profile/ProfileEdit";
 import { UserPreferences_Cusine } from "../components/Register/UserPreferencesCusine";
+import { CreateRecipeType } from "../admin/RecipeTypes/CreteRecipeType";
 
 export const Routing = () => {
 	var token = tokenHelper();
@@ -71,6 +72,11 @@ export const Routing = () => {
 				path="/admin/add-predefined-search-category"
 				component={PredefinedSearchCategories}
 				auth={isAutheticated && isAdmin}
+			/>
+			<GuardedRoute
+				path="/admin/create-recipe-type"
+				component={CreateRecipeType}
+				auth={isAutheticated}
 			/>
 		</Switch>
 	);

@@ -122,10 +122,25 @@ type SearchTerm {
 		)
 }
 
+type RecipeType {
+	id: ID
+	name: String
+	orderPosition: Int
+	isMain: Boolean
+	createdOn: DateTime!
+}
+
 enum Role {
 	reader
 	user
 	admin
+}
+
+input RecipeTypeInput{
+	id: ID!
+	name: String!
+	orderPosition: Int
+	isMain: Boolean
 }
 
 input IngredientType {
@@ -376,6 +391,16 @@ type Query {
 			limit 5	
 			"""
 		)
+
+	getMainRecipeTypes: [RecipeType]
+		@cypher(
+			statement: """
+				MATCH (n:RecipeType)
+				WHERE n.isMain = true
+				RETURN n 
+				ORDER BY n.createdOn desc
+				"""
+		)
 }
 
 type Mutation {
@@ -476,6 +501,35 @@ type Mutation {
 			RETURN m
 			"""
 		)
+
+	createRecipeType(recipeType: RecipeTypeInput): RecipeType
+	@cypher(
+				statement: """
+				MERGE (rType:RecipeType{ id:$recipeType.id, name:$recipeType.name, isMain:$recipeType.isMain, orderPosition: $recipeType.orderPosition})
+				ON CREATE SET rType.createdOn = datetime()
+				RETURN rType
+				"""
+			)
+	deleteRecipeType(id: ID): RecipeType
+	@cypher(
+				statement: """
+				MATCH (n:RecipeType)
+				WHERE n.id=$id
+				DETACH DELETE n
+				"""
+			)
+
+	setRecipeType(recipeType: RecipeTypeInput): RecipeType
+	@cypher(
+				statement: """
+				MERGE (rType:RecipeType{ name:$recipeType.name, isMain:$recipeType.isMain, orderPosition: $recipeType.orderPosition})
+				ON CREATE SET rType.createdOn = datetime()
+				WITH rType
+				MATCH (recipe:Recipe{id:$recipeType.id})
+				CREATE (recipe)-[rel:RECIPE_TYPE_ADDED {createdOn: datetime()}]->(rType)
+				RETURN rType
+				"""
+			)
 
 	deleteSearchHistoryTerm(relationId: ID): SearchTerm
 		@cypher(

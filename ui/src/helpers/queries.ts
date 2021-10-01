@@ -196,7 +196,7 @@ export const USER_COLLECTION_QUERY = gql`
 			}
 		}
 	}
-	
+
 	${fragments.collectionTile}
 	${fragments.recipeTile}
 `;
@@ -405,6 +405,19 @@ export const GET_COLLECTIONS = gql`
 	${fragments.recipeTile}
 `;
 
+export const GET_MAIN_RECIPE_TYPES = gql`
+	query recipeTypes {
+		mainRecipeTypes: getMainRecipeTypes {
+			id
+			name
+			orderPosition
+			createdOn {
+				formatted
+			}
+		}
+	}
+`;
+
 export const SET_MAIN_PRODUCT = gql`
 	mutation ($name: String) {
 		setMainProduct(name: $name) {
@@ -422,6 +435,39 @@ export const REMOVE_MAIN_PRODUCT = gql`
 	}
 `;
 
+export const CREATE_RECIPE_TYPE = gql`
+	mutation ($input: RecipeTypeInput) {
+		createRecipeType(recipeType: $input) {
+			id
+			name
+			orderPosition
+			createdOn {
+				formatted
+			}
+		}
+	}
+`;
+
+export const SET_RECIPE_TYPE = gql`
+	mutation ($input: RecipeTypeInput) {
+		setRecipeType(recipeType: $input) {
+			id
+			name
+			orderPosition
+			createdOn {
+				formatted
+			}
+		}
+	}
+`;
+
+export const DELETE_RECIPE_TYPE = gql`
+	mutation ($id: ID) {
+		deleteRecipeType(id: $id) {
+			name
+		}
+	}
+`;
 export const DELETE_SEARCH_HISTORY_TERM = gql`
 	mutation ($relationId: ID) {
 		deleteSearchHistoryTerm(relationId: $relationId) {

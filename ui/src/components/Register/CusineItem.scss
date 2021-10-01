@@ -4,8 +4,7 @@
 
 	img {
 		border-radius: 50%;
-		border: 1px solid #c1c1c1;
-		border-width: 2px;
+		border: 2px solid #c1c1c1;
 		margin-bottom: 10px;
 	}
 
@@ -21,16 +20,24 @@
 	.checkbox-wrapper {
 		position: absolute;
 		bottom: 10px;
-		right: 20px;
+		right: 18px;
 		font-size: 35px;
 		color: gray;
 	}
 
 	&.selected .checkbox-wrapper {
-		color: green;
+		color: #06a561;
 	}
 
 	&.selected img {
-		border-color: green;
+		border-color: #06a561;
+	}
+
+	&:hover img {
+		border: 2px solid #06a561;
+	}
+
+	&:hover .checkbox-wrapper {
+		color: #06a561;
 	}
 }

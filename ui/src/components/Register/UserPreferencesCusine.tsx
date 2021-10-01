@@ -19,6 +19,15 @@ export const UserPreferences_Cusine = () => {
 				<div className="col-md-3">
 					<CusineItem />
 				</div>
+				<div className="col-md-3">
+					<CusineItem />
+				</div>
+				<div className="col-md-3">
+					<CusineItem />
+				</div>
+				<div className="col-md-3">
+					<CusineItem />
+				</div>
 			</div>
 		</div>
 	);
